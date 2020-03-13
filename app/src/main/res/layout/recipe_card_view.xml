@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/recipe_card"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:layout_gravity="center"
+    card_view:cardCornerRadius="4dp"
+    card_view:cardBackgroundColor="@color/colorPrimary">
+
+    <TextView
+        android:id="@+id/list_recipe_title"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="test"
+        android:textColor="@color/colorAccent"/>
+
+</androidx.cardview.widget.CardView>
