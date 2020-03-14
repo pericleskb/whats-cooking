@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Cooking notebook</string>
+    <string name="time">Time: </string>
+    <string name="difficulty">Difficulty: </string>
+    <string name="easy">Easy</string>
+    <string name="medium">Medium</string>
+    <string name="hard">Hard</string>
+    <string name="min">min</string>
+    <string name="h">h</string>
 </resources>

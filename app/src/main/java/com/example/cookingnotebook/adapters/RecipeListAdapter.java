@@ -21,7 +21,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
         public RecipeCardViewHolder(CardView v) {
             super(v);
             cardView = v.findViewById(R.id.recipe_card);
-            textView = v.findViewById(R.id.list_recipe_title);
+            textView = v.findViewById(R.id.recipe_title);
         }
     }
 
@@ -46,6 +46,6 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
 
     @Override
     public int getItemCount() {
-        return recipes.length;
+        return recipes.length ;
     }
 }

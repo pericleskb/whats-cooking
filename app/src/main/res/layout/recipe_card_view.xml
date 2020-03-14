@@ -6,14 +6,92 @@
     android:layout_width="match_parent"
     android:layout_height="200dp"
     android:layout_gravity="center"
+    android:layout_margin="8dp"
     card_view:cardCornerRadius="4dp"
-    card_view:cardBackgroundColor="@color/colorPrimary">
+    card_view:cardElevation="8dp">
 
-    <TextView
-        android:id="@+id/list_recipe_title"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="test"
-        android:textColor="@color/colorAccent"/>
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/recipe_image"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:contentDescription="Recipe image"
+            android:scaleType="centerCrop"
+            android:src="@drawable/recipe_placeholder_image"
+            card_view:layout_constraintHeight_percent="0.66"
+            card_view:layout_constraintTop_toTopOf="parent"
+            card_view:srcCompat="@drawable/recipe_placeholder_image" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:id="@+id/recipe_title"
+            android:textColor="@color/white"
+            android:textSize="32sp"
+            android:fontFamily="sans-serif-thin"
+            android:text="Recipe title"
+            card_view:layout_constraintBottom_toBottomOf="@id/recipe_image"
+            android:background="@color/black_transparent">
+        </TextView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            card_view:layout_constraintHeight_percent="0.33"
+            card_view:layout_constraintTop_toBottomOf="@+id/recipe_image">
+
+            <TextView
+                android:id="@+id/time_title"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:gravity="center_vertical"
+                android:text="@string/time"
+                android:textStyle="bold"
+                card_view:layout_constraintHeight_percent="0.5"
+                card_view:layout_constraintStart_toStartOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:id="@+id/time_value"
+                android:layout_marginStart="8dp"
+                android:gravity="center_vertical"
+                android:text="40 min"
+                card_view:layout_constraintHeight_percent="0.5"
+                card_view:layout_constraintStart_toEndOf="@+id/time_title"
+                card_view:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/difficulty_title"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:gravity="center_vertical"
+                android:text="@string/difficulty"
+                android:textStyle="bold"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintHeight_percent="0.5"
+                card_view:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:id="@+id/difficulty_value"
+                android:layout_marginStart="8dp"
+                android:gravity="center_vertical"
+                android:text="Easy"
+                card_view:layout_constraintHeight_percent="0.5"
+                card_view:layout_constraintStart_toEndOf="@+id/difficulty_title"
+                card_view:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.cardview.widget.CardView>
