@@ -1,4 +1,4 @@
-package com.example.cookingnotebook.ui.main;
+package com.example.whatscooking.ui.main;
 
 import androidx.lifecycle.ViewModelProviders;
 import android.os.Bundle;
@@ -11,8 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.cookingnotebook.R;
-import com.example.cookingnotebook.adapters.RecipeListAdapter;
+import com.example.whatscooking.R;
+import com.example.whatscooking.adapters.RecipeListAdapter;
 
 public class MainFragment extends Fragment {
 

@@ -1,10 +1,10 @@
-package com.example.cookingnotebook;
+package com.example.whatscooking;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import android.os.Bundle;
 
-import com.example.cookingnotebook.ui.main.MainFragment;
+import com.example.whatscooking.ui.main.MainFragment;
 
 public class MainActivity extends AppCompatActivity {
 

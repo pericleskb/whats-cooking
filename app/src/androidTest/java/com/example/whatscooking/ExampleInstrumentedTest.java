@@ -1,4 +1,4 @@
-package com.example.cookingnotebook;
+package com.example.whatscooking;
 
 import android.content.Context;
 

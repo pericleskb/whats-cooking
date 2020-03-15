@@ -1,4 +1,4 @@
-package com.example.cookingnotebook.adapters;
+package com.example.whatscooking.adapters;
 
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.cookingnotebook.R;
+import com.example.whatscooking.R;
 
 public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeCardViewHolder> {
 

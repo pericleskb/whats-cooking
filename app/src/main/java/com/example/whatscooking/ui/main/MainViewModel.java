@@ -1,4 +1,4 @@
-package com.example.cookingnotebook.ui.main;
+package com.example.whatscooking.ui.main;
 
 import androidx.lifecycle.ViewModel;
 
