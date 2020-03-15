@@ -7,17 +7,24 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="cardViewStyle">@style/CardStyle</item>
-        <item name="android:textViewStyle">@style/CardTextStyle</item>
+        <item name="android:textViewStyle">@style/MainTextStyle</item>
     </style>
 
     <style name="CardStyle" parent="CardView.Light">
         <item name="cardBackgroundColor">@color/white</item>
     </style>
     
-    <style name="CardTextStyle" parent="TextAppearance.AppCompat">
+    <style name="MainTextStyle" parent="TextAppearance.AppCompat">
         <item name="android:textColor">@color/black</item>
         <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
 <!--        <item name="fontFamily">sans-serif-condensed</item>-->
+    </style>
+
+    <style name="SecondaryTextStyle" parent="TextAppearance.AppCompat">
+        <item name="android:textColor">@color/grey</item>
+        <item name="android:textSize">16sp</item>
+        <!--        <item name="fontFamily">sans-serif-condensed</item>-->
     </style>
 
 </resources>
