@@ -2,6 +2,7 @@
 
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/recipe_card"
     android:layout_width="match_parent"
     android:layout_height="200dp"
@@ -21,26 +22,29 @@
             android:contentDescription="Recipe image"
             android:scaleType="centerCrop"
             android:src="@drawable/recipe_placeholder_image"
-            card_view:layout_constraintHeight_percent="0.66"
+            card_view:layout_constraintHeight_percent="0.8"
             card_view:layout_constraintTop_toTopOf="parent"
-            card_view:srcCompat="@drawable/recipe_placeholder_image" />
+            card_view:srcCompat="@drawable/recipe_placeholder_image"
+            tools:layout_editor_absoluteX="0dp" />
 
         <TextView
+            android:id="@+id/recipe_title"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:id="@+id/recipe_title"
+            android:background="@color/black_transparent"
+            android:fontFamily="sans-serif-light"
+            android:paddingStart="8dp"
+            android:text="Recipe title"
             android:textColor="@color/white"
             android:textSize="32sp"
-            android:fontFamily="sans-serif-thin"
-            android:text="Recipe title"
-            card_view:layout_constraintBottom_toBottomOf="@id/recipe_image"
-            android:background="@color/black_transparent">
-        </TextView>
+            android:textStyle="bold"
+            card_view:layout_constraintBottom_toBottomOf="@id/recipe_image"/>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            card_view:layout_constraintHeight_percent="0.33"
+            android:background="@color/white"
+            card_view:layout_constraintHeight_percent="0.2"
             card_view:layout_constraintTop_toBottomOf="@+id/recipe_image">
 
             <TextView
@@ -51,43 +55,55 @@
                 android:gravity="center_vertical"
                 android:text="@string/time"
                 android:textStyle="bold"
+                card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintHeight_percent="0.5"
                 card_view:layout_constraintStart_toStartOf="parent"
                 card_view:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/time_value"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:id="@+id/time_value"
                 android:layout_marginStart="8dp"
                 android:gravity="center_vertical"
                 android:text="40 min"
+                android:textColor="@color/grey"
                 card_view:layout_constraintHeight_percent="0.5"
                 card_view:layout_constraintStart_toEndOf="@+id/time_title"
-                card_view:layout_constraintTop_toTopOf="parent" />
+                card_view:layout_constraintTop_toTopOf="@+id/time_title" />
 
             <TextView
                 android:id="@+id/difficulty_title"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="16dp"
                 android:gravity="center_vertical"
                 android:text="@string/difficulty"
                 android:textStyle="bold"
-                card_view:layout_constraintBottom_toBottomOf="parent"
                 card_view:layout_constraintHeight_percent="0.5"
-                card_view:layout_constraintStart_toStartOf="parent" />
+                card_view:layout_constraintStart_toEndOf="@+id/time_value"
+                card_view:layout_constraintTop_toTopOf="@+id/time_value" />
 
             <TextView
+                android:id="@+id/difficulty_value"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:id="@+id/difficulty_value"
                 android:layout_marginStart="8dp"
                 android:gravity="center_vertical"
                 android:text="Easy"
+                android:textColor="@color/grey"
                 card_view:layout_constraintHeight_percent="0.5"
                 card_view:layout_constraintStart_toEndOf="@+id/difficulty_title"
-                card_view:layout_constraintBottom_toBottomOf="parent" />
+                card_view:layout_constraintTop_toTopOf="@+id/difficulty_title" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:src="@drawable/menu_down"
+                android:backgroundTint="@color/transparent"
+                card_view:layout_constraintBottom_toBottomOf="parent"
+                card_view:layout_constraintEnd_toEndOf="parent"
+                card_view:layout_constraintTop_toTopOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
