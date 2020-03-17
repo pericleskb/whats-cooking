@@ -9,11 +9,14 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.whatscooking.R;
+import com.example.whatscooking.data.Recipe;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeCardViewHolder> {
 
-    String[] recipes = {"Falafel wrap", "Humus", "Ntolmadakia", "Pantzarosalata", "Keftedakia",
-    "Papaya salad", "Makaronakia", "Octopus", "Vlita", "Skoumpri"};
+    List<Recipe> recipeList;
 
     public static class RecipeCardViewHolder extends RecyclerView.ViewHolder {
         public TextView textView;
@@ -26,6 +29,12 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
     }
 
     public RecipeListAdapter() {
+        super();
+        this.recipeList = new ArrayList<>();
+    }
+
+    public void setRecipeList(List<Recipe> recipeList) {
+        this.recipeList = recipeList;
     }
 
     @NonNull
@@ -40,12 +49,15 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
 
     @Override
     public void onBindViewHolder(@NonNull RecipeCardViewHolder holder, int position) {
-        //get recipe from single source of truth
-        holder.textView.setText(recipes[position]);
+        if (recipeList != null) {
+            holder.textView.setText(recipeList.get(position).title);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return recipes.length ;
+        if (recipeList != null)
+            return recipeList.size();
+        else return 0;
     }
 }

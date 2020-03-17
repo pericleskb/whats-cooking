@@ -13,13 +13,13 @@ import android.view.ViewGroup;
 
 import com.example.whatscooking.R;
 import com.example.whatscooking.adapters.RecipeListAdapter;
+import com.example.whatscooking.viewmodels.RecipesListViewModel;
 
 public class MainFragment extends Fragment {
 
-    private MainViewModel mViewModel;
+    private RecipesListViewModel recipesListViewModel;
     private RecyclerView recipeRecycleView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager layoutManager;
+    private RecipeListAdapter recipeListAdapter;
 
     public static MainFragment newInstance() {
         return new MainFragment();
@@ -39,11 +39,9 @@ public class MainFragment extends Fragment {
         recipeRecycleView = view.findViewById(R.id.recipe_recycle_view);
         //recipeRecycleView.setHasFixedSize(true);
 
-        layoutManager = new LinearLayoutManager(getActivity());
-        recipeRecycleView.setLayoutManager(layoutManager);
-
-        mAdapter = new RecipeListAdapter();
-        recipeRecycleView.setAdapter(mAdapter);
+        recipeListAdapter = new RecipeListAdapter();
+        recipeRecycleView.setAdapter(recipeListAdapter);
+        recipeRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
         return view;
     }
 
@@ -51,9 +49,10 @@ public class MainFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-
-        // TODO: Use the ViewModel
+        recipesListViewModel = ViewModelProviders.of(this).get(RecipesListViewModel.class);
+        recipesListViewModel.getAllRecipes().observe(this, recipes -> {
+            recipeListAdapter.setRecipeList(recipes);
+        });
     }
 
 }
