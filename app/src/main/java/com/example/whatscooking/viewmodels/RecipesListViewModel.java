@@ -15,19 +15,17 @@ import java.util.List;
 public class RecipesListViewModel extends AndroidViewModel {
 
     private RecipeRepository recipeRepository;
-    private LiveData<List<Recipe>> allRecipes;
 
     public RecipesListViewModel(Application application) {
         super(application);
-        //TODO abstract repository creation into a pattern?
+        //TODO abstract repository creation into a pattern as in sunflower?
         recipeRepository = RecipeRepository.getInstance(
                 AppDatabase.getInstance(application).recipeDao()
         );
-        allRecipes = recipeRepository.getAllRecipes();
     }
 
     public LiveData<List<Recipe>> getAllRecipes() {
-        return allRecipes;
+        return recipeRepository.getAllRecipes();
     }
 
     public void insert(Recipe... recipes) {
