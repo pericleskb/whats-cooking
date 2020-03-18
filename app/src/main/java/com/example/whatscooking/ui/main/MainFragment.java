@@ -28,6 +28,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initViewModel();
     }
 
     @Nullable
@@ -35,24 +36,26 @@ public class MainFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.main_fragment, container, false);
-
-        recipeRecycleView = view.findViewById(R.id.recipe_recycle_view);
-        //recipeRecycleView.setHasFixedSize(true);
-
-        recipeListAdapter = new RecipeListAdapter();
-        recipeRecycleView.setAdapter(recipeListAdapter);
-        recipeRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        initRecyclerView(view);
         return view;
     }
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+    }
 
+    private void initViewModel() {
         recipesListViewModel = ViewModelProviders.of(this).get(RecipesListViewModel.class);
         recipesListViewModel.getAllRecipes().observe(this, recipes -> {
             recipeListAdapter.setRecipeList(recipes);
         });
     }
 
+    private void initRecyclerView(View view) {
+        recipeRecycleView = view.findViewById(R.id.recipe_recycle_view);
+        recipeListAdapter = new RecipeListAdapter();
+        recipeRecycleView.setAdapter(recipeListAdapter);
+        recipeRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
+    }
 }
