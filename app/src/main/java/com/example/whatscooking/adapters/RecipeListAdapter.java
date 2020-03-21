@@ -6,31 +6,43 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.whatscooking.R;
 import com.example.whatscooking.data.Recipe;
+import com.example.whatscooking.databinding.RecipeCardViewBinding;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeCardViewHolder> {
 
-    List<Recipe> recipeList;
+    public List<Recipe> recipeList;
+    private LayoutInflater layoutInflater;
 
-    public static class RecipeCardViewHolder extends RecyclerView.ViewHolder {
-        public TextView textView;
-        public CardView cardView;
-        public RecipeCardViewHolder(CardView v) {
-            super(v);
-            cardView = v.findViewById(R.id.recipe_card);
-            textView = v.findViewById(R.id.recipe_title);
-        }
+    public RecipeListAdapter(List<Recipe> recipeList) {
+        super();
+        this.recipeList = recipeList;
     }
 
-    public RecipeListAdapter() {
-        super();
-        this.recipeList = new ArrayList<>();
+    @NonNull
+    @Override
+    public RecipeCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if (layoutInflater == null) {
+            layoutInflater = LayoutInflater.from(parent.getContext());
+        }
+        RecipeCardViewBinding binding = DataBindingUtil.inflate(layoutInflater,
+                R.layout.recipe_card_view, parent,false);
+
+        return new RecipeCardViewHolder(binding);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecipeCardViewHolder holder, int position) {
+        if (recipeList != null) {
+            Recipe recipe = recipeList.get(position);
+            holder.bind(recipe);
+        }
     }
 
     public void setRecipeList(List<Recipe> recipeList) {
@@ -38,20 +50,17 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
         notifyDataSetChanged();
     }
 
-    @NonNull
-    @Override
-    public RecipeCardViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        CardView v = (CardView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.recipe_card_view, parent, false);
+    public static class RecipeCardViewHolder extends RecyclerView.ViewHolder {
+        RecipeCardViewBinding binding;
 
-        RecipeCardViewHolder recipeCardVH = new RecipeCardViewHolder(v);
-        return recipeCardVH;
-    }
+        public RecipeCardViewHolder(@NonNull RecipeCardViewBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+        }
 
-    @Override
-    public void onBindViewHolder(@NonNull RecipeCardViewHolder holder, int position) {
-        if (recipeList != null) {
-            holder.textView.setText(recipeList.get(position).title);
+        void bind(Recipe recipe) {
+            binding.setRecipe(recipe);
+            binding.executePendingBindings();
         }
     }
 
