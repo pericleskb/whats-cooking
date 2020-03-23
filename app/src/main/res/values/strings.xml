@@ -7,4 +7,5 @@
     <string name="hard">Hard</string>
     <string name="min">min</string>
     <string name="hours_abbreviation">h</string>
+    <string name="add_recipe">Add recipe</string>
 </resources>

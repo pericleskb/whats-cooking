@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.whatscooking.R;
 import com.example.whatscooking.adapters.RecipeListAdapter;
@@ -33,6 +34,8 @@ public class MainFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         View view = bind(inflater, container);
         subscribeUi();
+        binding.fab.setOnClickListener(v -> Toast.makeText(getContext(),
+                "Go to new recipe activity", Toast.LENGTH_SHORT).show());
         return view;
     }
 
@@ -44,6 +47,7 @@ public class MainFragment extends Fragment {
     private void subscribeUi() {
         //could happen from new recipe activity or a new recipe pushed into a joined account
         recipesListViewModel.getAllRecipes().observe(this, recipes -> {
+            //TODO create binding adapter to set recycler view to GONE when empty and show a text view message
             binding.setHasRecipes(recipes != null && recipes.isEmpty());
             recipeListAdapter.setRecipeList(recipes);
         });
