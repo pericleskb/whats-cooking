@@ -15,7 +15,7 @@ import java.util.concurrent.Executors;
 
 //https://medium.com/androiddevelopers/7-pro-tips-for-room-fbadea4bfbd1#4785
 //TODO maybe set export schema to true
-@Database(entities = Recipe.class, version = 1, exportSchema = false)
+@Database(entities = Recipe.class, version = 2, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static volatile AppDatabase instance;
@@ -45,16 +45,11 @@ public abstract class AppDatabase extends RoomDatabase {
             databaseWriteExecutor.execute(() -> {
                 instance.recipeDao().deleteAll();
                 instance.recipeDao().insertAll(
-                new Recipe("Dahl", 60, 2),
-                new Recipe("Falafel wrap", 40, 1),
-                new Recipe("Mousakas", 90, 3),
-                new Recipe("Fried squid", 45, 2),
-                new Recipe("Venison steak", 45, 2)
-//                        new Recipe("Dahl", 60, Recipe.Difficulty.medium),
-//                        new Recipe("Falafel wrap", 40, Recipe.Difficulty.easy),
-//                        new Recipe("Mousakas", 90, Recipe.Difficulty.hard),
-//                        new Recipe("Fried squid", 45, Recipe.Difficulty.medium),
-//                        new Recipe("Venison steak", 45, Recipe.Difficulty.easy)
+                new Recipe("Dahl", 60, Recipe.Difficulty.medium),
+                new Recipe("Falafel wrap", 40, Recipe.Difficulty.easy),
+                new Recipe("Mousakas", 90, Recipe.Difficulty.hard),
+                new Recipe("Fried squid", 45, Recipe.Difficulty.medium),
+                new Recipe("Venison steak", 30, Recipe.Difficulty.not_set)
                 );
             });
         }

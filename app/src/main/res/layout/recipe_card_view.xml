@@ -4,6 +4,7 @@
         <variable
             name="recipe"
             type="com.example.whatscooking.data.Recipe" />
+        <import type="com.example.whatscooking.data.Recipe.Difficulty"/>
     </data>
 
     <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
@@ -95,7 +96,7 @@
                     android:layout_height="0dp"
                     android:layout_marginStart="8dp"
                     android:gravity="center_vertical"
-                    android:text="@{String.valueOf(recipe.difficulty)}"
+                    android:text="@{recipe.difficulty == Difficulty.not_set ? `Not set` : String.valueOf(recipe.difficulty)}"
                     style="@style/SecondaryTextStyle"
                     card_view:layout_constraintHeight_percent="0.5"
                     card_view:layout_constraintStart_toEndOf="@+id/difficulty_title"
