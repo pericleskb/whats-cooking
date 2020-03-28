@@ -1,11 +1,14 @@
 <resources>
-    <string name="app_name">Cooking notebook</string>
+
+
+    <string name="app_name">What\'s cooking</string>
     <string name="time">Time: </string>
     <string name="difficulty">Difficulty: </string>
     <string name="easy">Easy</string>
     <string name="medium">Medium</string>
     <string name="hard">Hard</string>
-    <string name="min">min</string>
-    <string name="hours_abbreviation">h</string>
+    <string name="min" translatable="false">min</string>
+    <string name="hours_abbreviation" translatable="false">h</string>
     <string name="add_recipe">Add recipe</string>
+    <string name="recipe_description" translatable="false">Recipe description</string>
 </resources>

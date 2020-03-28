@@ -28,10 +28,8 @@
                 android:layout_height="0dp"
                 android:contentDescription="Recipe image"
                 android:scaleType="centerCrop"
-                android:src="@drawable/recipe_placeholder_image"
                 card_view:layout_constraintHeight_percent="0.8"
                 card_view:layout_constraintTop_toTopOf="parent"
-                card_view:srcCompat="@drawable/recipe_placeholder_image"
                 tools:layout_editor_absoluteX="0dp" />
 
             <TextView

@@ -57,7 +57,7 @@ public class MainFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.main_fragment,
                 container, false);
         binding.setLifecycleOwner(this);
-        recipeListAdapter = new RecipeListAdapter(recipesListViewModel.getAllRecipes().getValue());
+        recipeListAdapter = new RecipeListAdapter(getActivity(), recipesListViewModel.getAllRecipes().getValue());
         binding.recipeRecycleView.setAdapter(recipeListAdapter);
         return binding.getRoot();
     }

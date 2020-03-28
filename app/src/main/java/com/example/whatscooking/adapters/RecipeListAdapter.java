@@ -1,17 +1,17 @@
 package com.example.whatscooking.adapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.whatscooking.R;
 import com.example.whatscooking.data.Recipe;
 import com.example.whatscooking.databinding.RecipeCardViewBinding;
+import com.example.whatscooking.utilities.MediaOperations;
 
 import java.util.List;
 
@@ -20,9 +20,13 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
     public List<Recipe> recipeList;
     private LayoutInflater layoutInflater;
 
-    public RecipeListAdapter(List<Recipe> recipeList) {
+    //TODO remove this dependency
+    private Context context;
+
+    public RecipeListAdapter(Context context, List<Recipe> recipeList) {
         super();
         this.recipeList = recipeList;
+        this.context = context;
     }
 
     @NonNull
@@ -33,7 +37,6 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
         }
         RecipeCardViewBinding binding = DataBindingUtil.inflate(layoutInflater,
                 R.layout.recipe_card_view, parent,false);
-
         return new RecipeCardViewHolder(binding);
     }
 
@@ -42,6 +45,7 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
         if (recipeList != null) {
             Recipe recipe = recipeList.get(position);
             holder.bind(recipe);
+            MediaOperations.setImageToView(context, recipe.imageUri, holder.binding.recipeImage);
         }
     }
 
