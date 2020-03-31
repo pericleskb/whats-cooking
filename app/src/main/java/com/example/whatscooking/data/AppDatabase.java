@@ -52,21 +52,26 @@ public abstract class AppDatabase extends RoomDatabase {
                 try {
                     instance.recipeDao().deleteAll();
                     instance.recipeDao().insertAll(
-                        new Recipe("Dahl", 60, Recipe.Difficulty.medium,
-                                "description",
-                                MediaOperations.storeImage(context, R.drawable.dahl).toString(), 5),
-                        new Recipe("Falafel wrap", 40, Recipe.Difficulty.easy,
-                                "description",
-                                MediaOperations.storeImage(context, R.drawable.falafel).toString(), 4),
-                        new Recipe("Mousakas", 90, Recipe.Difficulty.hard,
-                                "description",
-                                MediaOperations.storeImage(context, R.drawable.mousakas).toString(), 10),
-                        new Recipe("Fried squid", 45, Recipe.Difficulty.medium,
-                                "description",
-                                MediaOperations.storeImage(context, R.drawable.squid).toString(), 3),
-                        new Recipe("Venison steak", 30, Recipe.Difficulty.not_set,
-                                "description",
-                                MediaOperations.storeImage(context, R.drawable.venison).toString(), 2)
+                            new RecipeBuilder("Dahl").setTimeMinutes(60).setDifficulty(Recipe.Difficulty.medium)
+                                    .setDescription("description")
+                                    .setImageUri(MediaOperations.storeImage(context, R.drawable.dahl).toString())
+                                    .setServings(5).build(),
+                            new RecipeBuilder("Falafel wrap").setTimeMinutes(40).setDifficulty(Recipe.Difficulty.easy)
+                                .setDescription("description")
+                                .setImageUri(MediaOperations.storeImage(context, R.drawable.falafel).toString())
+                                .setServings(4).build(),
+                            new RecipeBuilder("Mousakas").setTimeMinutes(90).setDifficulty(Recipe.Difficulty.hard)
+                                    .setDescription("description")
+                                    .setImageUri(MediaOperations.storeImage(context, R.drawable.mousakas).toString())
+                                    .setServings(8).build(),
+                            new RecipeBuilder("Fried Squid").setTimeMinutes(45).setDifficulty(Recipe.Difficulty.medium)
+                                    .setDescription("description")
+                                    .setImageUri(MediaOperations.storeImage(context, R.drawable.squid).toString())
+                                    .setServings(3).build(),
+                            new RecipeBuilder("Venison steak").setTimeMinutes(30).setDifficulty(Recipe.Difficulty.not_set)
+                                    .setDescription("description")
+                                    .setImageUri(MediaOperations.storeImage(context, R.drawable.venison).toString())
+                                    .setServings(2).build()
                     );
                 } catch (IOException e) {
                     e.printStackTrace();

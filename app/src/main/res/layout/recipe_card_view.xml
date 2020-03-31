@@ -70,7 +70,7 @@
                     android:layout_height="0dp"
                     android:layout_marginStart="8dp"
                     android:gravity="center_vertical"
-                    android:text="@{recipe.timeInMinutes + ` ` + @string/min}"
+                    android:text="@{recipe.timeMinutes + ` ` + @string/min}"
                     style="@style/SecondaryTextStyle"
                     card_view:layout_constraintHeight_percent="0.5"
                     card_view:layout_constraintStart_toEndOf="@+id/time_title"
@@ -88,6 +88,7 @@
                     card_view:layout_constraintStart_toEndOf="@+id/time_value"
                     card_view:layout_constraintTop_toTopOf="@+id/time_value" />
 
+                <!-- TODO values like difficulty may not be set quite frequently. Should not have to make checks like that -->
                 <TextView
                     android:id="@+id/difficulty_value"
                     android:layout_width="wrap_content"

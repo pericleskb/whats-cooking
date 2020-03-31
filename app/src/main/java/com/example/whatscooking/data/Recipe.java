@@ -22,7 +22,7 @@ public class Recipe {
     public String title;
 
     @ColumnInfo(name = "time")
-    public int timeInMinutes;
+    public int timeMinutes;
 
     @TypeConverters(Converters.class)
     public Difficulty difficulty;
@@ -33,15 +33,8 @@ public class Recipe {
 
     public int servings;
 
-    //TODO make factory or builder pattern
-    public Recipe(String title, int timeInMinutes, Difficulty difficulty, String description,
-                  String imageUri, int servings) {
+    public Recipe(String title) {
         this.title = title;
-        this.timeInMinutes = timeInMinutes;
-        this.difficulty = difficulty;
-        this.description = description;
-        this.imageUri = imageUri;
-        this.servings = servings;
     }
 
 }
