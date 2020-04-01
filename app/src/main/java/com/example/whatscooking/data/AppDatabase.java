@@ -1,6 +1,7 @@
 package com.example.whatscooking.data;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.net.Uri;
 
 import androidx.annotation.NonNull;
@@ -34,10 +35,14 @@ public abstract class AppDatabase extends RoomDatabase {
         if (instance == null) {
             synchronized (AppDatabase.class) {
                 if (instance == null) {
-                    instance = Room.databaseBuilder(cont, AppDatabase.class, Constants.DATABASE_NAME)
-                            .addCallback(roomDatabaseCallback)
-                            .fallbackToDestructiveMigration()
-                            .build();
+                    RoomDatabase.Builder<AppDatabase> instanceBuilder = Room.databaseBuilder(cont, AppDatabase.class, Constants.DATABASE_NAME)
+                            .fallbackToDestructiveMigration();
+                    SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.APP_PACKAGE_NAME, Context.MODE_PRIVATE);
+                    if (!sharedPreferences.getBoolean(Constants.PREF_DB_INITIALIZED, false)) {
+                        instanceBuilder.addCallback(roomDatabaseCallback);
+                        sharedPreferences.edit().putBoolean(Constants.PREF_DB_INITIALIZED, true).commit();
+                    }
+                    instance = instanceBuilder.build();
                 }
             }
         }
@@ -50,7 +55,6 @@ public abstract class AppDatabase extends RoomDatabase {
             super.onOpen(db);
             databaseWriteExecutor.execute(() -> {
                 try {
-                    instance.recipeDao().deleteAll();
                     instance.recipeDao().insertAll(
                             new RecipeBuilder("Dahl").setTimeMinutes(60).setDifficulty(Recipe.Difficulty.medium)
                                     .setDescription("description")
