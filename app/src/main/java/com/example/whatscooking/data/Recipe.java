@@ -10,6 +10,12 @@ import com.example.whatscooking.adapters.Converters;
 
 @Entity(tableName = "recipe_table")
 public class Recipe {
+
+    public Recipe(String title) {
+        this.title = title;
+        this.difficulty = null;
+    }
+
     public enum Difficulty {
         not_set,
         easy,
@@ -22,7 +28,7 @@ public class Recipe {
     public String title;
 
     @ColumnInfo(name = "time")
-    public int timeMinutes;
+    public Integer timeMinutes;
 
     @TypeConverters(Converters.class)
     public Difficulty difficulty;
@@ -31,11 +37,7 @@ public class Recipe {
 
     public String imageUri;
 
-    public int servings;
-
-    public Recipe(String title) {
-        this.title = title;
-    }
+    public Integer servings;
 
 }
 

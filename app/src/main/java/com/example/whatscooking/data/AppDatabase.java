@@ -56,7 +56,7 @@ public abstract class AppDatabase extends RoomDatabase {
                                     .setDescription("description")
                                     .setImageUri(MediaOperations.storeImage(context, R.drawable.dahl).toString())
                                     .setServings(5).build(),
-                            new RecipeBuilder("Falafel wrap").setTimeMinutes(40).setDifficulty(Recipe.Difficulty.easy)
+                            new RecipeBuilder("Falafel wrap").setDifficulty(Recipe.Difficulty.easy)
                                 .setDescription("description")
                                 .setImageUri(MediaOperations.storeImage(context, R.drawable.falafel).toString())
                                 .setServings(4).build(),
@@ -68,7 +68,7 @@ public abstract class AppDatabase extends RoomDatabase {
                                     .setDescription("description")
                                     .setImageUri(MediaOperations.storeImage(context, R.drawable.squid).toString())
                                     .setServings(3).build(),
-                            new RecipeBuilder("Venison steak").setTimeMinutes(30).setDifficulty(Recipe.Difficulty.not_set)
+                            new RecipeBuilder("Venison steak").setTimeMinutes(30)
                                     .setDescription("description")
                                     .setImageUri(MediaOperations.storeImage(context, R.drawable.venison).toString())
                                     .setServings(2).build()

@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
             name="recipe"
             type="com.example.whatscooking.data.Recipe" />
         <import type="com.example.whatscooking.data.Recipe.Difficulty"/>
+        <import type="android.view.View"/>
     </data>
 
-    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.cardview.widget.CardView
         android:id="@+id/recipe_card"
         android:layout_width="match_parent"
         android:layout_height="200dp"
@@ -52,6 +53,13 @@
                 card_view:layout_constraintHeight_percent="0.2"
                 card_view:layout_constraintTop_toBottomOf="@+id/recipe_image">
 
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/time_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{recipe.timeMinutes == null ? View.GONE : View.VISIBLE}"
+                    card_view:constraint_referenced_ids="time_title, time_value" />
+
                 <TextView
                     android:id="@+id/time_title"
                     android:layout_width="wrap_content"
@@ -76,26 +84,33 @@
                     card_view:layout_constraintStart_toEndOf="@+id/time_title"
                     card_view:layout_constraintTop_toTopOf="@+id/time_title" />
 
+                <androidx.constraintlayout.widget.Group
+                    android:id="@+id/difficulty_group"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{recipe.difficulty == null ? View.GONE : View.VISIBLE}"
+                    card_view:constraint_referenced_ids="difficulty_title, difficulty_value" />
+
                 <TextView
                     android:id="@+id/difficulty_title"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="8dp"
                     android:gravity="center_vertical"
                     android:text="@string/difficulty"
                     android:textStyle="bold"
+                    card_view:layout_constraintBottom_toBottomOf="parent"
                     card_view:layout_constraintHeight_percent="0.5"
                     card_view:layout_constraintStart_toEndOf="@+id/time_value"
-                    card_view:layout_constraintTop_toTopOf="@+id/time_value" />
+                    card_view:layout_constraintTop_toTopOf="parent" />
 
-                <!-- TODO values like difficulty may not be set quite frequently. Should not have to make checks like that -->
                 <TextView
                     android:id="@+id/difficulty_value"
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_marginStart="8dp"
                     android:gravity="center_vertical"
-                    android:text="@{recipe.difficulty == Difficulty.not_set ? `Not set` : String.valueOf(recipe.difficulty)}"
+                    android:text="@{String.valueOf(recipe.difficulty)}"
                     style="@style/SecondaryTextStyle"
                     card_view:layout_constraintHeight_percent="0.5"
                     card_view:layout_constraintStart_toEndOf="@+id/difficulty_title"
