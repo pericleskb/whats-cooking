@@ -7,8 +7,8 @@ import com.example.whatscooking.data.Recipe;
 public class Converters {
     @TypeConverter
     public Recipe.Difficulty fromInteger(Integer value) {
-        if (value == null) return null;
 
+        if (value == null) return null;
         switch (value) {
             case 1: return Recipe.Difficulty.easy;
             case 2: return Recipe.Difficulty.medium;
@@ -19,8 +19,8 @@ public class Converters {
 
     @TypeConverter
     public Integer difficultyToInt(Recipe.Difficulty difficulty) {
-        if (difficulty == null) return null;
 
+        if (difficulty == null) return null;
         switch (difficulty) {
             case easy: return 1;
             case medium: return 2;
