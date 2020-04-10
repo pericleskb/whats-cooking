@@ -25,7 +25,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        recipesListViewModel = ViewModelProviders.of(this).get(RecipesListViewModel.class);
+        recipesListViewModel = new RecipesListViewModel(getActivity().getApplication());
     }
 
     @Nullable
