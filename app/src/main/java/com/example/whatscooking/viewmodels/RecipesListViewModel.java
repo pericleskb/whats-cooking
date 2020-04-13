@@ -5,7 +5,6 @@ import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.example.whatscooking.data.AppDatabase;
 import com.example.whatscooking.data.Recipe;
 import com.example.whatscooking.data.RecipeRepository;
 
@@ -15,12 +14,10 @@ public class RecipesListViewModel extends AndroidViewModel {
 
     private RecipeRepository recipeRepository;
 
-    public RecipesListViewModel(Application application) {
+    public RecipesListViewModel(Application application, RecipeRepository repository) {
         super(application);
         //TODO abstract repository creation into a pattern as in sunflower?
-        recipeRepository = RecipeRepository.getInstance(
-                AppDatabase.getInstance(application).recipeDao()
-        );
+        recipeRepository = repository;
     }
 
     public LiveData<List<Recipe>> getAllRecipes() {

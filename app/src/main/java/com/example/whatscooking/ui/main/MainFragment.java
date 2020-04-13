@@ -13,6 +13,8 @@ import android.widget.Toast;
 
 import com.example.whatscooking.R;
 import com.example.whatscooking.adapters.RecipeListAdapter;
+import com.example.whatscooking.data.AppDatabase;
+import com.example.whatscooking.data.DefaultRecipeRepository;
 import com.example.whatscooking.databinding.MainFragmentBindingImpl;
 import com.example.whatscooking.viewmodels.RecipesListViewModel;
 
@@ -25,7 +27,8 @@ public class MainFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        recipesListViewModel = new RecipesListViewModel(getActivity().getApplication());
+        recipesListViewModel = new RecipesListViewModel(getActivity().getApplication(),
+                DefaultRecipeRepository.getInstance(AppDatabase.getInstance(getActivity()).recipeDao()));
     }
 
     @Nullable
