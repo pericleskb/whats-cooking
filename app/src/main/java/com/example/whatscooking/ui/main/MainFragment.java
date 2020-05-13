@@ -49,7 +49,7 @@ public class MainFragment extends Fragment {
 
     private void subscribeUi() {
         //could happen from new recipe activity or a new recipe pushed into a joined account
-        recipesListViewModel.getAllRecipes().observe(this, recipes -> {
+        recipesListViewModel.getAllRecipes().observe(getViewLifecycleOwner(), recipes -> {
             //TODO create binding adapter to set recycler view to GONE when empty and show a text view message
             binding.setHasRecipes(recipes != null && recipes.isEmpty());
             recipeListAdapter.setRecipeList(recipes);

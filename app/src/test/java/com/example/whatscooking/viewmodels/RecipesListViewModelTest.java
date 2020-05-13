@@ -14,7 +14,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.example.whatscooking.LiveDataTestUtil;
 import com.example.whatscooking.TestUtils;
-import com.example.whatscooking.data.FakeTestRepository;
+import com.example.whatscooking.data.FakeRepository;
 import com.example.whatscooking.data.Recipe;
 
 import java.util.Stack;
@@ -26,7 +26,6 @@ import static com.google.common.truth.Truth.assertThat;
 @Config(sdk = {Build.VERSION_CODES.P})
 public class RecipesListViewModelTest {
 
-    // Will run its code before and after every test
     @Rule
     public InstantTaskExecutorRule instantExecutorRule = new InstantTaskExecutorRule();
 
@@ -37,8 +36,8 @@ public class RecipesListViewModelTest {
     public void setupViewModel() {
         recipesListViewModel =
                 new RecipesListViewModel(ApplicationProvider.getApplicationContext(),
-                        new FakeTestRepository());
-        recipes = new TestUtils(ApplicationProvider.getApplicationContext()).getRecipesStack();
+                        new FakeRepository());
+        recipes = TestUtils.getRecipesStack();
     }
 
     @Test

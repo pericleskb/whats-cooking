@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FakeTestRepository implements RecipeRepository {
+public class FakeRepository implements RecipeRepository {
 
     private MutableLiveData<List<Recipe>> recipesLiveData = new MutableLiveData<>();
     ArrayList<Recipe> recipesList = new ArrayList<>();

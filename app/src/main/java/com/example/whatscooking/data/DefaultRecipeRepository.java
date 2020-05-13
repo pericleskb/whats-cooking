@@ -6,11 +6,11 @@ import java.util.List;
 
 public class DefaultRecipeRepository implements RecipeRepository {
 
-    private static DefaultRecipeRepository instance;
+    protected static DefaultRecipeRepository instance;
     private RecipeDao recipeDao;
     LiveData<List<Recipe>> allRecipes;
 
-    private DefaultRecipeRepository(RecipeDao recipeDao) {
+    protected DefaultRecipeRepository(RecipeDao recipeDao) {
         this.recipeDao = recipeDao;
         allRecipes = recipeDao.getAll();
     }
