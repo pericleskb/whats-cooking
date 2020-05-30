@@ -30,22 +30,16 @@ public abstract class AppDatabase extends RoomDatabase {
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
     static Context context;
 
-    public static AppDatabase getInstance(Context cont) {
+    public static AppDatabase createInstance(Context cont) {
         context = cont;
-        if (instance == null) {
-            synchronized (AppDatabase.class) {
-                if (instance == null) {
-                    RoomDatabase.Builder<AppDatabase> instanceBuilder = Room.databaseBuilder(cont, AppDatabase.class, Constants.DATABASE_NAME)
-                            .fallbackToDestructiveMigration();
-                    SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.APP_PACKAGE_NAME, Context.MODE_PRIVATE);
-                    if (!sharedPreferences.getBoolean(Constants.PREF_DB_INITIALIZED, false)) {
-                        instanceBuilder.addCallback(roomDatabaseCallback);
-                        sharedPreferences.edit().putBoolean(Constants.PREF_DB_INITIALIZED, true).commit();
-                    }
-                    instance = instanceBuilder.build();
-                }
-            }
+        RoomDatabase.Builder<AppDatabase> instanceBuilder = Room.databaseBuilder(cont, AppDatabase.class, Constants.DATABASE_NAME)
+                .fallbackToDestructiveMigration();
+        SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.APP_PACKAGE_NAME, Context.MODE_PRIVATE);
+        if (!sharedPreferences.getBoolean(Constants.PREF_DB_INITIALIZED, false)) {
+            instanceBuilder.addCallback(roomDatabaseCallback);
+            sharedPreferences.edit().putBoolean(Constants.PREF_DB_INITIALIZED, true).commit();
         }
+        instance = instanceBuilder.build();
         return instance;
     }
 

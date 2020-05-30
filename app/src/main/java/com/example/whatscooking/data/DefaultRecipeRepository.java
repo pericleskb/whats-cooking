@@ -4,26 +4,18 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class DefaultRecipeRepository implements RecipeRepository {
 
     protected static DefaultRecipeRepository instance;
     private RecipeDao recipeDao;
     LiveData<List<Recipe>> allRecipes;
 
+    @Inject
     protected DefaultRecipeRepository(RecipeDao recipeDao) {
         this.recipeDao = recipeDao;
         allRecipes = recipeDao.getAll();
-    }
-
-    public static DefaultRecipeRepository getInstance(RecipeDao recipeDao) {
-        if (instance == null) {
-            synchronized (DefaultRecipeRepository.class) {
-                if (instance == null) {
-                    instance = new DefaultRecipeRepository(recipeDao);
-                }
-            }
-        }
-        return instance;
     }
 
     @Override
