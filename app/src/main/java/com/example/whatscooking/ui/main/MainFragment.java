@@ -55,6 +55,8 @@ public class MainFragment extends Fragment {
     }
 
     private void subscribeUi() {
+        //remove leftover observers
+        recipesListViewModel.getAllRecipes().removeObservers(getViewLifecycleOwner());
         //could happen from new recipe activity or a new recipe pushed into a joined account
         recipesListViewModel.getAllRecipes().observe(getViewLifecycleOwner(), recipes -> {
             //TODO create binding adapter to set recycler view to GONE when empty and show a text view message
