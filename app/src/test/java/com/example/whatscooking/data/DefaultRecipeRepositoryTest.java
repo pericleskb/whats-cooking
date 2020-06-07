@@ -18,6 +18,8 @@ import org.robolectric.annotation.Config;
 
 import java.util.Stack;
 
+import javax.inject.Inject;
+
 import static com.google.common.truth.Truth.assertThat;
 
 @RunWith(AndroidJUnit4.class)
@@ -27,6 +29,7 @@ public class DefaultRecipeRepositoryTest {
     @Rule
     public InstantTaskExecutorRule instantExecutorRule = new InstantTaskExecutorRule();
 
+    @Inject
     DefaultRecipeRepository recipeRepository;
     Stack<Recipe> recipesStack;
     FakeRecipeDao recipeDao;
@@ -44,7 +47,7 @@ public class DefaultRecipeRepositoryTest {
     @Test
     public void getAllRecipes_returnAllRecipes() throws InterruptedException {
         assertThat(recipeDao.recipesList.size()).isEqualTo(LiveDataTestUtil.getOrAwaitValue(
-                DefaultRecipeRepository.getInstance(recipeDao).getAllRecipes()).size());
+                recipeRepository.getAllRecipes()).size());
     }
 
     @Test
