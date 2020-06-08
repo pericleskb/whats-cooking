@@ -11,6 +11,6 @@ public abstract class TestRecipeRepositoryModule {
 
     //This will provide a FakeAndroidTestRepository when a DefaultRecipeRepository is requested
     @Binds
-    abstract FakeAndroidTestRepository provideRecipeRepository(RecipeRepository repository);
+    abstract RecipeRepository provideRecipeRepository(FakeAndroidTestRepository repository);
 
 }
