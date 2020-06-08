@@ -10,10 +10,13 @@ import com.example.whatscooking.data.RecipeRepository;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 public class RecipesListViewModel extends AndroidViewModel {
 
     private RecipeRepository recipeRepository;
 
+    @Inject
     public RecipesListViewModel(Application application, RecipeRepository repository) {
         super(application);
         //TODO abstract repository creation into a pattern as in sunflower?
