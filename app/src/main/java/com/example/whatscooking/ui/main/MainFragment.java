@@ -1,7 +1,8 @@
 package com.example.whatscooking.ui.main;
 
 import androidx.databinding.DataBindingUtil;
-import androidx.lifecycle.ViewModelProviders;
+
+import android.content.Context;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,21 +12,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.whatscooking.MyApplication;
 import com.example.whatscooking.R;
 import com.example.whatscooking.adapters.RecipeListAdapter;
 import com.example.whatscooking.databinding.MainFragmentBindingImpl;
 import com.example.whatscooking.viewmodels.RecipesListViewModel;
 
+import javax.inject.Inject;
+
 public class MainFragment extends Fragment {
 
-    private RecipesListViewModel recipesListViewModel;
+    @Inject
+    RecipesListViewModel recipesListViewModel;
     private RecipeListAdapter recipeListAdapter;
     private MainFragmentBindingImpl binding;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        recipesListViewModel = ViewModelProviders.of(this).get(RecipesListViewModel.class);
     }
 
     @Nullable
@@ -40,13 +44,21 @@ public class MainFragment extends Fragment {
     }
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        ((MyApplication)getActivity().getApplication()).appComponent.inject(this);
+    }
+
+    @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
     }
 
     private void subscribeUi() {
+        //remove leftover observers
+        recipesListViewModel.getAllRecipes().removeObservers(getViewLifecycleOwner());
         //could happen from new recipe activity or a new recipe pushed into a joined account
-        recipesListViewModel.getAllRecipes().observe(this, recipes -> {
+        recipesListViewModel.getAllRecipes().observe(getViewLifecycleOwner(), recipes -> {
             //TODO create binding adapter to set recycler view to GONE when empty and show a text view message
             binding.setHasRecipes(recipes != null && recipes.isEmpty());
             recipeListAdapter.setRecipeList(recipes);
