@@ -10,6 +10,10 @@ import java.util.Vector;
 //TODO move to sharing folder for test and androidTest
 public class TestUtils {
 
+    public static RecyclerViewMatcher withRecyclerView(final int recyclerViewId) {
+        return new RecyclerViewMatcher(recyclerViewId);
+    }
+
     public static Stack<Recipe> getRecipesStack() {
         Stack<Recipe> recipes = new Stack<>();
         recipes.addAll(getRecipeVector());
@@ -43,3 +47,5 @@ public class TestUtils {
         return recipeVector;
     }
 }
+
+

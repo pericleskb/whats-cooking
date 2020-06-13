@@ -1,18 +1,14 @@
 package com.example.whatscooking;
 
-import android.content.Context;
-
 import com.example.whatscooking.data.Recipe;
 import com.example.whatscooking.data.RecipeBuilder;
-import com.example.whatscooking.utilities.MediaOperations;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Stack;
 import java.util.Vector;
 
 public class TestUtils {
-
+    
     public static Stack<Recipe> getRecipesStack() {
         Stack<Recipe> recipes = new Stack<>();
         recipes.addAll(getRecipeVector());
