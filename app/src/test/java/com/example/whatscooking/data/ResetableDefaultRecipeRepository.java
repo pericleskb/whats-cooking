@@ -1,5 +1,8 @@
 package com.example.whatscooking.data;
 
+/*
+ Used to reset the repository before each repository test
+ */
 public class ResetableDefaultRecipeRepository extends DefaultRecipeRepository {
 
     public ResetableDefaultRecipeRepository(RecipeDao recipeDao) {
