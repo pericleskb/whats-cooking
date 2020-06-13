@@ -60,14 +60,17 @@ public class MediaOperations {
     }
 
     public static void setImageToView(Context context, String imageUri, ImageView imageView) {
-        //TODO get scaled down image
-        Uri uri = Uri.parse(imageUri);
+
         Bitmap bitmap = null;
-        try {
-            bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
-        } catch (IOException e) {
-            e.printStackTrace();
-            bitmap = null;
+        if (imageUri != null) {
+            //TODO get scaled down image
+            Uri uri = Uri.parse(imageUri);
+            try {
+                bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
+            } catch (IOException e) {
+                e.printStackTrace();
+                bitmap = null;
+            }
         }
         imageView.setImageBitmap(bitmap);
     }
