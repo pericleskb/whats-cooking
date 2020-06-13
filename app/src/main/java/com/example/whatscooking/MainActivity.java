@@ -9,8 +9,13 @@ import com.example.whatscooking.ui.main.MainFragment;
 
 public class MainActivity extends AppCompatActivity {
 
+    public MainComponent mainComponent;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        mainComponent = ((MyApplication) getApplication()).appComponent
+                .mainComponent().create();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
         Toolbar toolbar = (Toolbar) findViewById(R.id.catalog_toolbar);

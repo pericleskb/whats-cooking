@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.example.whatscooking.MainActivity;
 import com.example.whatscooking.MyApplication;
 import com.example.whatscooking.R;
 import com.example.whatscooking.adapters.RecipeListAdapter;
@@ -24,7 +25,8 @@ public class MainFragment extends Fragment {
 
     @Inject
     RecipesListViewModel recipesListViewModel;
-    private RecipeListAdapter recipeListAdapter;
+    @Inject
+    RecipeListAdapter recipeListAdapter;
     private MainFragmentBindingImpl binding;
 
     @Override
@@ -46,7 +48,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        ((MyApplication)getActivity().getApplication()).appComponent.inject(this);
+        ((MainActivity)getActivity()).mainComponent.inject(this);
     }
 
     @Override
@@ -69,7 +71,8 @@ public class MainFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.main_fragment,
                 container, false);
         binding.setLifecycleOwner(this);
-        recipeListAdapter = new RecipeListAdapter(getActivity(), recipesListViewModel.getAllRecipes().getValue());
+        recipeListAdapter.setRecipeList(recipesListViewModel.getAllRecipes().getValue());
+        recipeListAdapter.setContext(getContext());
         binding.recipeRecycleView.setAdapter(recipeListAdapter);
         return binding.getRoot();
     }

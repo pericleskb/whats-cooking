@@ -7,11 +7,13 @@ import androidx.lifecycle.LiveData;
 
 import com.example.whatscooking.data.Recipe;
 import com.example.whatscooking.data.RecipeRepository;
+import com.example.whatscooking.di.ActivityScope;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
+@ActivityScope
 public class RecipesListViewModel extends AndroidViewModel {
 
     private RecipeRepository recipeRepository;

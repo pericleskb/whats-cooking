@@ -14,19 +14,17 @@ import com.example.whatscooking.databinding.RecipeCardViewBinding;
 import com.example.whatscooking.utilities.MediaOperations;
 
 import java.util.List;
+import javax.inject.Inject;
 
 public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeCardViewHolder> {
 
-    public List<Recipe> recipeList;
+    private List<Recipe> recipeList;
     private LayoutInflater layoutInflater;
-
-    //TODO remove this dependency
     private Context context;
 
-    public RecipeListAdapter(Context context, List<Recipe> recipeList) {
+    @Inject
+    public RecipeListAdapter() {
         super();
-        this.recipeList = recipeList;
-        this.context = context;
     }
 
     @NonNull
@@ -49,11 +47,6 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
         }
     }
 
-    public void setRecipeList(List<Recipe> recipeList) {
-        this.recipeList = recipeList;
-        notifyDataSetChanged();
-    }
-
     public static class RecipeCardViewHolder extends RecyclerView.ViewHolder {
         RecipeCardViewBinding binding;
 
@@ -73,5 +66,14 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
         if (recipeList != null)
             return recipeList.size();
         else return 0;
+    }
+
+    public void setRecipeList(List<Recipe> recipeList) {
+        this.recipeList = recipeList;
+        notifyDataSetChanged();
+    }
+
+    public void setContext(Context context) {
+        this.context = context;
     }
 }
