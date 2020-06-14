@@ -3,11 +3,8 @@ package com.example.whatscooking.di;
 import android.app.Application;
 import android.content.Context;
 
-import com.example.whatscooking.MainComponent;
-import com.example.whatscooking.MyApplication;
+import com.example.whatscooking.main.MainComponent;
 import com.example.whatscooking.data.AppDatabase;
-import com.example.whatscooking.data.RecipeDao;
-import com.example.whatscooking.ui.main.MainFragment;
 
 import javax.inject.Singleton;
 

@@ -1,4 +1,4 @@
-package com.example.whatscooking.viewmodels;
+package com.example.whatscooking.main.recipelist;
 
 import android.app.Application;
 

@@ -1,11 +1,13 @@
-package com.example.whatscooking;
+package com.example.whatscooking.main;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
 
-import com.example.whatscooking.ui.main.MainFragment;
+import com.example.whatscooking.MyApplication;
+import com.example.whatscooking.R;
+import com.example.whatscooking.main.recipelist.MainFragment;
 
 public class MainActivity extends AppCompatActivity {
 

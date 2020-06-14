@@ -1,6 +1,6 @@
 package com.example.whatscooking.di;
 
-import com.example.whatscooking.MainComponent;
+import com.example.whatscooking.main.MainComponent;
 
 import dagger.Module;
 

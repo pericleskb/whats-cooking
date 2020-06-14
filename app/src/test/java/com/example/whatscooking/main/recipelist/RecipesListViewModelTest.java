@@ -1,4 +1,4 @@
-package com.example.whatscooking.viewmodels;
+package com.example.whatscooking.main.recipelist;
 
 import android.os.Build;
 
@@ -16,6 +16,7 @@ import com.example.whatscooking.LiveDataTestUtil;
 import com.example.whatscooking.TestUtils;
 import com.example.whatscooking.data.FakeRepository;
 import com.example.whatscooking.data.Recipe;
+import com.example.whatscooking.main.recipelist.RecipesListViewModel;
 
 import java.util.Stack;
 

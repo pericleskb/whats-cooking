@@ -1,4 +1,4 @@
-package com.example.whatscooking.ui.main;
+package com.example.whatscooking.main.recipelist;
 
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static com.example.whatscooking.TestUtils.withRecyclerView;

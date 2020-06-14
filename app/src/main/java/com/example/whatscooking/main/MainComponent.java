@@ -1,8 +1,8 @@
-package com.example.whatscooking;
+package com.example.whatscooking.main;
 
 import com.example.whatscooking.data.RecipeDao;
 import com.example.whatscooking.di.ActivityScope;
-import com.example.whatscooking.ui.main.MainFragment;
+import com.example.whatscooking.main.recipelist.MainFragment;
 
 import dagger.Subcomponent;
 

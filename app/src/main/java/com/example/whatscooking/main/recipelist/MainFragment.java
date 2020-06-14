@@ -1,4 +1,4 @@
-package com.example.whatscooking.ui.main;
+package com.example.whatscooking.main.recipelist;
 
 import androidx.databinding.DataBindingUtil;
 
@@ -12,12 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.whatscooking.MainActivity;
-import com.example.whatscooking.MyApplication;
+import com.example.whatscooking.main.MainActivity;
 import com.example.whatscooking.R;
 import com.example.whatscooking.adapters.RecipeListAdapter;
 import com.example.whatscooking.databinding.MainFragmentBindingImpl;
-import com.example.whatscooking.viewmodels.RecipesListViewModel;
 
 import javax.inject.Inject;
 
