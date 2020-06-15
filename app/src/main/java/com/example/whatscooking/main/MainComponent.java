@@ -2,7 +2,7 @@ package com.example.whatscooking.main;
 
 import com.example.whatscooking.data.RecipeDao;
 import com.example.whatscooking.di.ActivityScope;
-import com.example.whatscooking.main.recipelist.MainFragment;
+import com.example.whatscooking.main.recipelist.RecipesListFragment;
 
 import dagger.Subcomponent;
 
@@ -20,5 +20,5 @@ public interface MainComponent {
     /*With this Dagger knows MainFragment requests injection and
       that it has to provide its dependencies
      */
-    void inject(MainFragment fragment);
+    void inject(RecipesListFragment fragment);
 }

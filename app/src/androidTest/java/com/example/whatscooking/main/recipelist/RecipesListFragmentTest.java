@@ -2,7 +2,10 @@ package com.example.whatscooking.main.recipelist;
 
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static com.example.whatscooking.TestUtils.withRecyclerView;
+
 import androidx.fragment.app.testing.FragmentScenario;
+import androidx.lifecycle.Lifecycle;
+import androidx.test.core.app.ActivityScenario;
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.ext.junit.runners.*;
@@ -18,12 +21,11 @@ import com.example.whatscooking.R;
 
 @MediumTest
 @RunWith(AndroidJUnit4.class)
-public class MainFragmentTest {
+public class RecipesListFragmentTest {
 
     @Test
-    public void MainFragment_DisplayedInUi() {
-        FragmentScenario.launchInContainer(MainFragment.class, null, R.style.AppTheme, null);
-
+    public void RecipesListFragment_DisplayedInUi() {
+        FragmentScenario.launchInContainer(RecipesListFragment.class, null, R.style.AppTheme, null);
         Espresso.onView(withRecyclerView(R.id.recipe_recycle_view).atPosition(0))
                 .check(matches(hasDescendant(withText("Time:"))));
         Espresso.onView(withRecyclerView(R.id.recipe_recycle_view).atPosition(0))

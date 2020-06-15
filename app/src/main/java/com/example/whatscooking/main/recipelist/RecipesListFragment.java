@@ -12,20 +12,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.whatscooking.main.MainActivity;
 import com.example.whatscooking.R;
 import com.example.whatscooking.adapters.RecipeListAdapter;
 import com.example.whatscooking.databinding.MainFragmentBindingImpl;
+import com.example.whatscooking.main.MainActivity;
+import com.example.whatscooking.main.MainComponent;
 
 import javax.inject.Inject;
 
-public class MainFragment extends Fragment {
+public class RecipesListFragment extends Fragment {
 
     @Inject
     RecipesListViewModel recipesListViewModel;
     @Inject
     RecipeListAdapter recipeListAdapter;
+    MainComponent mainComponent;
     private MainFragmentBindingImpl binding;
+
+    public RecipesListFragment(MainComponent mainComponent) {
+        this.mainComponent = mainComponent;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,7 +52,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        ((MainActivity)getActivity()).mainComponent.inject(this);
+        mainComponent.inject(this);
     }
 
     @Override
