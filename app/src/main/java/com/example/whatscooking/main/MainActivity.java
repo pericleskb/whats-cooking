@@ -7,7 +7,7 @@ import android.os.Bundle;
 
 import com.example.whatscooking.MyApplication;
 import com.example.whatscooking.R;
-import com.example.whatscooking.main.recipelist.RecipesListFragment;
+import com.example.whatscooking.main.recipeslist.RecipesListFragment;
 
 public class MainActivity extends AppCompatActivity {
 

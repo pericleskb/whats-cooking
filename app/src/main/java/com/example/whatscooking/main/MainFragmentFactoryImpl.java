@@ -3,7 +3,7 @@ package com.example.whatscooking.main;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentFactory;
-import com.example.whatscooking.main.recipelist.RecipesListFragment;
+import com.example.whatscooking.main.recipeslist.RecipesListFragment;
 
 public class MainFragmentFactoryImpl extends FragmentFactory {
     private final MainComponent mainComponent;

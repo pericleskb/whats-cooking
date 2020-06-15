@@ -1,4 +1,4 @@
-package com.example.whatscooking.main.recipelist;
+package com.example.whatscooking.main.recipeslist;
 
 import androidx.databinding.DataBindingUtil;
 
@@ -15,7 +15,6 @@ import android.widget.Toast;
 import com.example.whatscooking.R;
 import com.example.whatscooking.adapters.RecipeListAdapter;
 import com.example.whatscooking.databinding.MainFragmentBindingImpl;
-import com.example.whatscooking.main.MainActivity;
 import com.example.whatscooking.main.MainComponent;
 
 import javax.inject.Inject;

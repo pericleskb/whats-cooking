@@ -1,4 +1,4 @@
-package com.example.whatscooking.main.recipelist;
+package com.example.whatscooking.main.recipeslist;
 
 import android.app.Application;
 
