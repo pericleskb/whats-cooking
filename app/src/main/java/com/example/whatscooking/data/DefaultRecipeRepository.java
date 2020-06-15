@@ -2,6 +2,9 @@ package com.example.whatscooking.data;
 
 import androidx.lifecycle.LiveData;
 
+import com.example.whatscooking.data.daos.RecipeInfoDao;
+import com.example.whatscooking.data.entities.RecipeInfo;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -9,24 +12,24 @@ import javax.inject.Inject;
 public class DefaultRecipeRepository implements RecipeRepository {
 
     protected static DefaultRecipeRepository instance;
-    private RecipeDao recipeDao;
-    LiveData<List<Recipe>> allRecipes;
+    private RecipeInfoDao recipeInfoDao;
+    LiveData<List<RecipeInfo>> allRecipes;
 
     @Inject
-    protected DefaultRecipeRepository(RecipeDao recipeDao) {
-        this.recipeDao = recipeDao;
-        allRecipes = recipeDao.getAll();
+    protected DefaultRecipeRepository(RecipeInfoDao recipeInfoDao) {
+        this.recipeInfoDao = recipeInfoDao;
+        allRecipes = recipeInfoDao.getAll();
     }
 
     @Override
-    public LiveData<List<Recipe>> getAllRecipes() {
+    public LiveData<List<RecipeInfo>> getAllRecipes() {
         return allRecipes;
     }
 
     //TODO get recipes based on difficulty
 
     @Override
-    public void insert(Recipe... recipes) {
-        AppDatabase.databaseWriteExecutor.execute(() -> recipeDao.insertAll(recipes));
+    public void insert(RecipeInfo... recipesInfo) {
+        AppDatabase.databaseWriteExecutor.execute(() -> recipeInfoDao.insertAll(recipesInfo));
     }
 }

@@ -34,8 +34,9 @@ android {
 //TODO move versions here
 def room_version = "2.2.5"
 def dagger_version = "2.27"
-def work_manager_version = "2.3.3"
+def work_manager_version = "2.3.4"
 def espresso_support_version = "3.0.2"
+def gson_version = "2.7"
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
@@ -45,6 +46,7 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'com.google.android.material:material:1.1.0'
+    implementation "com.google.code.gson:gson:$gson_version"
 
     //Testing
     testImplementation 'androidx.test:core:1.2.0'
@@ -88,14 +90,14 @@ dependencies {
     implementation "com.google.dagger:dagger:$dagger_version"
     annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
 
-//    //work manager
-//    implementation "androidx.work:work-runtime:$work_manager_version"
-//    // Kotlin + coroutines
-//    implementation "androidx.work:work-runtime-ktx:$work_manager_version"
-//    // optional - RxJava2 support
-//    implementation "androidx.work:work-rxjava2:$work_manager_version"
-//    // optional - GCMNetworkManager support
-//    implementation "androidx.work:work-gcm:$work_manager_version"
-//    // optional - Test helpers
-//    androidTestImplementation "androidx.work:work-testing:$work_manager_version"
+    //work manager
+    implementation "androidx.work:work-runtime:$work_manager_version"
+    // Kotlin + coroutines
+    implementation "androidx.work:work-runtime-ktx:$work_manager_version"
+    // optional - RxJava2 support
+    implementation "androidx.work:work-rxjava2:$work_manager_version"
+    // optional - GCMNetworkManager support
+    implementation "androidx.work:work-gcm:$work_manager_version"
+    // optional - Test helpers
+    androidTestImplementation "androidx.work:work-testing:$work_manager_version"
 }

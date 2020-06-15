@@ -9,7 +9,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.whatscooking.R;
-import com.example.whatscooking.data.Recipe;
+import com.example.whatscooking.data.entities.RecipeInfo;
 import com.example.whatscooking.databinding.RecipeCardViewBinding;
 import com.example.whatscooking.utilities.MediaOperations;
 
@@ -18,7 +18,7 @@ import javax.inject.Inject;
 
 public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeCardViewHolder> {
 
-    private List<Recipe> recipeList;
+    private List<RecipeInfo> recipeInfoList;
     private LayoutInflater layoutInflater;
     private Context context;
 
@@ -40,10 +40,10 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
 
     @Override
     public void onBindViewHolder(@NonNull RecipeCardViewHolder holder, int position) {
-        if (recipeList != null) {
-            Recipe recipe = recipeList.get(position);
-            holder.bind(recipe);
-            MediaOperations.setImageToView(context, recipe.imageUri, holder.binding.recipeImage);
+        if (recipeInfoList != null) {
+            RecipeInfo recipeInfo = recipeInfoList.get(position);
+            holder.bind(recipeInfo);
+            MediaOperations.setImageToView(context, recipeInfo.imageUri, holder.binding.recipeImage);
         }
     }
 
@@ -55,21 +55,21 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
             this.binding = binding;
         }
 
-        void bind(Recipe recipe) {
-            binding.setRecipe(recipe);
+        void bind(RecipeInfo recipeInfo) {
+            binding.setRecipeInfo(recipeInfo);
             binding.executePendingBindings();
         }
     }
 
     @Override
     public int getItemCount() {
-        if (recipeList != null)
-            return recipeList.size();
+        if (recipeInfoList != null)
+            return recipeInfoList.size();
         else return 0;
     }
 
-    public void setRecipeList(List<Recipe> recipeList) {
-        this.recipeList = recipeList;
+    public void setRecipeInfoList(List<RecipeInfo> recipeInfoList) {
+        this.recipeInfoList = recipeInfoList;
         notifyDataSetChanged();
     }
 

@@ -66,7 +66,7 @@ public class RecipesListFragment extends Fragment {
         recipesListViewModel.getAllRecipes().observe(getViewLifecycleOwner(), recipes -> {
             //TODO create binding adapter to set recycler view to GONE when empty and show a text view message
             binding.setHasRecipes(recipes != null && recipes.isEmpty());
-            recipeListAdapter.setRecipeList(recipes);
+            recipeListAdapter.setRecipeInfoList(recipes);
         });
     }
 
@@ -74,7 +74,7 @@ public class RecipesListFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.main_fragment,
                 container, false);
         binding.setLifecycleOwner(this);
-        recipeListAdapter.setRecipeList(recipesListViewModel.getAllRecipes().getValue());
+        recipeListAdapter.setRecipeInfoList(recipesListViewModel.getAllRecipes().getValue());
         recipeListAdapter.setContext(getContext());
         binding.recipeRecycleView.setAdapter(recipeListAdapter);
         return binding.getRoot();

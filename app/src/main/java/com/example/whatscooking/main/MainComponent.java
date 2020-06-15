@@ -1,6 +1,6 @@
 package com.example.whatscooking.main;
 
-import com.example.whatscooking.data.RecipeDao;
+import com.example.whatscooking.data.daos.RecipeInfoDao;
 import com.example.whatscooking.di.ActivityScope;
 import com.example.whatscooking.main.recipeslist.RecipesListFragment;
 
@@ -10,7 +10,7 @@ import dagger.Subcomponent;
 @Subcomponent
 public interface MainComponent {
 
-    RecipeDao recipeDao();
+    RecipeInfoDao recipeDao();
 
     @Subcomponent.Factory
     interface Factory {

@@ -1,38 +1,40 @@
 package com.example.whatscooking.data;
 
+import com.example.whatscooking.data.entities.RecipeInfo;
+
 public class RecipeBuilder {
-    private Recipe recipe;
+    private RecipeInfo recipeInfo;
 
     public RecipeBuilder(String title) {
-        this.recipe = new Recipe(title);
+        this.recipeInfo = new RecipeInfo(title);
     }
 
     public RecipeBuilder setDescription(String description) {
-        recipe.description = description;
+        recipeInfo.description = description;
         return this;
     }
 
-    public RecipeBuilder setDifficulty(Recipe.Difficulty difficulty) {
-        recipe.difficulty = difficulty;
+    public RecipeBuilder setDifficulty(RecipeInfo.Difficulty difficulty) {
+        recipeInfo.difficulty = difficulty;
         return this;
     }
 
     public RecipeBuilder setServings(int servings) {
-        recipe.servings = servings;
+        recipeInfo.servings = servings;
         return this;
     }
 
     public RecipeBuilder setImageUri(String uri) {
-        recipe.imageUri = uri;
+        recipeInfo.imageUri = uri;
         return this;
     }
 
     public RecipeBuilder setTimeMinutes(int time) {
-        recipe.timeMinutes = time;
+        recipeInfo.timeMinutes = time;
         return this;
     }
 
-    public Recipe build() {
-        return this.recipe;
+    public RecipeInfo build() {
+        return this.recipeInfo;
     }
 }

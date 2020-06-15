@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.whatscooking.TestUtils;
+import com.example.whatscooking.data.entities.RecipeInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,9 +13,9 @@ import javax.inject.Inject;
 
 public class FakeAndroidTestRepository implements RecipeRepository {
 
-    private MutableLiveData<List<Recipe>> recipesLiveData = new MutableLiveData<>();
-    private MutableLiveData<List<Recipe>> testRecipesLiveData = new MutableLiveData<>();
-    ArrayList<Recipe> recipesList = new ArrayList<>();
+    private MutableLiveData<List<RecipeInfo>> recipesLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<RecipeInfo>> testRecipesLiveData = new MutableLiveData<>();
+    ArrayList<RecipeInfo> recipesList = new ArrayList<>();
 
     @Inject
     protected FakeAndroidTestRepository() {
@@ -22,14 +23,14 @@ public class FakeAndroidTestRepository implements RecipeRepository {
     }
 
     @Override
-    public LiveData<List<Recipe>> getAllRecipes() {
+    public LiveData<List<RecipeInfo>> getAllRecipes() {
         return testRecipesLiveData;
     }
 
     @Override
-    public void insert(Recipe... recipes) {
-        for (Recipe recipe : recipes) {
-            recipesList.add(recipe);
+    public void insert(RecipeInfo... recipesInfo) {
+        for (RecipeInfo recipeInfo : recipesInfo) {
+            recipesList.add(recipeInfo);
         }
         recipesLiveData.postValue(recipesList);
     }

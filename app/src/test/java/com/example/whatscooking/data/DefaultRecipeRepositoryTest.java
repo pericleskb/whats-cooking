@@ -3,14 +3,13 @@ package com.example.whatscooking.data;
 import android.os.Build;
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
-import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.example.whatscooking.LiveDataTestUtil;
 import com.example.whatscooking.TestUtils;
+import com.example.whatscooking.data.entities.RecipeInfo;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,12 +30,12 @@ public class DefaultRecipeRepositoryTest {
 
     @Inject
     DefaultRecipeRepository recipeRepository;
-    Stack<Recipe> recipesStack;
-    FakeRecipeDao recipeDao;
+    Stack<RecipeInfo> recipesStack;
+    FakeRecipeInfoDao recipeDao;
 
     @Before
     public void setUp() {
-        recipeDao = new FakeRecipeDao();
+        recipeDao = new FakeRecipeInfoDao();
         recipesStack = TestUtils.getRecipesStack();
         recipeDao.insertAll(recipesStack.pop());
         recipeDao.insertAll(recipesStack.pop());
@@ -53,7 +52,7 @@ public class DefaultRecipeRepositoryTest {
     @Test
     public void insert_whenRecipeArrayInserted_thenInsertForAllRecipesIsCalled() {
         int recipesLengthBefore = recipeDao.recipesList.size();
-        Recipe[] recipesArray = {recipesStack.pop(), recipesStack.pop()};
+        RecipeInfo[] recipesArray = {recipesStack.pop(), recipesStack.pop()};
         recipeRepository.insert(recipesArray);
         assertThat(recipesLengthBefore + 2).isEqualTo(recipeDao.recipesList.size());
     }
