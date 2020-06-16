@@ -23,12 +23,12 @@ public class FakeAndroidTestRepository implements RecipeRepository {
     }
 
     @Override
-    public LiveData<List<RecipeInfo>> getAllRecipes() {
+    public LiveData<List<RecipeInfo>> getAllRecipesInfo() {
         return testRecipesLiveData;
     }
 
     @Override
-    public void insert(RecipeInfo... recipesInfo) {
+    public void insertRecipe(RecipeInfo... recipesInfo) {
         for (RecipeInfo recipeInfo : recipesInfo) {
             recipesList.add(recipeInfo);
         }

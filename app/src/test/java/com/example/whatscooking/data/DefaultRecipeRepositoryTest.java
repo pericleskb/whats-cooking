@@ -7,6 +7,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.example.whatscooking.LiveDataTestUtil;
 import com.example.whatscooking.TestUtils;
+import com.example.whatscooking.data.daos.FakeRecipeInfoDao;
 import com.example.whatscooking.data.entities.RecipeInfo;
 
 import org.junit.Before;
@@ -31,29 +32,29 @@ public class DefaultRecipeRepositoryTest {
     @Inject
     DefaultRecipeRepository recipeRepository;
     Stack<RecipeInfo> recipesStack;
-    FakeRecipeInfoDao recipeDao;
+    FakeRecipeInfoDao recipeInfoDao;
 
     @Before
     public void setUp() {
-        recipeDao = new FakeRecipeInfoDao();
+        recipeInfoDao = new FakeRecipeInfoDao();
         recipesStack = TestUtils.getRecipesStack();
-        recipeDao.insertAll(recipesStack.pop());
-        recipeDao.insertAll(recipesStack.pop());
+        recipeInfoDao.insert(recipesStack.pop());
+        recipeInfoDao.insert(recipesStack.pop());
         ResetableDefaultRecipeRepository.resetInstance();
-        recipeRepository = ResetableDefaultRecipeRepository.getInstance(recipeDao);
+        recipeRepository = ResetableDefaultRecipeRepository.getInstance(recipeInfoDao);
     }
 
     @Test
     public void getAllRecipes_returnAllRecipes() throws InterruptedException {
-        assertThat(recipeDao.recipesList.size()).isEqualTo(LiveDataTestUtil.getOrAwaitValue(
-                recipeRepository.getAllRecipes()).size());
+        assertThat(recipeInfoDao.recipesList.size()).isEqualTo(LiveDataTestUtil.getOrAwaitValue(
+                recipeRepository.getAllRecipesInfo()).size());
     }
 
     @Test
     public void insert_whenRecipeArrayInserted_thenInsertForAllRecipesIsCalled() {
-        int recipesLengthBefore = recipeDao.recipesList.size();
+        int recipesLengthBefore = recipeInfoDao.recipesList.size();
         RecipeInfo[] recipesArray = {recipesStack.pop(), recipesStack.pop()};
-        recipeRepository.insert(recipesArray);
-        assertThat(recipesLengthBefore + 2).isEqualTo(recipeDao.recipesList.size());
+        recipeRepository.insertRecipe(recipesArray);
+        assertThat(recipesLengthBefore + 2).isEqualTo(recipeInfoDao.recipesList.size());
     }
 }

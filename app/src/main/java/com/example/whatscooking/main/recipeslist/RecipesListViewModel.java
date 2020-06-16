@@ -21,15 +21,14 @@ public class RecipesListViewModel extends AndroidViewModel {
     @Inject
     public RecipesListViewModel(Application application, RecipeRepository repository) {
         super(application);
-        //TODO abstract repository creation into a pattern as in sunflower?
         recipeRepository = repository;
     }
 
     public LiveData<List<RecipeInfo>> getAllRecipes() {
-        return recipeRepository.getAllRecipes();
+        return recipeRepository.getAllRecipesInfo();
     }
 
     public void insert(RecipeInfo... recipesInfo) {
-        recipeRepository.insert(recipesInfo);
+        recipeRepository.insertRecipe(recipesInfo);
     }
 }

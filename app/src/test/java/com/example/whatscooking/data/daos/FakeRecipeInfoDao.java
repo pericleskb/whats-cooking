@@ -1,9 +1,8 @@
-package com.example.whatscooking.data;
+package com.example.whatscooking.data.daos;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
-import com.example.whatscooking.data.daos.RecipeInfoDao;
 import com.example.whatscooking.data.entities.RecipeInfo;
 
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ public class FakeRecipeInfoDao implements RecipeInfoDao {
 
     private MutableLiveData<List<RecipeInfo>> recipesLiveData = new MutableLiveData<>();
 
-    ArrayList<RecipeInfo> recipesList = new ArrayList<>();
+    public ArrayList<RecipeInfo> recipesList = new ArrayList<>();
 
     @Override
     public LiveData<List<RecipeInfo>> getAll() {
@@ -22,15 +21,18 @@ public class FakeRecipeInfoDao implements RecipeInfoDao {
     }
 
     @Override
-    public void insertAll(RecipeInfo... recipesInfo) {
-        for (RecipeInfo recipeInfo : recipesInfo) {
-            recipesList.add(recipeInfo);
-        }
+    public void insert(RecipeInfo recipeInfo) {
+        recipesList.add(recipeInfo);
         recipesLiveData.postValue(recipesList);
     }
 
     @Override
     public void delete(RecipeInfo recipeInfo) {
+
+    }
+
+    @Override
+    public void deleteSelected(String... titles) {
 
     }
 

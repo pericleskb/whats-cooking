@@ -50,7 +50,7 @@ public abstract class AppDatabase extends RoomDatabase {
             super.onOpen(db);
             databaseWriteExecutor.execute(() -> {
                 try {
-                    instance.recipeDao().insertAll(
+                    instance.recipeDao().insert(
                             new RecipeBuilder("Dahl").setTimeMinutes(60).setDifficulty(RecipeInfo.Difficulty.medium)
                                     .setDescription("description")
                                     .setImageUri(MediaOperations.storeImage(context, R.drawable.dahl).toString())

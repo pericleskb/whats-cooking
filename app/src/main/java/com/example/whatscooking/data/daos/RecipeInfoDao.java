@@ -5,6 +5,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.example.whatscooking.data.entities.RecipeInfo;
 
@@ -21,10 +22,13 @@ public interface RecipeInfoDao {
 
     //TODO write tests
     @Insert
-    void insertAll(RecipeInfo... recipesInfo);
+    void insert(RecipeInfo recipeInfo);
 
     @Delete
     void delete(RecipeInfo recipeInfo);
+
+    @Update
+    void update(RecipeInfo recipeInfo);
 
     @Query("DELETE FROM recipes_info WHERE title IN (:titles)")
     void deleteSelected(String... titles);
