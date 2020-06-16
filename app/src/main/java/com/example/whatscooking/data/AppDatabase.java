@@ -9,11 +9,11 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
-import com.example.whatscooking.R;
+import com.example.whatscooking.data.daos.RecipeDao;
 import com.example.whatscooking.data.daos.RecipeInfoDao;
 import com.example.whatscooking.data.entities.RecipeInfo;
 import com.example.whatscooking.utilities.Constants;
-import com.example.whatscooking.utilities.MediaOperations;
+import com.example.whatscooking.utilities.Utils;
 
 import java.io.IOException;
 import java.util.concurrent.ExecutorService;
@@ -25,7 +25,8 @@ import java.util.concurrent.Executors;
 public abstract class AppDatabase extends RoomDatabase {
 
     private static volatile AppDatabase instance;
-    public abstract RecipeInfoDao recipeDao();
+    public abstract RecipeInfoDao recipeInfoDao();
+    public abstract RecipeDao recipeDao();
     private static final int NUMBER_OF_THREADS = 4;
     static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
@@ -50,28 +51,21 @@ public abstract class AppDatabase extends RoomDatabase {
             super.onOpen(db);
             databaseWriteExecutor.execute(() -> {
                 try {
-                    instance.recipeDao().insert(
-                            new RecipeInfoBuilder("Dahl").setTimeMinutes(60).setDifficulty(RecipeInfo.Difficulty.medium)
-                                    .setDescription("description")
-                                    .setImageUri(MediaOperations.storeImage(context, R.drawable.dahl).toString())
-                                    .setServings(5).build(),
-                            new RecipeInfoBuilder("Falafel wrap").setDifficulty(RecipeInfo.Difficulty.easy)
-                                .setDescription("description")
-                                .setImageUri(MediaOperations.storeImage(context, R.drawable.falafel).toString())
-                                .setServings(4).build(),
-                            new RecipeInfoBuilder("Mousakas").setTimeMinutes(90).setDifficulty(RecipeInfo.Difficulty.hard)
-                                    .setDescription("description")
-                                    .setImageUri(MediaOperations.storeImage(context, R.drawable.mousakas).toString())
-                                    .setServings(8).build(),
-                            new RecipeInfoBuilder("Fried Squid").setTimeMinutes(45).setDifficulty(RecipeInfo.Difficulty.medium)
-                                    .setDescription("description")
-                                    .setImageUri(MediaOperations.storeImage(context, R.drawable.squid).toString())
-                                    .setServings(3).build(),
-                            new RecipeInfoBuilder("Venison steak").setTimeMinutes(30)
-                                    .setDescription("description")
-                                    .setImageUri(MediaOperations.storeImage(context, R.drawable.venison).toString())
-                                    .setServings(2).build()
-                    );
+                    //Dahl
+                    instance.recipeInfoDao().insert(Utils.buildTestRecipeInfo("Dahl", context));
+                    instance.recipeDao().insert(Utils.buildTestRecipe("Dahl", context));
+                    //Falafel wrap
+                    instance.recipeInfoDao().insert(Utils.buildTestRecipeInfo("Falafel wrap", context));
+                    instance.recipeDao().insert(Utils.buildTestRecipe("Falafel wrap", context));
+                    //Mousakas
+                    instance.recipeInfoDao().insert(Utils.buildTestRecipeInfo("Mousakas", context));
+                    instance.recipeDao().insert(Utils.buildTestRecipe("Mousakas", context));
+                    //Fried Squid
+                    instance.recipeInfoDao().insert(Utils.buildTestRecipeInfo("Fried Squid", context));
+                    instance.recipeDao().insert(Utils.buildTestRecipe("Fried Squid", context));
+                    //Venison steak
+                    instance.recipeInfoDao().insert(Utils.buildTestRecipeInfo("Venison steak", context));
+                    instance.recipeDao().insert(Utils.buildTestRecipe("Venison steak", context));
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

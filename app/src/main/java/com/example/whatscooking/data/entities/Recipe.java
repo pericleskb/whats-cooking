@@ -20,11 +20,15 @@ import static androidx.room.ForeignKey.CASCADE;
                                                          onDelete = CASCADE))
 public class Recipe {
 
+    public Recipe(String title) {
+        this.title = title;
+    }
+
     @PrimaryKey
     String title;
 
     @ColumnInfo
-    ArrayList<String> recipeSteps;
+    ArrayList<String> instructions;
 
     @ColumnInfo
     ArrayList<String> ingredients;

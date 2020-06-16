@@ -1,7 +1,7 @@
 package com.example.whatscooking;
 
 import com.example.whatscooking.data.entities.RecipeInfo;
-import com.example.whatscooking.data.RecipeInfoBuilder;
+import com.example.whatscooking.data.entities.RecipeInfoBuilder;
 
 import java.util.ArrayList;
 import java.util.Stack;

@@ -1,6 +1,4 @@
-package com.example.whatscooking.data;
-
-import com.example.whatscooking.data.entities.RecipeInfo;
+package com.example.whatscooking.data.entities;
 
 public class RecipeInfoBuilder {
     private RecipeInfo recipeInfo;
