@@ -51,23 +51,23 @@ public abstract class AppDatabase extends RoomDatabase {
             databaseWriteExecutor.execute(() -> {
                 try {
                     instance.recipeDao().insert(
-                            new RecipeBuilder("Dahl").setTimeMinutes(60).setDifficulty(RecipeInfo.Difficulty.medium)
+                            new RecipeInfoBuilder("Dahl").setTimeMinutes(60).setDifficulty(RecipeInfo.Difficulty.medium)
                                     .setDescription("description")
                                     .setImageUri(MediaOperations.storeImage(context, R.drawable.dahl).toString())
                                     .setServings(5).build(),
-                            new RecipeBuilder("Falafel wrap").setDifficulty(RecipeInfo.Difficulty.easy)
+                            new RecipeInfoBuilder("Falafel wrap").setDifficulty(RecipeInfo.Difficulty.easy)
                                 .setDescription("description")
                                 .setImageUri(MediaOperations.storeImage(context, R.drawable.falafel).toString())
                                 .setServings(4).build(),
-                            new RecipeBuilder("Mousakas").setTimeMinutes(90).setDifficulty(RecipeInfo.Difficulty.hard)
+                            new RecipeInfoBuilder("Mousakas").setTimeMinutes(90).setDifficulty(RecipeInfo.Difficulty.hard)
                                     .setDescription("description")
                                     .setImageUri(MediaOperations.storeImage(context, R.drawable.mousakas).toString())
                                     .setServings(8).build(),
-                            new RecipeBuilder("Fried Squid").setTimeMinutes(45).setDifficulty(RecipeInfo.Difficulty.medium)
+                            new RecipeInfoBuilder("Fried Squid").setTimeMinutes(45).setDifficulty(RecipeInfo.Difficulty.medium)
                                     .setDescription("description")
                                     .setImageUri(MediaOperations.storeImage(context, R.drawable.squid).toString())
                                     .setServings(3).build(),
-                            new RecipeBuilder("Venison steak").setTimeMinutes(30)
+                            new RecipeInfoBuilder("Venison steak").setTimeMinutes(30)
                                     .setDescription("description")
                                     .setImageUri(MediaOperations.storeImage(context, R.drawable.venison).toString())
                                     .setServings(2).build()
