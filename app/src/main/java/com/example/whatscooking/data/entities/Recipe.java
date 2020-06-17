@@ -1,9 +1,13 @@
 package com.example.whatscooking.data.entities;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+import com.example.whatscooking.data.Converters;
 
 import java.util.ArrayList;
 
@@ -24,12 +28,12 @@ public class Recipe {
         this.title = title;
     }
 
-    @PrimaryKey
-    String title;
+    @PrimaryKey @NonNull
+    public String title;
 
-    @ColumnInfo
-    ArrayList<String> instructions;
+    @TypeConverters(Converters.class)
+    public ArrayList<String> instructions;
 
-    @ColumnInfo
-    ArrayList<String> ingredients;
+    @TypeConverters(Converters.class)
+    public ArrayList<String> ingredients;
 }

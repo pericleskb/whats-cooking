@@ -23,8 +23,7 @@ public class RecipeInfo {
         hard
     }
 
-    @PrimaryKey
-    @NonNull
+    @PrimaryKey @NonNull
     public String title;
 
     @ColumnInfo(name = "time")

@@ -11,6 +11,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.whatscooking.data.daos.RecipeDao;
 import com.example.whatscooking.data.daos.RecipeInfoDao;
+import com.example.whatscooking.data.entities.Recipe;
 import com.example.whatscooking.data.entities.RecipeInfo;
 import com.example.whatscooking.utilities.Constants;
 import com.example.whatscooking.utilities.Utils;
@@ -21,15 +22,17 @@ import java.util.concurrent.Executors;
 
 //https://medium.com/androiddevelopers/7-pro-tips-for-room-fbadea4bfbd1#4785
 //TODO maybe set export schema to true
-@Database(entities = RecipeInfo.class, version = 2, exportSchema = false)
+@Database(entities = {RecipeInfo.class, Recipe.class}, version = 2, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static volatile AppDatabase instance;
     public abstract RecipeInfoDao recipeInfoDao();
     public abstract RecipeDao recipeDao();
+
     private static final int NUMBER_OF_THREADS = 4;
     static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+
     static Context context;
 
     public static AppDatabase createInstance(Context cont) {

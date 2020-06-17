@@ -20,7 +20,7 @@ public class TestUtils {
         return recipesInfo;
     }
 
-    public static ArrayList<RecipeInfo> getRecipesList() {
+    public static ArrayList<RecipeInfo> getRecipesInfoList() {
         ArrayList<RecipeInfo> recipesInfo = new ArrayList<>();
         recipesInfo.addAll(getRecipeVector());
         return recipesInfo;

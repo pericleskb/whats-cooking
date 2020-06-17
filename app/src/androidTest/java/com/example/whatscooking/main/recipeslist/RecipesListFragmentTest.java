@@ -35,4 +35,6 @@ public class RecipesListFragmentTest {
         Espresso.onView(withRecyclerView(R.id.recipe_recycle_view).atPositionOnView(4, R.id.time_value))
                 .check(matches(isDisplayed()));
     }
+
+    //TODO Test if the ui updates when a recipe is deleted
 }

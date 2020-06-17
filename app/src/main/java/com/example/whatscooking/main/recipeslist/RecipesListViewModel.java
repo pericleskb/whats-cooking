@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
+import com.example.whatscooking.data.entities.Recipe;
 import com.example.whatscooking.data.entities.RecipeInfo;
 import com.example.whatscooking.data.RecipeRepository;
 import com.example.whatscooking.di.ActivityScope;
@@ -28,7 +29,7 @@ public class RecipesListViewModel extends AndroidViewModel {
         return recipeRepository.getAllRecipesInfo();
     }
 
-    public void insert(RecipeInfo... recipesInfo) {
-        recipeRepository.insertRecipe(recipesInfo);
+    public void insert(RecipeInfo recipesInfo, Recipe recipe) {
+        recipeRepository.insertRecipe(recipesInfo, recipe);
     }
 }

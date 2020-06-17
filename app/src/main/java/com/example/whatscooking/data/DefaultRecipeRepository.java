@@ -52,12 +52,8 @@ public class DefaultRecipeRepository implements RecipeRepository {
     }
 
     @Override
-    public void updateRecipeInfo(RecipeInfo recipeInfo) {
+    public void updateRecipe(RecipeInfo recipeInfo, Recipe recipe) {
         recipeInfoDao.update(recipeInfo);
-    }
-
-    @Override
-    public void updateRecipe(Recipe recipe) {
         recipeDao.updateRecipe(recipe);
     }
 

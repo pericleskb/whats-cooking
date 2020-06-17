@@ -19,9 +19,7 @@ public interface RecipeRepository {
 
     void insertRecipe(RecipeInfo recipesInfo, Recipe recipe);
 
-    void updateRecipeInfo(RecipeInfo recipeInfo);
-
-    void updateRecipe(Recipe recipe);
+    void updateRecipe(RecipeInfo recipeInfo, Recipe recipe);
 
     void deleteSelectedRecipes(String... recipeTitles);
 

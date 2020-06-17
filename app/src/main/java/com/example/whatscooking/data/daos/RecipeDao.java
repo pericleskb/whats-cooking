@@ -23,7 +23,7 @@ public interface RecipeDao {
     Recipe getRecipe(String recipeTitle);
 
     @Query("SELECT ingredients FROM recipes WHERE title IS :recipeTitle")
-    ArrayList<String> getIngredients(String recipeTitle);
+    List<String> getIngredients(String recipeTitle);
 
     @Insert
     void insert(Recipe recipe);
