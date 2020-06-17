@@ -44,7 +44,7 @@ public class RecipesListViewModelTest {
     public void insert_addRecipe() throws InterruptedException {
         recipesListViewModel.insert(recipesInfo.pop());
 
-        assertThat(LiveDataTestUtil.getOrAwaitValue(recipesListViewModel.getAllRecipes())
+        assertThat(LiveDataTestUtil.getOrAwaitValue(recipesListViewModel.getAllRecipesInfo())
                 .size()).isEqualTo(1);
     }
 }

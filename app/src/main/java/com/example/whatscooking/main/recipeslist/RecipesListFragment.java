@@ -61,9 +61,9 @@ public class RecipesListFragment extends Fragment {
 
     private void subscribeUi() {
         //remove leftover observers
-        recipesListViewModel.getAllRecipes().removeObservers(getViewLifecycleOwner());
+        recipesListViewModel.getAllRecipesInfo().removeObservers(getViewLifecycleOwner());
         //could happen from new recipe activity or a new recipe pushed into a joined account
-        recipesListViewModel.getAllRecipes().observe(getViewLifecycleOwner(), recipes -> {
+        recipesListViewModel.getAllRecipesInfo().observe(getViewLifecycleOwner(), recipes -> {
             //TODO create binding adapter to set recycler view to GONE when empty and show a text view message
             binding.setHasRecipes(recipes != null && recipes.isEmpty());
             recipeListAdapter.setRecipeInfoList(recipes);
@@ -74,7 +74,7 @@ public class RecipesListFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.main_fragment,
                 container, false);
         binding.setLifecycleOwner(this);
-        recipeListAdapter.setRecipeInfoList(recipesListViewModel.getAllRecipes().getValue());
+        recipeListAdapter.setRecipeInfoList(recipesListViewModel.getAllRecipesInfo().getValue());
         recipeListAdapter.setContext(getContext());
         binding.recipeRecycleView.setAdapter(recipeListAdapter);
         return binding.getRoot();

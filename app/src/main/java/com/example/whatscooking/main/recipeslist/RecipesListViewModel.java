@@ -9,27 +9,26 @@ import com.example.whatscooking.data.entities.Recipe;
 import com.example.whatscooking.data.entities.RecipeInfo;
 import com.example.whatscooking.data.RecipeRepository;
 import com.example.whatscooking.di.ActivityScope;
+import com.example.whatscooking.main.FullRecipeViewModel;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 @ActivityScope
-public class RecipesListViewModel extends AndroidViewModel {
+public class RecipesListViewModel extends FullRecipeViewModel {
 
     private RecipeRepository recipeRepository;
+    private LiveData<List<RecipeInfo>> recipeInfoLiveData;
 
     @Inject
     public RecipesListViewModel(Application application, RecipeRepository repository) {
         super(application);
         recipeRepository = repository;
+        recipeInfoLiveData = recipeRepository.getAllRecipesInfo();
     }
 
-    public LiveData<List<RecipeInfo>> getAllRecipes() {
-        return recipeRepository.getAllRecipesInfo();
-    }
-
-    public void insert(RecipeInfo recipesInfo, Recipe recipe) {
-        recipeRepository.insertRecipe(recipesInfo, recipe);
+    public LiveData<List<RecipeInfo>> getAllRecipesInfo() {
+        return recipeInfoLiveData;
     }
 }
