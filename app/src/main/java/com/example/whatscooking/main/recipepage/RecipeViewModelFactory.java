@@ -13,13 +13,14 @@ import javax.inject.Inject;
 public class RecipeViewModelFactory extends ViewModelProvider.AndroidViewModelFactory {
 
     Application application;
-    @Inject
     RecipeRepository repository;
     String recipeTitle;
 
-    public RecipeViewModelFactory(@NonNull Application application, String recipeTitle) {
+    public RecipeViewModelFactory(@NonNull Application application, RecipeRepository repository,
+                                  String recipeTitle) {
         super(application);
         this.application = application;
+        this.repository = repository;
         this.recipeTitle = recipeTitle;
     }
 

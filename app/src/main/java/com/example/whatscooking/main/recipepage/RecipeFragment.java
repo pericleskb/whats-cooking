@@ -14,13 +14,18 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.whatscooking.R;
+import com.example.whatscooking.data.RecipeRepository;
 import com.example.whatscooking.databinding.RecipeFragmentBindingImpl;
 import com.example.whatscooking.main.MainComponent;
+
+import javax.inject.Inject;
 
 public class RecipeFragment extends Fragment {
 
     RecipeViewModel recipeViewModel;
     MainComponent mainComponent;
+    @Inject
+    RecipeRepository repository;
     String recipeTitle;
     private RecipeFragmentBindingImpl binding;
 
@@ -31,9 +36,10 @@ public class RecipeFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        mainComponent.inject(this);
         super.onCreate(savedInstanceState);
         this.recipeViewModel = new ViewModelProvider(this,
-                new RecipeViewModelFactory(getActivity().getApplication(), recipeTitle))
+                new RecipeViewModelFactory(getActivity().getApplication(), repository, recipeTitle))
                 .get(RecipeViewModel.class);
     }
 
@@ -53,7 +59,7 @@ public class RecipeFragment extends Fragment {
     }
 
     private View bind(LayoutInflater inflater, ViewGroup container) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.main_fragment,
+        binding = DataBindingUtil.inflate(inflater, R.layout.recipe_fragment,
                 container, false);
         binding.setLifecycleOwner(this);
         return binding.getRoot();
