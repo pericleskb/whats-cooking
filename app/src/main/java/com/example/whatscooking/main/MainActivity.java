@@ -17,7 +17,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         mainComponent = ((MyApplication) getApplication()).appComponent
                 .mainComponent().create();
-        getSupportFragmentManager().setFragmentFactory(new MainFragmentFactoryImpl(mainComponent));
+        getSupportFragmentManager().setFragmentFactory(new MainFragmentFactoryImpl(mainComponent, null));
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main_activity);
