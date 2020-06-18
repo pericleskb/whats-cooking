@@ -15,7 +15,9 @@ public interface RecipeRepository {
     //TODO When I add the server maybe make this LiveData in case a shared recipe gets updated?
     LiveData<List<Recipe>> getAllRecipes();
 
-    Recipe getRecipe(String recipeTitle);
+    LiveData<Recipe> getRecipe(String recipeTitle);
+
+    LiveData<RecipeInfo> getRecipeInfo(String recipeTitle);
 
     void insertRecipe(RecipeInfo recipesInfo, Recipe recipe);
 

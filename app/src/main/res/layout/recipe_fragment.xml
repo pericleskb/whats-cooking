@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="recipe"
+            type="com.example.whatscooking.main.recipepage.RecipeViewModel" />
+        <import type="android.view.View"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".main.recipeslist.RecipeFragment"
+        android:background="@color/white">
+
+
+        <ScrollView
+            android:id="@+id/recipe_scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent="0.925"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/image_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="30
+"
+                    android:adjustViewBounds="true">
+
+                    <ImageView
+                        android:id="@+id/recipe_image"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:adjustViewBounds="true"
+                        android:background="@color/transparent"
+                        android:contentDescription="Recipe image"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/dahl"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/title"
+                        style="@style/MainTextStyle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/black_transparent"
+                        android:fontFamily="sans-serif-light"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="8dp"
+                        android:text="Dahl"
+                        android:textColor="@color/white"
+                        android:textSize="32sp"
+                        app:layout_constraintBottom_toBottomOf="@id/recipe_image"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/recipe_info_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="8dp"
+                    android:paddingEnd="8dp">
+
+                    <LinearLayout
+                        android:id="@+id/time_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        android:visibility="@{recipe.recipeInfo.timeMinutes == null ? View.GONE : View.VISIBLE}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/time_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/MainTextStyle"
+                            android:text="@string/time" />
+
+                        <TextView
+                            android:id="@+id/time_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/SecondaryTextStyle"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:text="@{recipe.recipeInfo.timeMinutes + ` ` + @string/min}" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/difficulty_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:visibility="@{recipe.recipeInfo.difficulty == null ? View.GONE : View.VISIBLE}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/servings_layout"
+                        app:layout_constraintStart_toEndOf="@+id/time_layout"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/difficulty_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/MainTextStyle"
+                            android:text="@string/difficulty" />
+
+                        <TextView
+                            android:id="@+id/difficulty_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/SecondaryTextStyle"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp"
+                            android:text="@{String.valueOf(recipe.recipeInfo.difficulty)}" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/servings_layout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:orientation="horizontal"
+                        android:visibility="@{recipe.recipeInfo.servings == null ? View.GONE : View.VISIBLE}"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <TextView
+                            android:id="@+id/servings_title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/MainTextStyle"
+                            android:text="@string/servings" />
+
+                        <TextView
+                            android:id="@+id/recipe_servings"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            style="@style/SecondaryTextStyle"
+                            android:text="@{String.valueOf(recipe.recipeInfo.servings)}"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="8dp" />
+                    </LinearLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <!-- TODO add tags-->
+
+
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="8dp"
+            android:text="@string/view_recipe"
+            android:background="@color/dark_blue"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/recipe_scroll_view"
+            app:layout_constraintVertical_bias="0.0" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -4,12 +4,17 @@
     <string name="app_name">What\'s cooking</string>
     <string name="time">Time: </string>
     <string name="difficulty">Difficulty: </string>
+    <string name="servings">Servings: </string>
     <string name="easy">Easy</string>
     <string name="medium">Medium</string>
     <string name="hard">Hard</string>
+    <string name="add_recipe">Add recipe</string>
+    <string name="view_recipe">View recipe</string>
+    <string name="view_ingredients">View ingredients</string>
+
+
     <string name="min" translatable="false">min</string>
     <string name="hours_abbreviation" translatable="false">h</string>
-    <string name="add_recipe">Add recipeInfo</string>
     <string name="recipe_description" translatable="false">Recipe description</string>
 
     <!-- TODO don't package these/-->

@@ -8,6 +8,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.whatscooking.data.entities.Recipe;
+import com.example.whatscooking.data.entities.RecipeInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ public interface RecipeDao {
 
     //TODO write tests
     @Query("SELECT * FROM recipes WHERE title IS :recipeTitle")
-    Recipe getRecipe(String recipeTitle);
+    LiveData<Recipe> getRecipe(String recipeTitle);
 
     @Query("SELECT ingredients FROM recipes WHERE title IS :recipeTitle")
     List<String> getIngredients(String recipeTitle);

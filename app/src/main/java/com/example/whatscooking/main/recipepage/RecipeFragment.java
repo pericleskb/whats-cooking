@@ -14,14 +14,16 @@ import com.example.whatscooking.main.MainComponent;
 
 import javax.inject.Inject;
 
-public class NewRecipeFragment extends Fragment {
+public class RecipeFragment extends Fragment {
 
     @Inject
     RecipeViewModel recipeViewModel;
     MainComponent mainComponent;
+    String recipeTitle;
 
-    public NewRecipeFragment(MainComponent mainComponent) {
+    public RecipeFragment(MainComponent mainComponent, String title) {
         this.mainComponent = mainComponent;
+        this.recipeTitle = title;
     }
 
     @Override

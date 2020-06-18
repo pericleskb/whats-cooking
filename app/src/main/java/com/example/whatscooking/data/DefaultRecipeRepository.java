@@ -41,8 +41,13 @@ public class DefaultRecipeRepository implements RecipeRepository {
     }
 
     @Override
-    public Recipe getRecipe(String recipeTitle) {
+    public LiveData<Recipe> getRecipe(String recipeTitle) {
         return recipeDao.getRecipe(recipeTitle);
+    }
+
+    @Override
+    public LiveData<RecipeInfo> getRecipeInfo(String recipeTitle) {
+        return recipeInfoDao.getRecipeInfo(recipeTitle);
     }
 
     @Override

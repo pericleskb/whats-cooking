@@ -17,6 +17,9 @@ public interface RecipeInfoDao {
     @Query("SELECT * FROM recipes_info ORDER BY title ASC")
     LiveData<List<RecipeInfo>> getAll();
 
+    @Query("SELECT * FROM recipes_info WHERE title IS :title")
+    LiveData<RecipeInfo> getRecipeInfo(String title);
+
 //    @Query("SELECT * FROM recipe_table WHERE difficulty IS :difficulty")
 //    List<Recipe> loadByDifficulty( Recipe.Difficulty difficulty);
 
