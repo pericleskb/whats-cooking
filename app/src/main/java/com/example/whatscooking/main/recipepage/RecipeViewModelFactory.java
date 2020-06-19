@@ -1,14 +1,10 @@
 package com.example.whatscooking.main.recipepage;
 
 import android.app.Application;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
-
 import com.example.whatscooking.data.RecipeRepository;
-
-import javax.inject.Inject;
 
 public class RecipeViewModelFactory extends ViewModelProvider.AndroidViewModelFactory {
 

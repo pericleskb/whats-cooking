@@ -1,6 +1,5 @@
 package com.example.whatscooking.main.recipepage;
 
-import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.whatscooking.R;
 import com.example.whatscooking.data.RecipeRepository;
 import com.example.whatscooking.databinding.RecipeFragmentBindingImpl;
+import com.example.whatscooking.main.MainActivity;
 import com.example.whatscooking.main.MainComponent;
 
 import javax.inject.Inject;
@@ -23,15 +23,15 @@ import javax.inject.Inject;
 public class RecipeFragment extends Fragment {
 
     RecipeViewModel recipeViewModel;
+    @Inject
     MainComponent mainComponent;
     @Inject
     RecipeRepository repository;
+
     String recipeTitle;
     private RecipeFragmentBindingImpl binding;
 
-    public RecipeFragment(MainComponent mainComponent, String title) {
-        this.mainComponent = mainComponent;
-        this.recipeTitle = title;
+    public RecipeFragment() {
     }
 
     @Override
@@ -55,7 +55,7 @@ public class RecipeFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mainComponent.inject(this);
+        ((MainActivity)getActivity()).mainComponent.inject(this);
     }
 
     private View bind(LayoutInflater inflater, ViewGroup container) {
