@@ -115,7 +115,6 @@
                         android:orientation="horizontal"
                         android:visibility="@{recipe.recipeInfo.difficulty == null ? View.GONE : View.VISIBLE}"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/servings_layout"
                         app:layout_constraintStart_toEndOf="@+id/time_layout"
                         app:layout_constraintTop_toTopOf="parent">
 
@@ -144,7 +143,7 @@
                         android:orientation="horizontal"
                         android:visibility="@{recipe.recipeInfo.servings == null ? View.GONE : View.VISIBLE}"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/difficulty_layout"
                         app:layout_constraintTop_toTopOf="parent">
 
                         <TextView
