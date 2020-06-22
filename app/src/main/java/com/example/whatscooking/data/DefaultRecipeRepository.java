@@ -58,8 +58,8 @@ public class DefaultRecipeRepository implements RecipeRepository {
 
     @Override
     public void updateRecipe(RecipeInfo recipeInfo, Recipe recipe) {
-        recipeInfoDao.update(recipeInfo);
-        recipeDao.updateRecipe(recipe);
+        AppDatabase.databaseWriteExecutor.execute(() -> recipeInfoDao.update(recipeInfo));
+        AppDatabase.databaseWriteExecutor.execute(() -> recipeDao.updateRecipe(recipe));
     }
 
     @Override

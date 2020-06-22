@@ -17,6 +17,7 @@ import com.example.whatscooking.data.RecipeRepository;
 import com.example.whatscooking.databinding.RecipeFragmentBindingImpl;
 import com.example.whatscooking.main.MainActivity;
 import com.example.whatscooking.main.MainComponent;
+import com.example.whatscooking.utilities.Constants;
 
 import javax.inject.Inject;
 
@@ -36,8 +37,9 @@ public class RecipeFragment extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        mainComponent.inject(this);
         super.onCreate(savedInstanceState);
+        this.recipeTitle = this.getArguments().getString(Constants.RECIPE_ARG);
+        //TODO https://proandroiddev.com/5-common-mistakes-when-using-architecture-components-403e9899f4cb mistake #5
         this.recipeViewModel = new ViewModelProvider(this,
                 new RecipeViewModelFactory(getActivity().getApplication(), repository, recipeTitle))
                 .get(RecipeViewModel.class);
@@ -48,7 +50,7 @@ public class RecipeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = bind(inflater, container);
-        //TODO add code to observe LiveData
+        subscribeUi();
         return view;
     }
 
@@ -62,6 +64,19 @@ public class RecipeFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.recipe_fragment,
                 container, false);
         binding.setLifecycleOwner(this);
+        binding.setRecipe(this.recipeViewModel);
+        binding.changeViewButton.setOnClickListener(l -> {});
+
         return binding.getRoot();
+    }
+
+    private void subscribeUi() {
+        recipeViewModel.getRecipeInfo().removeObservers(getViewLifecycleOwner());
+        recipeViewModel.getRecipe().removeObservers(getViewLifecycleOwner());
+
+        recipeViewModel.getRecipe().observe(getViewLifecycleOwner(), recipe ->
+                binding.setRecipe(recipeViewModel));
+        recipeViewModel.getRecipeInfo().observe(getViewLifecycleOwner(),
+                recipe -> binding.setRecipe(recipeViewModel));
     }
 }

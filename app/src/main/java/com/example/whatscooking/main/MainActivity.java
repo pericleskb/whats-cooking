@@ -39,6 +39,7 @@ public class MainActivity extends AppCompatActivity
         Bundle args = new Bundle();
         args.putString(Constants.RECIPE_ARG, recipeTitle);
         RecipeFragment fragment = new RecipeFragment();
+        fragment.setArguments(args);
         fragmentManager.beginTransaction().replace(R.id.container, fragment, null)
                 .addToBackStack(null)
                 .commit();

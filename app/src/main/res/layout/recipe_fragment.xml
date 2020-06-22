@@ -17,13 +17,12 @@
         tools:context=".main.recipeslist.RecipeFragment"
         android:background="@color/white">
 
-
         <ScrollView
             android:id="@+id/recipe_scroll_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_marginBottom="8dp"
-            app:layout_constraintBottom_toTopOf="@id/button"
+            app:layout_constraintBottom_toTopOf="@id/change_view_button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHeight_percent="0.9"
             app:layout_constraintStart_toStartOf="parent"
@@ -291,11 +290,12 @@
         </ScrollView>
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/change_view_button"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@color/dark_blue"
             android:text="@string/view_recipe"
+            android:onClick="onChangeViewButtonPressed"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
