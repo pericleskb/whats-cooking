@@ -8,6 +8,7 @@
             type="com.example.whatscooking.data.entities.RecipeInfo" />
         <import type="com.example.whatscooking.data.entities.RecipeInfo"/>
         <import type="android.view.View"/>
+        <import type="android.net.Uri"/>
     </data>
 
     <androidx.cardview.widget.CardView
@@ -31,7 +32,8 @@
                 android:scaleType="centerCrop"
                 card_view:layout_constraintHeight_percent="0.8"
                 card_view:layout_constraintTop_toTopOf="parent"
-                tools:layout_editor_absoluteX="0dp" />
+                tools:layout_editor_absoluteX="0dp"
+                android:src="@{Uri.parse(recipeInfo.imageUri)}"/>
 
             <TextView
                 android:id="@+id/recipe_title"

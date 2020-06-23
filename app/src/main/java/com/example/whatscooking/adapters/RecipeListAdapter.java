@@ -1,6 +1,7 @@
 package com.example.whatscooking.adapters;
 
 import android.content.Context;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +46,6 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
         if (recipeInfoList != null) {
             RecipeInfo recipeInfo = recipeInfoList.get(position);
             holder.bind(recipeInfo);
-            MediaOperations.setImageToView(context, recipeInfo.imageUri, holder.binding.recipeImage);
         }
     }
 

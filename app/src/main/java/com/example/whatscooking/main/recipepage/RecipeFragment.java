@@ -18,6 +18,7 @@ import com.example.whatscooking.databinding.RecipeFragmentBindingImpl;
 import com.example.whatscooking.main.MainActivity;
 import com.example.whatscooking.main.MainComponent;
 import com.example.whatscooking.utilities.Constants;
+import com.example.whatscooking.utilities.MediaOperations;
 
 import javax.inject.Inject;
 
@@ -64,9 +65,8 @@ public class RecipeFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.recipe_fragment,
                 container, false);
         binding.setLifecycleOwner(this);
-        binding.setRecipe(this.recipeViewModel);
+        binding.setRecipe(recipeViewModel);
         binding.changeViewButton.setOnClickListener(l -> {});
-
         return binding.getRoot();
     }
 
@@ -77,7 +77,9 @@ public class RecipeFragment extends Fragment {
         recipeViewModel.getRecipe().observe(getViewLifecycleOwner(), recipe ->
                 binding.setRecipe(recipeViewModel));
         recipeViewModel.getRecipeInfo().observe(getViewLifecycleOwner(),
-                recipe -> binding.setRecipe(recipeViewModel));
+                recipe -> {
+                    binding.setRecipe(recipeViewModel);
+                });
     }
 
     public void onChangeViewButtonPressed(View v) {

@@ -8,6 +8,7 @@
             name="recipe"
             type="com.example.whatscooking.main.recipepage.RecipeViewModel" />
         <import type="android.view.View"/>
+        <import type="android.net.Uri"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -36,8 +37,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_gravity="center"
-                    android:layout_weight="30
-"
+                    android:layout_weight="30"
                     android:adjustViewBounds="true">
 
                     <ImageView
@@ -48,11 +48,11 @@
                         android:background="@color/transparent"
                         android:contentDescription="Recipe image"
                         android:scaleType="centerCrop"
-                        android:src="@drawable/dahl"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:src="@{Uri.parse(recipe.recipeInfo.imageUri)}"/>
 
                     <TextView
                         android:id="@+id/title"
@@ -63,7 +63,7 @@
                         android:fontFamily="sans-serif-light"
                         android:paddingStart="8dp"
                         android:paddingEnd="8dp"
-                        android:text="Dahl"
+                        android:text="@{recipe.recipeInfo.title}"
                         android:textColor="@color/white"
                         android:textSize="32sp"
                         app:layout_constraintBottom_toBottomOf="@id/recipe_image"

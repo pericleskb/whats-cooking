@@ -18,9 +18,9 @@ public class DefaultRecipeRepository implements RecipeRepository {
     private RecipeInfoDao recipeInfoDao;
     private RecipeDao recipeDao;
 
-    LiveData<List<RecipeInfo>> allRecipesInfo;
+    private LiveData<List<RecipeInfo>> allRecipesInfo;
     //TODO change this to only not loaded recipes?
-    LiveData<List<Recipe>> allRecipes;
+    private LiveData<List<Recipe>> allRecipes;
 
     @Inject
     protected DefaultRecipeRepository(RecipeInfoDao recipeInfoDao, RecipeDao recipeDao) {

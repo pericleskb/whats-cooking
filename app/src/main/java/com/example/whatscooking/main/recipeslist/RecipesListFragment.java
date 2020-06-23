@@ -64,6 +64,17 @@ public class RecipesListFragment extends Fragment implements RecipeListAdapter.O
         super.onActivityCreated(savedInstanceState);
     }
 
+    private View bind(LayoutInflater inflater, ViewGroup container) {
+        binding = DataBindingUtil.inflate(inflater, R.layout.main_fragment,
+                container, false);
+        binding.setLifecycleOwner(this);
+        //needed?
+        recipeListAdapter.setRecipeInfoList(recipesListViewModel.getAllRecipesInfo().getValue());
+        recipeListAdapter.setContext(getContext());
+        binding.recipeRecycleView.setAdapter(recipeListAdapter);
+        return binding.getRoot();
+    }
+
     private void subscribeUi() {
         //remove leftover observers
         recipesListViewModel.getAllRecipesInfo().removeObservers(getViewLifecycleOwner());
@@ -73,16 +84,6 @@ public class RecipesListFragment extends Fragment implements RecipeListAdapter.O
             binding.setHasRecipes(recipes != null && recipes.isEmpty());
             recipeListAdapter.setRecipeInfoList(recipes);
         });
-    }
-
-    private View bind(LayoutInflater inflater, ViewGroup container) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.main_fragment,
-                container, false);
-        binding.setLifecycleOwner(this);
-        recipeListAdapter.setRecipeInfoList(recipesListViewModel.getAllRecipesInfo().getValue());
-        recipeListAdapter.setContext(getContext());
-        binding.recipeRecycleView.setAdapter(recipeListAdapter);
-        return binding.getRoot();
     }
 
     @Override
