@@ -7,6 +7,10 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavDirections;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -84,10 +88,8 @@ public class RecipesListFragment extends Fragment implements RecipeListAdapter.O
     @Override
     public void recipeClicked(int position) {
         String title = recipeListAdapter.getTitleAtPosition(position);
-        ((MainActivity) getActivity()).onRecipeSelected(title);
-    }
-
-    public interface OnRecipeSelectedListener {
-        public void onRecipeSelected(String recipeTitle);
+        NavDirections action =
+                RecipesListFragmentDirections.actionRecipesListFragmentToRecipeFragment(title);
+        NavHostFragment.findNavController(this).navigate(action);
     }
 }
