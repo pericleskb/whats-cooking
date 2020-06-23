@@ -1,4 +1,4 @@
-package com.example.whatscooking.ui.main;
+package com.example.whatscooking.main.recipeslist;
 
 import androidx.databinding.DataBindingUtil;
 
@@ -12,20 +12,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.whatscooking.MyApplication;
 import com.example.whatscooking.R;
 import com.example.whatscooking.adapters.RecipeListAdapter;
 import com.example.whatscooking.databinding.MainFragmentBindingImpl;
-import com.example.whatscooking.viewmodels.RecipesListViewModel;
+import com.example.whatscooking.main.MainActivity;
+import com.example.whatscooking.main.MainComponent;
 
 import javax.inject.Inject;
 
-public class MainFragment extends Fragment {
+public class RecipesListFragment extends Fragment implements RecipeListAdapter.OnRecipeClickedListener {
 
     @Inject
     RecipesListViewModel recipesListViewModel;
-    private RecipeListAdapter recipeListAdapter;
+    RecipeListAdapter recipeListAdapter;
+    @Inject
+    MainComponent mainComponent;
     private MainFragmentBindingImpl binding;
+
+    public RecipesListFragment() {
+        this.recipeListAdapter = new RecipeListAdapter(this);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,7 +52,7 @@ public class MainFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        ((MyApplication)getActivity().getApplication()).appComponent.inject(this);
+        ((MainActivity)getActivity()).mainComponent.inject(this);
     }
 
     @Override
@@ -56,12 +62,12 @@ public class MainFragment extends Fragment {
 
     private void subscribeUi() {
         //remove leftover observers
-        recipesListViewModel.getAllRecipes().removeObservers(getViewLifecycleOwner());
+        recipesListViewModel.getAllRecipesInfo().removeObservers(getViewLifecycleOwner());
         //could happen from new recipe activity or a new recipe pushed into a joined account
-        recipesListViewModel.getAllRecipes().observe(getViewLifecycleOwner(), recipes -> {
+        recipesListViewModel.getAllRecipesInfo().observe(getViewLifecycleOwner(), recipes -> {
             //TODO create binding adapter to set recycler view to GONE when empty and show a text view message
             binding.setHasRecipes(recipes != null && recipes.isEmpty());
-            recipeListAdapter.setRecipeList(recipes);
+            recipeListAdapter.setRecipeInfoList(recipes);
         });
     }
 
@@ -69,8 +75,19 @@ public class MainFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.main_fragment,
                 container, false);
         binding.setLifecycleOwner(this);
-        recipeListAdapter = new RecipeListAdapter(getActivity(), recipesListViewModel.getAllRecipes().getValue());
+        recipeListAdapter.setRecipeInfoList(recipesListViewModel.getAllRecipesInfo().getValue());
+        recipeListAdapter.setContext(getContext());
         binding.recipeRecycleView.setAdapter(recipeListAdapter);
         return binding.getRoot();
+    }
+
+    @Override
+    public void recipeClicked(int position) {
+        String title = recipeListAdapter.getTitleAtPosition(position);
+        ((MainActivity) getActivity()).onRecipeSelected(title);
+    }
+
+    public interface OnRecipeSelectedListener {
+        public void onRecipeSelected(String recipeTitle);
     }
 }

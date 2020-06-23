@@ -6,6 +6,7 @@
     <color name="transparent">#00000000</color>
     <color name="blue_white">#E3F2FD</color>
     <color name="black_transparent">#55000000</color>
+    <color name="grey_transparent">#55BBBBBB</color>
     <color name="beige">#FFF8E1</color>
     <color name="light_blue">#42A5F5</color>
     <color name="dark_blue">#3949AB</color>

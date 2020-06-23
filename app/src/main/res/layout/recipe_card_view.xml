@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
-            name="recipe"
-            type="com.example.whatscooking.data.Recipe" />
-        <import type="com.example.whatscooking.data.Recipe.Difficulty"/>
+            name="recipeInfo"
+            type="com.example.whatscooking.data.entities.RecipeInfo" />
+        <import type="com.example.whatscooking.data.entities.RecipeInfo"/>
         <import type="android.view.View"/>
     </data>
 
@@ -40,7 +40,7 @@
                 android:background="@color/black_transparent"
                 android:fontFamily="sans-serif-light"
                 android:paddingStart="8dp"
-                android:text="@{recipe.title}"
+                android:text="@{recipeInfo.title}"
                 android:textColor="@color/white"
                 android:textSize="32sp"
                 android:textStyle="bold"
@@ -57,7 +57,7 @@
                     android:id="@+id/time_group"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="@{recipe.timeMinutes == null ? View.GONE : View.VISIBLE}"
+                    android:visibility="@{recipeInfo.timeMinutes == null ? View.GONE : View.VISIBLE}"
                     card_view:constraint_referenced_ids="time_title, time_value" />
 
                 <TextView
@@ -78,7 +78,7 @@
                     android:layout_height="0dp"
                     android:layout_marginStart="8dp"
                     android:gravity="center_vertical"
-                    android:text="@{recipe.timeMinutes + ` ` + @string/min}"
+                    android:text="@{recipeInfo.timeMinutes + ` ` + @string/min}"
                     style="@style/SecondaryTextStyle"
                     card_view:layout_constraintHeight_percent="0.5"
                     card_view:layout_constraintStart_toEndOf="@+id/time_title"
@@ -88,7 +88,7 @@
                     android:id="@+id/difficulty_group"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="@{recipe.difficulty == null ? View.GONE : View.VISIBLE}"
+                    android:visibility="@{recipeInfo.difficulty == null ? View.GONE : View.VISIBLE}"
                     card_view:constraint_referenced_ids="difficulty_title, difficulty_value" />
 
                 <TextView
@@ -110,7 +110,7 @@
                     android:layout_height="0dp"
                     android:layout_marginStart="8dp"
                     android:gravity="center_vertical"
-                    android:text="@{String.valueOf(recipe.difficulty)}"
+                    android:text="@{String.valueOf(recipeInfo.difficulty)}"
                     style="@style/SecondaryTextStyle"
                     card_view:layout_constraintHeight_percent="0.5"
                     card_view:layout_constraintStart_toEndOf="@+id/difficulty_title"
