@@ -1,7 +1,8 @@
 package com.example.whatscooking.main;
 
-import com.example.whatscooking.data.RecipeDao;
+import com.example.whatscooking.data.daos.RecipeInfoDao;
 import com.example.whatscooking.di.ActivityScope;
+import com.example.whatscooking.main.recipepage.RecipeFragment;
 import com.example.whatscooking.main.recipeslist.RecipesListFragment;
 
 import dagger.Subcomponent;
@@ -10,15 +11,16 @@ import dagger.Subcomponent;
 @Subcomponent
 public interface MainComponent {
 
-    RecipeDao recipeDao();
+    RecipeInfoDao recipeDao();
 
     @Subcomponent.Factory
     interface Factory {
         MainComponent create();
     }
 
-    /*With this Dagger knows MainFragment requests injection and
-      that it has to provide its dependencies
+    /*With this Dagger knows these fragments requests injection and
+      that it has to provide their dependencies
      */
     void inject(RecipesListFragment fragment);
+    void inject(RecipeFragment fragment);
 }

@@ -5,31 +5,30 @@ import android.app.Application;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.example.whatscooking.data.Recipe;
+import com.example.whatscooking.data.entities.Recipe;
+import com.example.whatscooking.data.entities.RecipeInfo;
 import com.example.whatscooking.data.RecipeRepository;
 import com.example.whatscooking.di.ActivityScope;
+import com.example.whatscooking.main.FullRecipeViewModel;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 @ActivityScope
-public class RecipesListViewModel extends AndroidViewModel {
+public class RecipesListViewModel extends FullRecipeViewModel {
 
     private RecipeRepository recipeRepository;
+    private LiveData<List<RecipeInfo>> recipeInfoLiveData;
 
     @Inject
     public RecipesListViewModel(Application application, RecipeRepository repository) {
         super(application);
-        //TODO abstract repository creation into a pattern as in sunflower?
         recipeRepository = repository;
+        recipeInfoLiveData = recipeRepository.getAllRecipesInfo();
     }
 
-    public LiveData<List<Recipe>> getAllRecipes() {
-        return recipeRepository.getAllRecipes();
-    }
-
-    public void insert(Recipe... recipes) {
-        recipeRepository.insert(recipes);
+    public LiveData<List<RecipeInfo>> getAllRecipesInfo() {
+        return recipeInfoLiveData;
     }
 }

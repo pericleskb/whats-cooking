@@ -1,4 +1,4 @@
-package com.example.whatscooking.data;
+package com.example.whatscooking.data.entities;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
@@ -6,12 +6,12 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
-import com.example.whatscooking.adapters.Converters;
+import com.example.whatscooking.data.Converters;
 
-@Entity(tableName = "recipe_table")
-public class Recipe {
+@Entity(tableName = "recipes_info")
+public class RecipeInfo {
 
-    public Recipe(String title) {
+    public RecipeInfo(String title) {
         this.title = title;
         this.difficulty = null;
     }
@@ -23,8 +23,7 @@ public class Recipe {
         hard
     }
 
-    @PrimaryKey
-    @NonNull
+    @PrimaryKey @NonNull
     public String title;
 
     @ColumnInfo(name = "time")
