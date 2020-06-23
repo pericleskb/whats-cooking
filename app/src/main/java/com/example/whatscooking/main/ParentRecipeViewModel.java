@@ -9,11 +9,11 @@ import com.example.whatscooking.data.RecipeRepository;
 import com.example.whatscooking.data.entities.Recipe;
 import com.example.whatscooking.data.entities.RecipeInfo;
 
-public abstract class FullRecipeViewModel extends AndroidViewModel {
+public abstract class ParentRecipeViewModel extends AndroidViewModel {
 
     protected RecipeRepository recipeRepository;
 
-    public FullRecipeViewModel(@NonNull Application application) {
+    public ParentRecipeViewModel(@NonNull Application application) {
         super(application);
     }
 

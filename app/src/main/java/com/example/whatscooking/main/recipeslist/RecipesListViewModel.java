@@ -2,21 +2,19 @@ package com.example.whatscooking.main.recipeslist;
 
 import android.app.Application;
 
-import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.example.whatscooking.data.entities.Recipe;
 import com.example.whatscooking.data.entities.RecipeInfo;
 import com.example.whatscooking.data.RecipeRepository;
 import com.example.whatscooking.di.ActivityScope;
-import com.example.whatscooking.main.FullRecipeViewModel;
+import com.example.whatscooking.main.ParentRecipeViewModel;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
 @ActivityScope
-public class RecipesListViewModel extends FullRecipeViewModel {
+public class RecipesListViewModel extends ParentRecipeViewModel {
 
     private RecipeRepository recipeRepository;
     private LiveData<List<RecipeInfo>> recipeInfoLiveData;
