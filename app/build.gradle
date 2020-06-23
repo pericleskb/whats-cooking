@@ -45,17 +45,19 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'androidx.cardview:cardview:1.0.0'
+
     implementation 'com.google.android.material:material:1.1.0'
     implementation "com.google.code.gson:gson:$gson_version"
 
-    //Testing
+    //Unit Testing
     testImplementation 'androidx.test:core:1.2.0'
     testImplementation 'org.mockito:mockito-core:3.3.1'
-    testImplementation 'com.google.truth:truth:0.42'
+    testImplementation 'com.google.truth:truth:1.0'
     testImplementation "org.robolectric:robolectric:4.3.1"
     testImplementation "androidx.arch.core:core-testing:2.1.0"
     testImplementation "androidx.test.ext:junit:1.1.1"
 
+    //Android tests
     androidTestImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
@@ -69,7 +71,6 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude module: 'recyclerview-v7'
     }
-
     androidTestImplementation "com.android.support.test:rules:1.0.2"
     androidTestImplementation "com.android.support.test:runner:1.0.2"
 
@@ -77,27 +78,17 @@ dependencies {
 
     //Room
     implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version" // For Kotlin use kapt instead of annotationProcessor
-    // optional - Kotlin Extensions and Coroutines support for Room
-    implementation "androidx.room:room-ktx:$room_version"
-    // optional - RxJava support for Room
-    implementation "androidx.room:room-rxjava2:$room_version"
-    // optional - Guava support for Room, including Optional and ListenableFuture
-    implementation "androidx.room:room-guava:$room_version"
-    // Test helpers
+    annotationProcessor "androidx.room:room-compiler:$room_version"
     testImplementation "androidx.room:room-testing:$room_version"
 
+    //dagger
     implementation "com.google.dagger:dagger:$dagger_version"
     annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
 
     //work manager
-    implementation "androidx.work:work-runtime:$work_manager_version"
-    // Kotlin + coroutines
-    implementation "androidx.work:work-runtime-ktx:$work_manager_version"
-    // optional - RxJava2 support
-    implementation "androidx.work:work-rxjava2:$work_manager_version"
-    // optional - GCMNetworkManager support
-    implementation "androidx.work:work-gcm:$work_manager_version"
-    // optional - Test helpers
-    androidTestImplementation "androidx.work:work-testing:$work_manager_version"
+//    implementation "androidx.work:work-runtime:$work_manager_version"
+//    // optional - GCMNetworkManager support
+//    implementation "androidx.work:work-gcm:$work_manager_version"
+//    // optional - Test helpers
+//    androidTestImplementation "androidx.work:work-testing:$work_manager_version"
 }
