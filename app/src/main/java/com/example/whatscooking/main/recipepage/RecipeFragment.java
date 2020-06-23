@@ -79,4 +79,8 @@ public class RecipeFragment extends Fragment {
         recipeViewModel.getRecipeInfo().observe(getViewLifecycleOwner(),
                 recipe -> binding.setRecipe(recipeViewModel));
     }
+
+    public void onChangeViewButtonPressed(View v) {
+
+    }
 }
