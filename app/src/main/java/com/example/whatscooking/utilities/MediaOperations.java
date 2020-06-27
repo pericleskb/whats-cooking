@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.ImageDecoder;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -55,22 +56,6 @@ public class MediaOperations {
         newImageDetails.put(MediaStore.Images.Media.IS_PENDING, 0);
         resolver.update(imageUri, newImageDetails, null, null);
         return imageUri;
-    }
-
-    public static void setImageToView(Context context, String imageUri, ImageView imageView) {
-
-        Bitmap bitmap = null;
-        if (imageUri != null) {
-            //TODO get scaled down image
-            Uri uri = Uri.parse(imageUri);
-            try {
-                bitmap = MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri);
-            } catch (IOException e) {
-                e.printStackTrace();
-                bitmap = null;
-            }
-        }
-        imageView.setImageBitmap(bitmap);
     }
 
 

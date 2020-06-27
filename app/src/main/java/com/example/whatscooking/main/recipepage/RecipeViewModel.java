@@ -8,9 +8,9 @@ import androidx.lifecycle.LiveData;
 import com.example.whatscooking.data.RecipeRepository;
 import com.example.whatscooking.data.entities.Recipe;
 import com.example.whatscooking.data.entities.RecipeInfo;
-import com.example.whatscooking.main.FullRecipeViewModel;
+import com.example.whatscooking.main.ParentRecipeViewModel;
 
-public class RecipeViewModel extends FullRecipeViewModel {
+public class RecipeViewModel extends ParentRecipeViewModel {
 
     private LiveData<Recipe> recipeLiveData;
     private LiveData<RecipeInfo> recipeInfoLiveData;

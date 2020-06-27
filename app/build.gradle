@@ -29,6 +29,8 @@ android {
     testOptions.unitTests {
         includeAndroidResources = true
     }
+
+    apply plugin: "androidx.navigation.safeargs"
 }
 
 //TODO move versions here
@@ -81,9 +83,13 @@ dependencies {
     annotationProcessor "androidx.room:room-compiler:$room_version"
     testImplementation "androidx.room:room-testing:$room_version"
 
-    //dagger
+    //Dagger
     implementation "com.google.dagger:dagger:$dagger_version"
     annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
+
+    //Navigation
+    implementation 'androidx.navigation:navigation-fragment:2.2.2'
+    implementation 'androidx.navigation:navigation-ui:2.2.2'
 
     //work manager
 //    implementation "androidx.work:work-runtime:$work_manager_version"
