@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
+import androidx.navigation.fragment.FragmentNavigator;
 import androidx.navigation.fragment.NavHostFragment;
 
 import android.view.LayoutInflater;
@@ -18,9 +18,11 @@ import android.widget.Toast;
 
 import com.example.whatscooking.R;
 import com.example.whatscooking.adapters.RecipeListAdapter;
+import com.example.whatscooking.data.entities.RecipeInfo;
 import com.example.whatscooking.databinding.MainFragmentBindingImpl;
 import com.example.whatscooking.main.MainActivity;
 import com.example.whatscooking.main.MainComponent;
+import com.example.whatscooking.utilities.Constants;
 
 import javax.inject.Inject;
 
@@ -72,6 +74,11 @@ public class RecipesListFragment extends Fragment implements RecipeListAdapter.O
         recipeListAdapter.setRecipeInfoList(recipesListViewModel.getAllRecipesInfo().getValue());
         recipeListAdapter.setContext(getContext());
         binding.recipeRecycleView.setAdapter(recipeListAdapter);
+        postponeEnterTransition();
+        binding.recipeRecycleView.getViewTreeObserver().addOnPreDrawListener(() -> {
+            startPostponedEnterTransition();
+            return true;
+        });
         return binding.getRoot();
     }
 
@@ -87,10 +94,11 @@ public class RecipesListFragment extends Fragment implements RecipeListAdapter.O
     }
 
     @Override
-    public void recipeClicked(int position) {
-        String title = recipeListAdapter.getTitleAtPosition(position);
-        NavDirections action =
-                RecipesListFragmentDirections.actionRecipesListFragmentToRecipeFragment(title);
-        NavHostFragment.findNavController(this).navigate(action);
+    public void recipeClicked(RecipeInfo recipeInfo, View v) {
+        NavDirections direction =
+                RecipesListFragmentDirections.actionRecipesListFragmentToRecipeFragment(recipeInfo.title);
+        FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder()
+                .addSharedElement(v, Constants.RECIPE_IMG_TRANSITION_ID).build();
+        NavHostFragment.findNavController(this).navigate(direction, extras);
     }
 }

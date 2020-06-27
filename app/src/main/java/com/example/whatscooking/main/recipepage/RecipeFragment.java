@@ -8,9 +8,12 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.ViewCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.transition.Transition;
+import androidx.transition.TransitionInflater;
 
 import com.example.whatscooking.R;
 import com.example.whatscooking.data.RecipeRepository;
@@ -18,7 +21,6 @@ import com.example.whatscooking.databinding.RecipeFragmentBindingImpl;
 import com.example.whatscooking.main.MainActivity;
 import com.example.whatscooking.main.MainComponent;
 import com.example.whatscooking.utilities.Constants;
-import com.example.whatscooking.utilities.MediaOperations;
 
 import javax.inject.Inject;
 
@@ -44,12 +46,15 @@ public class RecipeFragment extends Fragment {
         this.recipeViewModel = new ViewModelProvider(this,
                 new RecipeViewModelFactory(getActivity().getApplication(), repository, recipeTitle))
                 .get(RecipeViewModel.class);
+        Transition sharedElementTransition = TransitionInflater.from(getContext()).inflateTransition(android.R.transition.move);
+        setSharedElementEnterTransition(sharedElementTransition);
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
+        postponeEnterTransition();
         View view = bind(inflater, container);
         subscribeUi();
         return view;
@@ -65,7 +70,6 @@ public class RecipeFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.recipe_fragment,
                 container, false);
         binding.setLifecycleOwner(this);
-        binding.setRecipe(recipeViewModel);
         binding.changeViewButton.setOnClickListener(l -> {});
         return binding.getRoot();
     }
@@ -79,6 +83,7 @@ public class RecipeFragment extends Fragment {
         recipeViewModel.getRecipeInfo().observe(getViewLifecycleOwner(),
                 recipe -> {
                     binding.setRecipe(recipeViewModel);
+                    startPostponedEnterTransition();
                 });
     }
 

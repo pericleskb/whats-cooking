@@ -13,10 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.whatscooking.R;
 import com.example.whatscooking.data.entities.RecipeInfo;
 import com.example.whatscooking.databinding.RecipeCardViewBinding;
-import com.example.whatscooking.utilities.MediaOperations;
-
 import java.util.List;
-import javax.inject.Inject;
 
 public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeCardViewHolder> {
 
@@ -81,16 +78,17 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
 
         void bind(RecipeInfo recipeInfo) {
             binding.setRecipeInfo(recipeInfo);
+            binding.recipeImage.setTransitionName(String.valueOf(getLayoutPosition()));
             binding.executePendingBindings();
         }
 
         @Override
         public void onClick(View v) {
-            itemClickListener.recipeClicked(getLayoutPosition());
+            itemClickListener.recipeClicked(this.binding.getRecipeInfo(), this.binding.recipeImage);
         }
     }
 
     public interface OnRecipeClickedListener {
-        void recipeClicked(int position);
+        void recipeClicked(RecipeInfo recipeInfo, View v);
     }
 }
