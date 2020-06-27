@@ -73,9 +73,9 @@ public class RecipesListFragment extends Fragment implements RecipeListAdapter.O
         //needed?
         recipeListAdapter.setRecipeInfoList(recipesListViewModel.getAllRecipesInfo().getValue());
         recipeListAdapter.setContext(getContext());
-        binding.recipeRecycleView.setAdapter(recipeListAdapter);
+        binding.recipeRecyclerView.setAdapter(recipeListAdapter);
         postponeEnterTransition();
-        binding.recipeRecycleView.getViewTreeObserver().addOnPreDrawListener(() -> {
+        binding.recipeRecyclerView.getViewTreeObserver().addOnPreDrawListener(() -> {
             startPostponedEnterTransition();
             return true;
         });

@@ -25,14 +25,14 @@ public class RecipesListFragmentTest {
     @Test
     public void RecipesListFragment_DisplayedInUi() {
         FragmentScenario.launchInContainer(RecipesListFragment.class, null, R.style.AppTheme, null);
-        Espresso.onView(withRecyclerView(R.id.recipe_recycle_view).atPosition(0))
+        Espresso.onView(withRecyclerView(R.id.recipe_recycler_view).atPosition(0))
                 .check(matches(hasDescendant(withText("Time:"))));
-        Espresso.onView(withRecyclerView(R.id.recipe_recycle_view).atPosition(0))
+        Espresso.onView(withRecyclerView(R.id.recipe_recycler_view).atPosition(0))
                 .check(matches(hasDescendant(withText("Difficulty:"))));
-        Espresso.onView(withId(R.id.recipe_recycle_view)).perform(RecyclerViewActions.scrollToPosition(4));
-        Espresso.onView(withRecyclerView(R.id.recipe_recycle_view).atPosition(4))
+        Espresso.onView(withId(R.id.recipe_recycler_view)).perform(RecyclerViewActions.scrollToPosition(4));
+        Espresso.onView(withRecyclerView(R.id.recipe_recycler_view).atPosition(4))
                 .check(matches(hasDescendant(withText("Venison steak"))));
-        Espresso.onView(withRecyclerView(R.id.recipe_recycle_view).atPositionOnView(4, R.id.time_value))
+        Espresso.onView(withRecyclerView(R.id.recipe_recycler_view).atPositionOnView(4, R.id.time_value))
                 .check(matches(isDisplayed()));
     }
 
