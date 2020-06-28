@@ -78,17 +78,19 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
 
         void bind(RecipeInfo recipeInfo) {
             binding.setRecipeInfo(recipeInfo);
-            binding.recipeImage.setTransitionName(String.valueOf(getLayoutPosition()));
+            binding.recipeImage.setTransitionName("image_" + getLayoutPosition());
+            binding.recipeTitle.setTransitionName(binding.getRecipeInfo().title + getLayoutPosition());
             binding.executePendingBindings();
         }
 
         @Override
         public void onClick(View v) {
-            itemClickListener.recipeClicked(this.binding.getRecipeInfo(), this.binding.recipeImage);
+            itemClickListener.recipeClicked(this.binding.getRecipeInfo(), this.binding.recipeImage,
+                    this.binding.recipeTitle);
         }
     }
 
     public interface OnRecipeClickedListener {
-        void recipeClicked(RecipeInfo recipeInfo, View v);
+        void recipeClicked(RecipeInfo recipeInfo, View imageView, View textView);
     }
 }

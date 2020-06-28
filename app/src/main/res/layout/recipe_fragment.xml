@@ -69,7 +69,8 @@
                         android:textColor="@color/white"
                         android:textSize="32sp"
                         app:layout_constraintBottom_toBottomOf="@id/recipe_image"
-                        app:layout_constraintStart_toStartOf="parent" />
+                        app:layout_constraintStart_toStartOf="parent"
+                        android:transitionName="@{Constants.RECIPE_TITLE_TRANSITION_ID}"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

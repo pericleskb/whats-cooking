@@ -94,11 +94,12 @@ public class RecipesListFragment extends Fragment implements RecipeListAdapter.O
     }
 
     @Override
-    public void recipeClicked(RecipeInfo recipeInfo, View v) {
+    public void recipeClicked(RecipeInfo recipeInfo, View imageView, View titleTextView) {
         NavDirections direction =
                 RecipesListFragmentDirections.actionRecipesListFragmentToRecipeFragment(recipeInfo.title);
         FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder()
-                .addSharedElement(v, Constants.RECIPE_IMG_TRANSITION_ID).build();
+                .addSharedElement(imageView, Constants.RECIPE_IMG_TRANSITION_ID)
+                .addSharedElement(titleTextView, Constants.RECIPE_TITLE_TRANSITION_ID).build();
         NavHostFragment.findNavController(this).navigate(direction, extras);
     }
 }
