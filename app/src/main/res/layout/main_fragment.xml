@@ -15,7 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".main.recipeslist.RecipesListFragment"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:transitionGroup="false">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recipe_recycler_view"
@@ -26,7 +27,10 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-            tools:listitem="@layout/recipe_card_view" />
+            tools:listitem="@layout/recipe_card_view"
+            android:background="@color/transparent"
+            android:transitionGroup="false"
+            android:clipChildren="false"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"

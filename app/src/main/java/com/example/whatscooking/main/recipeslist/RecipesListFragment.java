@@ -3,6 +3,7 @@ package com.example.whatscooking.main.recipeslist;
 import androidx.databinding.DataBindingUtil;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -10,6 +11,9 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.FragmentNavigator;
 import androidx.navigation.fragment.NavHostFragment;
+import androidx.transition.Fade;
+import androidx.transition.Transition;
+import androidx.transition.TransitionInflater;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -100,6 +104,28 @@ public class RecipesListFragment extends Fragment implements RecipeListAdapter.O
         FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder()
                 .addSharedElement(imageView, Constants.RECIPE_IMG_TRANSITION_ID)
                 .addSharedElement(titleTextView, Constants.RECIPE_TITLE_TRANSITION_ID).build();
+//        this.setExitTransition(createExitTransition(imageView));
         NavHostFragment.findNavController(this).navigate(direction, extras);
+    }
+
+    /*
+    Split transition
+    https://medium.com/@jim.zack.hu/android-inbox-material-transitions-for-recyclerview-71fc7326bcb5
+    Keeping the code for reference but transition looks better without it
+     */
+    private Transition createExitTransition(View imageView) {
+        Transition exitTransition = TransitionInflater.from(getContext()).inflateTransition(android.R.transition.explode);
+        Rect epicCenterRect = new Rect();
+        imageView.getGlobalVisibleRect(epicCenterRect);
+        epicCenterRect.top = epicCenterRect.bottom;
+        exitTransition.setEpicenterCallback(new Transition.EpicenterCallback() {
+            @Override
+            public Rect onGetEpicenter(@NonNull Transition transition) {
+                return epicCenterRect;
+            }
+        });
+        exitTransition.setPropagation(null);
+        exitTransition.setDuration(500);
+        return exitTransition;
     }
 }

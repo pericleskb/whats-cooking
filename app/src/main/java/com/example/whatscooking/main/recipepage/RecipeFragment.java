@@ -8,10 +8,10 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.view.ViewCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.transition.Slide;
 import androidx.transition.Transition;
 import androidx.transition.TransitionInflater;
 
@@ -46,8 +46,16 @@ public class RecipeFragment extends Fragment {
         this.recipeViewModel = new ViewModelProvider(this,
                 new RecipeViewModelFactory(getActivity().getApplication(), repository, recipeTitle))
                 .get(RecipeViewModel.class);
+        setUpTransitions();
+    }
+
+    private void setUpTransitions() {
         Transition sharedElementTransition = TransitionInflater.from(getContext()).inflateTransition(android.R.transition.move);
+        sharedElementTransition.setDuration(500);
         setSharedElementEnterTransition(sharedElementTransition);
+        Slide slide = new Slide();
+        slide.setDuration(500);
+        this.setEnterTransition(slide);
     }
 
     @Nullable
