@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ingredients_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <CheckBox
+        android:id="@+id/checkBox"
+        style="@style/MainTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/black"
+        android:text="Lentils" />
+
+    <CheckBox
+        android:id="@+id/checkBox1"
+        style="@style/MainTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/black"
+        android:text="Salt" />
+
+    <CheckBox
+        android:id="@+id/checkBox2"
+        style="@style/MainTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/black"
+        android:text="Bayleaf" />
+
+    <CheckBox
+        android:id="@+id/checkBox3"
+        style="@style/MainTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/black"
+        android:text="Bayleaf" />
+
+    <CheckBox
+        android:id="@+id/checkBox4"
+        style="@style/MainTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/black"
+        android:text="Bayleaf" />
+
+    <CheckBox
+        android:id="@+id/checkBox5"
+        style="@style/MainTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/black"
+        android:text="Bayleaf" />
+
+    <CheckBox
+        android:id="@+id/checkBox6"
+        style="@style/MainTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/black"
+        android:text="Bayleaf" />
+
+    <CheckBox
+        android:id="@+id/checkBox7"
+        style="@style/MainTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/black"
+        android:text="Bayleaf" />
+
+    <CheckBox
+        android:id="@+id/checkBox8"
+        style="@style/MainTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/black"
+        android:text="Bayleaf" />
+
+    <CheckBox
+        android:id="@+id/checkBox9"
+        style="@style/MainTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/black"
+        android:text="Bayleaf" />
+
+    <CheckBox
+        android:id="@+id/checkBgox5"
+        style="@style/MainTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/black"
+        android:text="Bayleaf" />
+
+    <CheckBox
+        android:id="@+id/as"
+        style="@style/MainTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/black"
+        android:text="Bayleaf" />
+
+    <CheckBox
+        android:id="@+id/adsd"
+        style="@style/MainTextStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/black"
+        android:text="Bayleaf" />
+</LinearLayout>

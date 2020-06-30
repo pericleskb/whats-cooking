@@ -111,6 +111,7 @@ public class RecipesListFragment extends Fragment implements RecipeListAdapter.O
     /*
     Split transition
     https://medium.com/@jim.zack.hu/android-inbox-material-transitions-for-recyclerview-71fc7326bcb5
+    https://medium.com/bynder-tech/how-to-use-material-transitions-in-fragment-transactions-5a62b9d0b26b
     Keeping the code for reference but transition looks better without it
      */
     private Transition createExitTransition(View imageView) {

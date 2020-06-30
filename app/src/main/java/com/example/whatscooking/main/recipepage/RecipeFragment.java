@@ -10,6 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.transition.Slide;
 import androidx.transition.Transition;
@@ -24,7 +26,7 @@ import com.example.whatscooking.utilities.Constants;
 
 import javax.inject.Inject;
 
-public class RecipeFragment extends Fragment {
+public class RecipeFragment extends Fragment implements View.OnClickListener {
 
     RecipeViewModel recipeViewModel;
     @Inject
@@ -32,8 +34,11 @@ public class RecipeFragment extends Fragment {
     @Inject
     RecipeRepository repository;
 
-    String recipeTitle;
+    FragmentManager fragmentManager;
+
     private RecipeFragmentBindingImpl binding;
+    IngredientsChildFragment ingredientsFragment;
+    RecipeInstructionsChildFragment recipeFragment;
 
     public RecipeFragment() {
     }
@@ -41,12 +46,15 @@ public class RecipeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.recipeTitle = this.getArguments().getString(Constants.RECIPE_ARG);
+        String recipeTitle = this.getArguments().getString(Constants.RECIPE_ARG);
         //TODO https://proandroiddev.com/5-common-mistakes-when-using-architecture-components-403e9899f4cb mistake #5
         this.recipeViewModel = new ViewModelProvider(this,
                 new RecipeViewModelFactory(getActivity().getApplication(), repository, recipeTitle))
                 .get(RecipeViewModel.class);
         setUpTransitions();
+        ingredientsFragment = new IngredientsChildFragment();
+        recipeFragment = new RecipeInstructionsChildFragment();
+        fragmentManager = getActivity().getSupportFragmentManager();
     }
 
     private void setUpTransitions() {
@@ -63,8 +71,13 @@ public class RecipeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         postponeEnterTransition();
+
+        if (savedInstanceState == null) {
+            fragmentManager.beginTransaction().add(R.id.child_frame_layout, ingredientsFragment).commit();
+        }
         View view = bind(inflater, container);
         subscribeUi();
+        view.findViewById(R.id.change_view_button).setOnClickListener(this);
         return view;
     }
 
@@ -95,7 +108,17 @@ public class RecipeFragment extends Fragment {
                 });
     }
 
-    public void onChangeViewButtonPressed(View v) {
-
+    @Override
+    public void onClick(View v) {
+        FragmentTransaction transaction = fragmentManager.beginTransaction().setCustomAnimations(
+                R.animator.card_flip_right_in,
+                R.animator.card_flip_right_out,
+                R.animator.card_flip_left_in,
+                R.animator.card_flip_left_out);
+        if (ingredientsFragment != null && ingredientsFragment.isAdded() && ingredientsFragment.isVisible()) {
+            transaction.replace(R.id.child_frame_layout, recipeFragment).commit();
+        } else {
+            transaction.replace(R.id.child_frame_layout, ingredientsFragment).commit();
+        }
     }
 }
