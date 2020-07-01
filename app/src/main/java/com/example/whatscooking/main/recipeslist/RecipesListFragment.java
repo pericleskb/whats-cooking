@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.NavDirections;
 import androidx.navigation.fragment.FragmentNavigator;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.transition.Fade;
 import androidx.transition.Transition;
 import androidx.transition.TransitionInflater;
 
@@ -25,7 +24,6 @@ import com.example.whatscooking.adapters.RecipeListAdapter;
 import com.example.whatscooking.data.entities.RecipeInfo;
 import com.example.whatscooking.databinding.MainFragmentBindingImpl;
 import com.example.whatscooking.main.MainActivity;
-import com.example.whatscooking.main.MainComponent;
 import com.example.whatscooking.utilities.Constants;
 
 import javax.inject.Inject;
@@ -35,8 +33,6 @@ public class RecipesListFragment extends Fragment implements RecipeListAdapter.O
     @Inject
     RecipesListViewModel recipesListViewModel;
     RecipeListAdapter recipeListAdapter;
-    @Inject
-    MainComponent mainComponent;
     private MainFragmentBindingImpl binding;
 
     public RecipesListFragment() {
@@ -108,11 +104,13 @@ public class RecipesListFragment extends Fragment implements RecipeListAdapter.O
         NavHostFragment.findNavController(this).navigate(direction, extras);
     }
 
+
+
     /*
     Split transition
+    Keeping the code for reference but transition looks better without it
     https://medium.com/@jim.zack.hu/android-inbox-material-transitions-for-recyclerview-71fc7326bcb5
     https://medium.com/bynder-tech/how-to-use-material-transitions-in-fragment-transactions-5a62b9d0b26b
-    Keeping the code for reference but transition looks better without it
      */
     private Transition createExitTransition(View imageView) {
         Transition exitTransition = TransitionInflater.from(getContext()).inflateTransition(android.R.transition.explode);

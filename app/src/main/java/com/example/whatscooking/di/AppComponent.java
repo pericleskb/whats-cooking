@@ -15,8 +15,6 @@ import dagger.Component;
 @Component(modules = {RecipeRepositoryModule.class, AppSubcomponents.class}, dependencies = {AppDatabase.class})
 public interface AppComponent {
 
-    AppDatabase appDatabase();
-
     // Factory to create instances of the AppComponent
     @Component.Factory
     interface Factory {

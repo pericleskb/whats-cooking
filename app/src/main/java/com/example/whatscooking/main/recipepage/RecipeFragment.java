@@ -30,8 +30,6 @@ public class RecipeFragment extends Fragment implements View.OnClickListener {
 
     RecipeViewModel recipeViewModel;
     @Inject
-    MainComponent mainComponent;
-    @Inject
     RecipeRepository repository;
 
     FragmentManager fragmentManager;
@@ -39,9 +37,6 @@ public class RecipeFragment extends Fragment implements View.OnClickListener {
     private RecipeFragmentBindingImpl binding;
     IngredientsChildFragment ingredientsFragment;
     RecipeInstructionsChildFragment recipeFragment;
-
-    public RecipeFragment() {
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

@@ -2,7 +2,6 @@ package com.example.whatscooking.main;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.navigation.NavController;
 
 import android.os.Bundle;
 
@@ -12,7 +11,6 @@ import com.example.whatscooking.R;
 public class MainActivity extends AppCompatActivity {
 
     public MainComponent mainComponent;
-    private NavController mNavController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
