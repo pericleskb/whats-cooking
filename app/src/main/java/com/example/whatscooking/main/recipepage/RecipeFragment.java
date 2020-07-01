@@ -117,8 +117,10 @@ public class RecipeFragment extends Fragment implements View.OnClickListener {
                 R.animator.card_flip_left_out);
         if (ingredientsFragment != null && ingredientsFragment.isAdded() && ingredientsFragment.isVisible()) {
             transaction.replace(R.id.child_frame_layout, recipeFragment).commit();
+            this.binding.changeViewButton.setText(R.string.view_ingredients);
         } else {
             transaction.replace(R.id.child_frame_layout, ingredientsFragment).commit();
+            this.binding.changeViewButton.setText(R.string.view_recipe);
         }
     }
 }
