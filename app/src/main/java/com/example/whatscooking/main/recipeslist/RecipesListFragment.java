@@ -70,9 +70,6 @@ public class RecipesListFragment extends Fragment implements RecipeListAdapter.O
         binding = DataBindingUtil.inflate(inflater, R.layout.main_fragment,
                 container, false);
         binding.setLifecycleOwner(this);
-        //needed?
-        recipeListAdapter.setRecipeInfoList(recipesListViewModel.getAllRecipesInfo().getValue());
-        recipeListAdapter.setContext(getContext());
         binding.recipeRecyclerView.setAdapter(recipeListAdapter);
         postponeEnterTransition();
         binding.recipeRecyclerView.getViewTreeObserver().addOnPreDrawListener(() -> {
@@ -103,8 +100,6 @@ public class RecipesListFragment extends Fragment implements RecipeListAdapter.O
 //        this.setExitTransition(createExitTransition(imageView));
         NavHostFragment.findNavController(this).navigate(direction, extras);
     }
-
-
 
     /*
     Split transition

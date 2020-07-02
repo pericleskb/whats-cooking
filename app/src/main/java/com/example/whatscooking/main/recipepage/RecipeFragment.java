@@ -43,7 +43,7 @@ public class RecipeFragment extends Fragment implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         String recipeTitle = this.getArguments().getString(Constants.RECIPE_ARG);
         //TODO https://proandroiddev.com/5-common-mistakes-when-using-architecture-components-403e9899f4cb mistake #5
-        this.recipeViewModel = new ViewModelProvider(this,
+        this.recipeViewModel = new ViewModelProvider(getActivity(),
                 new RecipeViewModelFactory(getActivity().getApplication(), repository, recipeTitle))
                 .get(RecipeViewModel.class);
         setUpTransitions();
@@ -91,11 +91,10 @@ public class RecipeFragment extends Fragment implements View.OnClickListener {
     }
 
     private void subscribeUi() {
+        //TODO check if these are needed. I think not anymore
         recipeViewModel.getRecipeInfo().removeObservers(getViewLifecycleOwner());
         recipeViewModel.getRecipe().removeObservers(getViewLifecycleOwner());
 
-        recipeViewModel.getRecipe().observe(getViewLifecycleOwner(), recipe ->
-                binding.setRecipe(recipeViewModel));
         recipeViewModel.getRecipeInfo().observe(getViewLifecycleOwner(),
                 recipe -> {
                     binding.setRecipe(recipeViewModel);

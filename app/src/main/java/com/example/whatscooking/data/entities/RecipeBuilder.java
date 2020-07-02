@@ -15,7 +15,7 @@ public class RecipeBuilder {
     }
 
     public RecipeBuilder setIngredients(ArrayList<String> ingredients) {
-        recipe.instructions = ingredients;
+        recipe.ingredients = ingredients;
         return this;
     }
 

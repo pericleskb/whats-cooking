@@ -1,7 +1,5 @@
 package com.example.whatscooking.adapters;
 
-import android.content.Context;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +17,6 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
 
     private List<RecipeInfo> recipeInfoList;
     private LayoutInflater layoutInflater;
-    private Context context;
     private static OnRecipeClickedListener itemClickListener;
 
     public RecipeListAdapter(OnRecipeClickedListener listener) {
@@ -53,17 +50,9 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
         else return 0;
     }
 
-    public String getTitleAtPosition(int positiion) {
-        return recipeInfoList.get(positiion).title;
-    }
-
     public void setRecipeInfoList(List<RecipeInfo> recipeInfoList) {
         this.recipeInfoList = recipeInfoList;
         notifyDataSetChanged();
-    }
-
-    public void setContext(Context context) {
-        this.context = context;
     }
 
     public static class RecipeCardViewHolder extends RecyclerView.ViewHolder
