@@ -13,8 +13,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.whatscooking.adapters.IngredientsListAdapter;
 import com.example.whatscooking.databinding.IngredientsFragmentBinding;
 
-import java.util.ArrayList;
-
 public class IngredientsChildFragment extends Fragment {
 
     IngredientsListAdapter ingredientsListAdapter;
