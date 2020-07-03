@@ -36,7 +36,7 @@ public class RecipeInstructionsChildFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         binding = RecipeInstructionsFragmentBinding.inflate(inflater);
         RecipeViewModel recipeViewModel =
-                new ViewModelProvider(getActivity()).get(RecipeViewModel.class);
+                new ViewModelProvider(getParentFragment()).get(RecipeViewModel.class);
         recipeViewModel.getRecipe().observe(getViewLifecycleOwner(), recipe -> {
                 ((TextViewPagerAdapter) binding.viewPager.getAdapter()).setRecipeSteps(recipe.instructions);
                 binding.viewPager.getAdapter().notifyDataSetChanged();

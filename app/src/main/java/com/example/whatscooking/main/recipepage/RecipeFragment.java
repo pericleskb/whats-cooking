@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.transition.Slide;
 import androidx.transition.Transition;
 import androidx.transition.TransitionInflater;
@@ -43,13 +44,14 @@ public class RecipeFragment extends Fragment implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         String recipeTitle = this.getArguments().getString(Constants.RECIPE_ARG);
         //TODO https://proandroiddev.com/5-common-mistakes-when-using-architecture-components-403e9899f4cb mistake #5
-        this.recipeViewModel = new ViewModelProvider(getActivity(),
-                new RecipeViewModelFactory(getActivity().getApplication(), repository, recipeTitle))
+        RecipeViewModelFactory factory = new RecipeViewModelFactory(getActivity().getApplication(),
+                repository, recipeTitle);
+        this.recipeViewModel = new ViewModelProvider(this, factory)
                 .get(RecipeViewModel.class);
         setUpTransitions();
         ingredientsFragment = new IngredientsChildFragment();
         recipeFragment = new RecipeInstructionsChildFragment();
-        fragmentManager = getActivity().getSupportFragmentManager();
+        fragmentManager = getChildFragmentManager();
     }
 
     private void setUpTransitions() {

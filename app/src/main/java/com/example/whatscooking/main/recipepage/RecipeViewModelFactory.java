@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import com.example.whatscooking.data.RecipeRepository;
 
-public class RecipeViewModelFactory extends ViewModelProvider.AndroidViewModelFactory {
+public class RecipeViewModelFactory implements ViewModelProvider.Factory {
 
     Application application;
     RecipeRepository repository;
@@ -14,7 +14,7 @@ public class RecipeViewModelFactory extends ViewModelProvider.AndroidViewModelFa
 
     public RecipeViewModelFactory(@NonNull Application application, RecipeRepository repository,
                                   String recipeTitle) {
-        super(application);
+        super();
         this.application = application;
         this.repository = repository;
         this.recipeTitle = recipeTitle;

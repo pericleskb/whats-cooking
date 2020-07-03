@@ -30,7 +30,7 @@ public class IngredientsChildFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         binding = IngredientsFragmentBinding.inflate(inflater, container, false);
         binding.setLifecycleOwner(this);
-        RecipeViewModel recipeViewModel = new ViewModelProvider(getActivity()).get(RecipeViewModel.class);
+        RecipeViewModel recipeViewModel = new ViewModelProvider(getParentFragment()).get(RecipeViewModel.class);
         binding.ingredientsRecyclerView.setAdapter(ingredientsListAdapter);
         recipeViewModel.getRecipe().observe(getViewLifecycleOwner(), recipe ->
                 ingredientsListAdapter.setIngredientsList(recipe.ingredients));
