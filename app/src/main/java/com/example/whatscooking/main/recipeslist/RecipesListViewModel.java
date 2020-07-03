@@ -4,7 +4,7 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.whatscooking.data.entities.RecipeInfo;
+import com.example.whatscooking.data.entities.RecipeDetails;
 import com.example.whatscooking.data.RecipeRepository;
 import com.example.whatscooking.di.ActivityScope;
 import com.example.whatscooking.main.ParentRecipeViewModel;
@@ -17,16 +17,16 @@ import javax.inject.Inject;
 public class RecipesListViewModel extends ParentRecipeViewModel {
 
     private RecipeRepository recipeRepository;
-    private LiveData<List<RecipeInfo>> recipeInfoLiveData;
+    private LiveData<List<RecipeDetails>> recipeDetailsLiveData;
 
     @Inject
     public RecipesListViewModel(Application application, RecipeRepository repository) {
         super(application);
         recipeRepository = repository;
-        recipeInfoLiveData = recipeRepository.getAllRecipesInfo();
+        recipeDetailsLiveData = recipeRepository.getAllRecipesDetails();
     }
 
-    public LiveData<List<RecipeInfo>> getAllRecipesInfo() {
-        return recipeInfoLiveData;
+    public LiveData<List<RecipeDetails>> getAllRecipesInfo() {
+        return recipeDetailsLiveData;
     }
 }

@@ -1,7 +1,9 @@
 package com.example.whatscooking.main.recipepage;
 
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +15,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.transition.Slide;
 import androidx.transition.Transition;
 import androidx.transition.TransitionInflater;
@@ -22,12 +23,14 @@ import com.example.whatscooking.R;
 import com.example.whatscooking.data.RecipeRepository;
 import com.example.whatscooking.databinding.RecipeFragmentBindingImpl;
 import com.example.whatscooking.main.MainActivity;
-import com.example.whatscooking.main.MainComponent;
 import com.example.whatscooking.utilities.Constants;
 
 import javax.inject.Inject;
 
-public class RecipeFragment extends Fragment implements View.OnClickListener {
+public class RecipeFragment extends Fragment implements
+        View.OnClickListener,
+        View.OnDragListener
+{
 
     RecipeViewModel recipeViewModel;
     @Inject
@@ -37,7 +40,7 @@ public class RecipeFragment extends Fragment implements View.OnClickListener {
 
     private RecipeFragmentBindingImpl binding;
     IngredientsChildFragment ingredientsFragment;
-    RecipeInstructionsChildFragment recipeFragment;
+    RecipeStepsChildFragment recipeFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,7 +53,7 @@ public class RecipeFragment extends Fragment implements View.OnClickListener {
                 .get(RecipeViewModel.class);
         setUpTransitions();
         ingredientsFragment = new IngredientsChildFragment();
-        recipeFragment = new RecipeInstructionsChildFragment();
+        recipeFragment = new RecipeStepsChildFragment();
         fragmentManager = getChildFragmentManager();
     }
 
@@ -74,7 +77,6 @@ public class RecipeFragment extends Fragment implements View.OnClickListener {
         }
         View view = bind(inflater, container);
         subscribeUi();
-        view.findViewById(R.id.change_view_button).setOnClickListener(this);
         return view;
     }
 
@@ -88,16 +90,25 @@ public class RecipeFragment extends Fragment implements View.OnClickListener {
         binding = DataBindingUtil.inflate(inflater, R.layout.recipe_fragment,
                 container, false);
         binding.setLifecycleOwner(this);
-        binding.changeViewButton.setOnClickListener(l -> {});
+        binding.changeViewButton.setOnClickListener(this);
+        binding.childFrameLayout.setOnDragListener(this);
+        binding.recipeImage.setOnLongClickListener(v -> {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                v.startDragAndDrop(null, new View.DragShadowBuilder(v), null, 0);
+            } else {
+                v.startDrag(null, new View.DragShadowBuilder(v), null, 0);
+            }
+            return true;
+        });
         return binding.getRoot();
     }
 
     private void subscribeUi() {
         //TODO check if these are needed. I think not anymore
-        recipeViewModel.getRecipeInfo().removeObservers(getViewLifecycleOwner());
-        recipeViewModel.getRecipe().removeObservers(getViewLifecycleOwner());
+        recipeViewModel.getRecipeDetailsLiveData().removeObservers(getViewLifecycleOwner());
+        recipeViewModel.getRecipeLiveData().removeObservers(getViewLifecycleOwner());
 
-        recipeViewModel.getRecipeInfo().observe(getViewLifecycleOwner(),
+        recipeViewModel.getRecipeDetailsLiveData().observe(getViewLifecycleOwner(),
                 recipe -> {
                     binding.setRecipe(recipeViewModel);
                     startPostponedEnterTransition();
@@ -118,5 +129,32 @@ public class RecipeFragment extends Fragment implements View.OnClickListener {
             transaction.replace(R.id.child_frame_layout, ingredientsFragment).commit();
             this.binding.changeViewButton.setText(R.string.view_recipe);
         }
+    }
+
+    @Override
+    public boolean onDrag(View v, DragEvent event) {
+        final int action = event.getAction();
+        switch (action) {
+            case DragEvent.ACTION_DRAG_STARTED:
+                v.setAlpha(0.8f);
+                v.invalidate();
+                return true;
+            case DragEvent.ACTION_DRAG_ENTERED:
+                v.setAlpha(0.6f);
+                v.invalidate();
+                return true;
+            case DragEvent.ACTION_DRAG_LOCATION:
+                return true;
+            case DragEvent.ACTION_DRAG_EXITED:
+                v.setAlpha(1.0f);
+                v.invalidate();
+                return true;
+            case DragEvent.ACTION_DROP:
+                getParentFragmentManager().popBackStackImmediate();
+                return true;
+            case DragEvent.ACTION_DRAG_ENDED:
+                return true;
+        }
+        return false;
     }
 }

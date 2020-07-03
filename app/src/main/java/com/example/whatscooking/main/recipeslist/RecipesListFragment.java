@@ -21,7 +21,7 @@ import android.widget.Toast;
 
 import com.example.whatscooking.R;
 import com.example.whatscooking.adapters.RecipeListAdapter;
-import com.example.whatscooking.data.entities.RecipeInfo;
+import com.example.whatscooking.data.entities.RecipeDetails;
 import com.example.whatscooking.databinding.MainFragmentBindingImpl;
 import com.example.whatscooking.main.MainActivity;
 import com.example.whatscooking.utilities.Constants;
@@ -91,9 +91,9 @@ public class RecipesListFragment extends Fragment implements RecipeListAdapter.O
     }
 
     @Override
-    public void recipeClicked(RecipeInfo recipeInfo, View imageView, View titleTextView) {
+    public void recipeClicked(RecipeDetails recipeDetails, View imageView, View titleTextView) {
         NavDirections direction =
-                RecipesListFragmentDirections.actionRecipesListFragmentToRecipeFragment(recipeInfo.title);
+                RecipesListFragmentDirections.actionRecipesListFragmentToRecipeFragment(recipeDetails.title);
         FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder()
                 .addSharedElement(imageView, Constants.RECIPE_IMG_TRANSITION_ID)
                 .addSharedElement(titleTextView, Constants.RECIPE_TITLE_TRANSITION_ID).build();

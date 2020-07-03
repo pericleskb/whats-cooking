@@ -1,7 +1,7 @@
 package com.example.whatscooking;
 
-import com.example.whatscooking.data.entities.RecipeInfo;
-import com.example.whatscooking.data.entities.RecipeInfoBuilder;
+import com.example.whatscooking.data.entities.RecipeDetails;
+import com.example.whatscooking.data.entities.RecipeDetailsBuilder;
 
 import java.util.ArrayList;
 import java.util.Stack;
@@ -14,37 +14,37 @@ public class TestUtils {
         return new RecyclerViewMatcher(recyclerViewId);
     }
 
-    public static Stack<RecipeInfo> getRecipesStack() {
-        Stack<RecipeInfo> recipesInfo = new Stack<>();
-        recipesInfo.addAll(getRecipeVector());
-        return recipesInfo;
+    public static Stack<RecipeDetails> getRecipesStack() {
+        Stack<RecipeDetails> recipesDetails = new Stack<>();
+        recipesDetails.addAll(getRecipeVector());
+        return recipesDetails;
     }
 
-    public static ArrayList<RecipeInfo> getRecipesInfoList() {
-        ArrayList<RecipeInfo> recipesInfo = new ArrayList<>();
-        recipesInfo.addAll(getRecipeVector());
-        return recipesInfo;
+    public static ArrayList<RecipeDetails> getRecipesInfoList() {
+        ArrayList<RecipeDetails> recipesDetails = new ArrayList<>();
+        recipesDetails.addAll(getRecipeVector());
+        return recipesDetails;
     }
 
-    private static Vector<RecipeInfo> getRecipeVector() {
-        Vector<RecipeInfo> recipeInfoVector = new Vector<>();
-        recipeInfoVector.add(new RecipeInfoBuilder("Dahl").setTimeMinutes(60).setDifficulty(RecipeInfo.Difficulty.medium)
+    private static Vector<RecipeDetails> getRecipeVector() {
+        Vector<RecipeDetails> recipeDetailsVector = new Vector<>();
+        recipeDetailsVector.add(new RecipeDetailsBuilder("Dahl").setTimeMinutes(60).setDifficulty(RecipeDetails.Difficulty.medium)
                 .setDescription("description")
                 .setServings(5).build());
-        recipeInfoVector.add(new RecipeInfoBuilder("Falafel wrap").setDifficulty(RecipeInfo.Difficulty.easy)
+        recipeDetailsVector.add(new RecipeDetailsBuilder("Falafel wrap").setDifficulty(RecipeDetails.Difficulty.easy)
                 .setDescription("description")
                 .setImageUri(null)
                 .setServings(4).build());
-        recipeInfoVector.add(new RecipeInfoBuilder("Mousakas").setTimeMinutes(90).setDifficulty(RecipeInfo.Difficulty.hard)
+        recipeDetailsVector.add(new RecipeDetailsBuilder("Mousakas").setTimeMinutes(90).setDifficulty(RecipeDetails.Difficulty.hard)
                 .setDescription("description")
                 .setServings(8).build());
-        recipeInfoVector.add(new RecipeInfoBuilder("Fried Squid").setTimeMinutes(45).setDifficulty(RecipeInfo.Difficulty.medium)
+        recipeDetailsVector.add(new RecipeDetailsBuilder("Fried Squid").setTimeMinutes(45).setDifficulty(RecipeDetails.Difficulty.medium)
                 .setDescription("description")
                 .setServings(3).build());
-        recipeInfoVector.add(new RecipeInfoBuilder("Venison steak").setTimeMinutes(30)
+        recipeDetailsVector.add(new RecipeDetailsBuilder("Venison steak").setTimeMinutes(30)
                 .setDescription("description")
                 .setServings(2).build());
-        return recipeInfoVector;
+        return recipeDetailsVector;
     }
 }
 

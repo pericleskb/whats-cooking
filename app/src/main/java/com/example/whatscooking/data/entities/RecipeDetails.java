@@ -8,10 +8,10 @@ import androidx.room.TypeConverters;
 
 import com.example.whatscooking.data.Converters;
 
-@Entity(tableName = "recipes_info")
-public class RecipeInfo {
+@Entity(tableName = "recipe_details")
+public class RecipeDetails {
 
-    public RecipeInfo(String title) {
+    public RecipeDetails(String title) {
         this.title = title;
         this.difficulty = null;
     }

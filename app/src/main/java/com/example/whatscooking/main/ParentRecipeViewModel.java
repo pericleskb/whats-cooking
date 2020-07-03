@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 
 import com.example.whatscooking.data.RecipeRepository;
 import com.example.whatscooking.data.entities.Recipe;
-import com.example.whatscooking.data.entities.RecipeInfo;
+import com.example.whatscooking.data.entities.RecipeDetails;
 
 public abstract class ParentRecipeViewModel extends AndroidViewModel {
 
@@ -17,7 +17,7 @@ public abstract class ParentRecipeViewModel extends AndroidViewModel {
         super(application);
     }
 
-    public void insert(RecipeInfo recipesInfo, Recipe recipe) {
-        recipeRepository.insertRecipe(recipesInfo, recipe);
+    public void insert(RecipeDetails recipeDetails, Recipe recipe) {
+        recipeRepository.insertRecipe(recipeDetails, recipe);
     }
 }

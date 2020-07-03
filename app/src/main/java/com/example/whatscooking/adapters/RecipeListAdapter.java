@@ -9,13 +9,13 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.whatscooking.R;
-import com.example.whatscooking.data.entities.RecipeInfo;
+import com.example.whatscooking.data.entities.RecipeDetails;
 import com.example.whatscooking.databinding.RecipeCardViewBinding;
 import java.util.List;
 
 public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.RecipeCardViewHolder> {
 
-    private List<RecipeInfo> recipeInfoList;
+    private List<RecipeDetails> recipeDetailsList;
     private LayoutInflater layoutInflater;
     private static OnRecipeClickedListener itemClickListener;
 
@@ -37,21 +37,21 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
 
     @Override
     public void onBindViewHolder(@NonNull RecipeCardViewHolder holder, int position) {
-        if (recipeInfoList != null) {
-            RecipeInfo recipeInfo = recipeInfoList.get(position);
-            holder.bind(recipeInfo);
+        if (recipeDetailsList != null) {
+            RecipeDetails recipeDetails = recipeDetailsList.get(position);
+            holder.bind(recipeDetails);
         }
     }
 
     @Override
     public int getItemCount() {
-        if (recipeInfoList != null)
-            return recipeInfoList.size();
+        if (recipeDetailsList != null)
+            return recipeDetailsList.size();
         else return 0;
     }
 
-    public void setRecipeInfoList(List<RecipeInfo> recipeInfoList) {
-        this.recipeInfoList = recipeInfoList;
+    public void setRecipeInfoList(List<RecipeDetails> recipeDetailsList) {
+        this.recipeDetailsList = recipeDetailsList;
         notifyDataSetChanged();
     }
 
@@ -65,21 +65,21 @@ public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.Re
             binding.getRoot().setOnClickListener(this);
         }
 
-        void bind(RecipeInfo recipeInfo) {
-            binding.setRecipeInfo(recipeInfo);
+        void bind(RecipeDetails recipeDetails) {
+            binding.setRecipeDetails(recipeDetails);
             binding.recipeImage.setTransitionName("image_" + getLayoutPosition());
-            binding.recipeTitle.setTransitionName(binding.getRecipeInfo().title + getLayoutPosition());
+            binding.recipeTitle.setTransitionName(binding.getRecipeDetails().title + getLayoutPosition());
             binding.executePendingBindings();
         }
 
         @Override
         public void onClick(View v) {
-            itemClickListener.recipeClicked(this.binding.getRecipeInfo(), this.binding.recipeImage,
+            itemClickListener.recipeClicked(this.binding.getRecipeDetails(), this.binding.recipeImage,
                     this.binding.recipeTitle);
         }
     }
 
     public interface OnRecipeClickedListener {
-        void recipeClicked(RecipeInfo recipeInfo, View imageView, View textView);
+        void recipeClicked(RecipeDetails recipeDetails, View imageView, View textView);
     }
 }

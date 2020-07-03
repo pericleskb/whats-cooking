@@ -10,9 +10,9 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.whatscooking.data.daos.RecipeDao;
-import com.example.whatscooking.data.daos.RecipeInfoDao;
+import com.example.whatscooking.data.daos.RecipeDetailsDao;
 import com.example.whatscooking.data.entities.Recipe;
-import com.example.whatscooking.data.entities.RecipeInfo;
+import com.example.whatscooking.data.entities.RecipeDetails;
 import com.example.whatscooking.utilities.Constants;
 import com.example.whatscooking.utilities.Utils;
 
@@ -22,11 +22,11 @@ import java.util.concurrent.Executors;
 
 //https://medium.com/androiddevelopers/7-pro-tips-for-room-fbadea4bfbd1#4785
 //TODO maybe set export schema to true
-@Database(entities = {RecipeInfo.class, Recipe.class}, version = 2, exportSchema = false)
+@Database(entities = {RecipeDetails.class, Recipe.class}, version = 2, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static volatile AppDatabase instance;
-    public abstract RecipeInfoDao recipeInfoDao();
+    public abstract RecipeDetailsDao recipeDetailsDao();
     public abstract RecipeDao recipeDao();
 
     private static final int NUMBER_OF_THREADS = 4;
@@ -55,19 +55,19 @@ public abstract class AppDatabase extends RoomDatabase {
             databaseWriteExecutor.execute(() -> {
                 try {
                     //Dahl
-                    instance.recipeInfoDao().insert(Utils.buildTestRecipeInfo("Dahl", context));
+                    instance.recipeDetailsDao().insert(Utils.buildTestRecipeDetails("Dahl", context));
                     instance.recipeDao().insert(Utils.buildTestRecipe("Dahl", context));
                     //Falafel wrap
-                    instance.recipeInfoDao().insert(Utils.buildTestRecipeInfo("Falafel wrap", context));
+                    instance.recipeDetailsDao().insert(Utils.buildTestRecipeDetails("Falafel wrap", context));
                     instance.recipeDao().insert(Utils.buildTestRecipe("Falafel wrap", context));
                     //Mousakas
-                    instance.recipeInfoDao().insert(Utils.buildTestRecipeInfo("Mousakas", context));
+                    instance.recipeDetailsDao().insert(Utils.buildTestRecipeDetails("Mousakas", context));
                     instance.recipeDao().insert(Utils.buildTestRecipe("Mousakas", context));
                     //Fried Squid
-                    instance.recipeInfoDao().insert(Utils.buildTestRecipeInfo("Fried Squid", context));
+                    instance.recipeDetailsDao().insert(Utils.buildTestRecipeDetails("Fried Squid", context));
                     instance.recipeDao().insert(Utils.buildTestRecipe("Fried Squid", context));
                     //Venison steak
-                    instance.recipeInfoDao().insert(Utils.buildTestRecipeInfo("Venison steak", context));
+                    instance.recipeDetailsDao().insert(Utils.buildTestRecipeDetails("Venison steak", context));
                     instance.recipeDao().insert(Utils.buildTestRecipe("Venison steak", context));
                 } catch (IOException e) {
                     e.printStackTrace();

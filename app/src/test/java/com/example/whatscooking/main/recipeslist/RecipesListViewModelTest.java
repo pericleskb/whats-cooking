@@ -15,7 +15,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import com.example.whatscooking.LiveDataTestUtil;
 import com.example.whatscooking.TestUtils;
 import com.example.whatscooking.data.FakeRepository;
-import com.example.whatscooking.data.entities.RecipeInfo;
+import com.example.whatscooking.data.entities.RecipeDetails;
 
 import java.util.Stack;
 
@@ -30,19 +30,19 @@ public class RecipesListViewModelTest {
     public InstantTaskExecutorRule instantExecutorRule = new InstantTaskExecutorRule();
 
     RecipesListViewModel recipesListViewModel;
-    Stack<RecipeInfo> recipesInfo;
+    Stack<RecipeDetails> recipesDetails;
 
     @Before
     public void setupViewModel() {
         recipesListViewModel =
                 new RecipesListViewModel(ApplicationProvider.getApplicationContext(),
                         new FakeRepository());
-        recipesInfo = TestUtils.getRecipesStack();
+        recipesDetails = TestUtils.getRecipesStack();
     }
 
     @Test
     public void insert_addRecipe() throws InterruptedException {
-        recipesListViewModel.insert(recipesInfo.pop());
+        recipesListViewModel.insert(recipesDetails.pop());
 
         assertThat(LiveDataTestUtil.getOrAwaitValue(recipesListViewModel.getAllRecipesInfo())
                 .size()).isEqualTo(1);

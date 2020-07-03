@@ -7,8 +7,8 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.example.whatscooking.LiveDataTestUtil;
 import com.example.whatscooking.TestUtils;
-import com.example.whatscooking.data.daos.FakeRecipeInfoDao;
-import com.example.whatscooking.data.entities.RecipeInfo;
+import com.example.whatscooking.data.daos.FakeRecipeDetailsDao;
+import com.example.whatscooking.data.entities.RecipeDetails;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -31,30 +31,30 @@ public class DefaultRecipeRepositoryTest {
 
     @Inject
     DefaultRecipeRepository recipeRepository;
-    Stack<RecipeInfo> recipesStack;
-    FakeRecipeInfoDao recipeInfoDao;
+    Stack<RecipeDetails> recipesStack;
+    FakeRecipeDetailsDao recipeDetailsDao;
 
     @Before
     public void setUp() {
-        recipeInfoDao = new FakeRecipeInfoDao();
+        recipeDetailsDao = new FakeRecipeDetailsDao();
         recipesStack = TestUtils.getRecipesStack();
-        recipeInfoDao.insert(recipesStack.pop());
-        recipeInfoDao.insert(recipesStack.pop());
+        recipeDetailsDao.insert(recipesStack.pop());
+        recipeDetailsDao.insert(recipesStack.pop());
         ResetableDefaultRecipeRepository.resetInstance();
-        recipeRepository = ResetableDefaultRecipeRepository.getInstance(recipeInfoDao);
+        recipeRepository = ResetableDefaultRecipeRepository.getInstance(recipeDetailsDao);
     }
 
     @Test
     public void getAllRecipes_returnAllRecipes() throws InterruptedException {
-        assertThat(recipeInfoDao.recipesList.size()).isEqualTo(LiveDataTestUtil.getOrAwaitValue(
-                recipeRepository.getAllRecipesInfo()).size());
+        assertThat(recipeDetailsDao.recipesList.size()).isEqualTo(LiveDataTestUtil.getOrAwaitValue(
+                recipeRepository.getAllRecipesDetails()).size());
     }
 
     @Test
     public void insert_whenRecipeArrayInserted_thenInsertForAllRecipesIsCalled() {
-        int recipesLengthBefore = recipeInfoDao.recipesList.size();
-        RecipeInfo[] recipesArray = {recipesStack.pop(), recipesStack.pop()};
+        int recipesLengthBefore = recipeDetailsDao.recipesList.size();
+        RecipeDetails[] recipesArray = {recipesStack.pop(), recipesStack.pop()};
         recipeRepository.insertRecipe(recipesArray);
-        assertThat(recipesLengthBefore + 2).isEqualTo(recipeInfoDao.recipesList.size());
+        assertThat(recipesLengthBefore + 2).isEqualTo(recipeDetailsDao.recipesList.size());
     }
 }
