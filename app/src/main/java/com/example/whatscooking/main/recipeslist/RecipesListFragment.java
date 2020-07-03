@@ -22,7 +22,7 @@ import android.widget.Toast;
 import com.example.whatscooking.R;
 import com.example.whatscooking.adapters.RecipeListAdapter;
 import com.example.whatscooking.data.entities.RecipeDetails;
-import com.example.whatscooking.databinding.MainFragmentBindingImpl;
+import com.example.whatscooking.databinding.RecipesListFragmentBinding;
 import com.example.whatscooking.main.MainActivity;
 import com.example.whatscooking.utilities.Constants;
 
@@ -33,7 +33,7 @@ public class RecipesListFragment extends Fragment implements RecipeListAdapter.O
     @Inject
     RecipesListViewModel recipesListViewModel;
     RecipeListAdapter recipeListAdapter;
-    private MainFragmentBindingImpl binding;
+    private RecipesListFragmentBinding binding;
 
     public RecipesListFragment() {
         this.recipeListAdapter = new RecipeListAdapter(this);
@@ -67,7 +67,7 @@ public class RecipesListFragment extends Fragment implements RecipeListAdapter.O
     }
 
     private View bind(LayoutInflater inflater, ViewGroup container) {
-        binding = DataBindingUtil.inflate(inflater, R.layout.main_fragment,
+        binding = DataBindingUtil.inflate(inflater, R.layout.recipes_list_fragment,
                 container, false);
         binding.setLifecycleOwner(this);
         binding.recipeRecyclerView.setAdapter(recipeListAdapter);
