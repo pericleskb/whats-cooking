@@ -15,6 +15,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 import com.example.whatscooking.LiveDataTestUtil;
 import com.example.whatscooking.TestUtils;
 import com.example.whatscooking.data.FakeRepository;
+import com.example.whatscooking.data.entities.Recipe;
 import com.example.whatscooking.data.entities.RecipeDetails;
 
 import java.util.Stack;
@@ -31,20 +32,33 @@ public class RecipesListViewModelTest {
 
     RecipesListViewModel recipesListViewModel;
     Stack<RecipeDetails> recipesDetails;
+    Stack<Recipe> recipes;
+    FakeRepository fakeRepository;
 
     @Before
     public void setupViewModel() {
+        recipesDetails = TestUtils.getRecipesDetailsStack();
+        recipes = TestUtils.getRecipesStack();
+        fakeRepository = new FakeRepository();
+        fakeRepository.insertRecipe(recipesDetails.pop(), recipes.pop());
         recipesListViewModel =
                 new RecipesListViewModel(ApplicationProvider.getApplicationContext(),
-                        new FakeRepository());
-        recipesDetails = TestUtils.getRecipesStack();
+                        fakeRepository);
     }
 
     @Test
-    public void insert_addRecipe() throws InterruptedException {
-        recipesListViewModel.insert(recipesDetails.pop());
+    public void getAllRecipesDetails_whenViewModelCreated_thenExistingRecipesGetAdded()
+            throws InterruptedException {
+        int numberOfRecipes = fakeRepository.getNumberOfRecipes();
+        assertThat(LiveDataTestUtil.getOrAwaitValue(recipesListViewModel.getAllRecipesDetails())
+                .size()).isEqualTo(numberOfRecipes);
+    }
 
-        assertThat(LiveDataTestUtil.getOrAwaitValue(recipesListViewModel.getAllRecipesInfo())
-                .size()).isEqualTo(1);
+    @Test
+    public void insert_whenNewRecipeAdded_thenInsertRecipeIsCalledInRepository() throws InterruptedException {
+        int numberOfRecipes = fakeRepository.getNumberOfRecipes();
+        recipesListViewModel.insert(recipesDetails.pop(), recipes.pop());
+        assertThat(LiveDataTestUtil.getOrAwaitValue(recipesListViewModel.getAllRecipesDetails())
+                .size()).isEqualTo(numberOfRecipes + 1);
     }
 }

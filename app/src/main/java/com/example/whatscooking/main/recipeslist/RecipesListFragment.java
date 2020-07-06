@@ -81,9 +81,9 @@ public class RecipesListFragment extends Fragment implements RecipeListAdapter.O
 
     private void subscribeUi() {
         //remove leftover observers
-        recipesListViewModel.getAllRecipesInfo().removeObservers(getViewLifecycleOwner());
+        recipesListViewModel.getAllRecipesDetails().removeObservers(getViewLifecycleOwner());
         //could happen from new recipe activity or a new recipe pushed into a joined account
-        recipesListViewModel.getAllRecipesInfo().observe(getViewLifecycleOwner(), recipes -> {
+        recipesListViewModel.getAllRecipesDetails().observe(getViewLifecycleOwner(), recipes -> {
             //TODO create binding adapter to set recycler view to GONE when empty and show a text view message
             binding.setHasRecipes(recipes != null && recipes.isEmpty());
             recipeListAdapter.setRecipeInfoList(recipes);

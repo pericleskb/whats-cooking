@@ -34,7 +34,6 @@ public class FakeRepository implements RecipeRepository {
         return null;
     }
 
-
     @Override
     public void insertRecipe(RecipeDetails recipeDetails, Recipe recipe) {
         recipesList.add(recipeDetails);
@@ -54,5 +53,9 @@ public class FakeRepository implements RecipeRepository {
     @Override
     public void deleteRecipe(RecipeDetails recipeDetails) {
 
+    }
+
+    public int getNumberOfRecipes() {
+        return recipesList.size();
     }
 }

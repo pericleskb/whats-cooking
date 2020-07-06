@@ -11,7 +11,6 @@ import java.util.List;
 public class FakeRecipeDetailsDao implements RecipeDetailsDao {
 
     private MutableLiveData<List<RecipeDetails>> recipesLiveData = new MutableLiveData<>();
-
     public ArrayList<RecipeDetails> recipesList = new ArrayList<>();
 
     @Override

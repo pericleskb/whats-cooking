@@ -16,7 +16,6 @@ import javax.inject.Inject;
 @ActivityScope
 public class RecipesListViewModel extends ParentRecipeViewModel {
 
-    private RecipeRepository recipeRepository;
     private LiveData<List<RecipeDetails>> recipeDetailsLiveData;
 
     @Inject
@@ -26,7 +25,7 @@ public class RecipesListViewModel extends ParentRecipeViewModel {
         recipeDetailsLiveData = recipeRepository.getAllRecipesDetails();
     }
 
-    public LiveData<List<RecipeDetails>> getAllRecipesInfo() {
+    public LiveData<List<RecipeDetails>> getAllRecipesDetails() {
         return recipeDetailsLiveData;
     }
 }
