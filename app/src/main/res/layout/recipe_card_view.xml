@@ -34,7 +34,7 @@
                 card_view:layout_constraintHeight_percent="0.8"
                 card_view:layout_constraintTop_toTopOf="parent"
                 tools:layout_editor_absoluteX="0dp"
-                android:src="@{Uri.parse(recipeDetails.imageUri)}"/>
+                android:src="@{recipeDetails.imageUri != null ? Uri.parse(recipeDetails.imageUri) : null}"/>
 
             <TextView
                 android:id="@+id/recipe_title"
