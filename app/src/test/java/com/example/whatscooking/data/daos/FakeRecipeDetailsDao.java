@@ -21,6 +21,10 @@ public class FakeRecipeDetailsDao implements RecipeDetailsDao {
 
     @Override
     public LiveData<RecipeDetails> getRecipeDetails(String title) {
+        for (RecipeDetails recipeDetails: recipesLiveData.getValue()) {
+            if (recipeDetails.title.equals(title))
+                return new MutableLiveData<>(recipeDetails);
+        }
         return null;
     }
 

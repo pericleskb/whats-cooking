@@ -16,8 +16,4 @@ public abstract class ParentRecipeViewModel extends AndroidViewModel {
     public ParentRecipeViewModel(@NonNull Application application) {
         super(application);
     }
-
-    public void insert(RecipeDetails recipeDetails, Recipe recipe) {
-        recipeRepository.insertRecipe(recipeDetails, recipe);
-    }
 }

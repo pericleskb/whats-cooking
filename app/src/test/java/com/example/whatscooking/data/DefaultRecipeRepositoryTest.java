@@ -68,6 +68,30 @@ public class DefaultRecipeRepositoryTest {
     }
 
     @Test
+    public void getRecipe_whenRecipeTitleProvided_thenFetchSpecifiedRecipe() throws InterruptedException {
+        Recipe recipe = recipesStack.pop();
+        fakeRecipeDao.insert(recipe);
+        Recipe fetchedRecipe = LiveDataTestUtil.getOrAwaitValue(recipeRepository.getRecipe(recipe.title));
+        assertThat(recipe.title).isEqualTo(fetchedRecipe.title);
+        assertThat(recipe.instructions.get(0)).isEqualTo(fetchedRecipe.instructions.get(0));
+        assertThat(recipe.ingredients.get(3)).isEqualTo(fetchedRecipe.ingredients.get(3));
+    }
+
+
+    @Test
+    public void getRecipeDetails_whenRecipeTitleProvided_thenFetchSpecifiedRecipeDetails() throws InterruptedException {
+        RecipeDetails recipe = recipeDetailsStack.pop();
+        fakeRecipeDetailsDao.insert(recipe);
+        RecipeDetails fetchedRecipe = LiveDataTestUtil.getOrAwaitValue(recipeRepository.getRecipeDetails(recipe.title));
+        assertThat(recipe.title).isEqualTo(fetchedRecipe.title);
+        assertThat(recipe.difficulty).isEqualTo(fetchedRecipe.difficulty);
+        assertThat(recipe.imageUri).isEqualTo(fetchedRecipe.imageUri);
+        assertThat(recipe.servings).isEqualTo(fetchedRecipe.servings);
+        assertThat(recipe.description).isEqualTo(fetchedRecipe.description);
+        assertThat(recipe.timeMinutes).isEqualTo(fetchedRecipe.timeMinutes);
+    }
+
+    @Test
     public void insert_whenRecipeIsInserted_thenRecipeDaoInsertIsCalled() {
         int recipesLengthBefore = fakeRecipeDetailsDao.recipesList.size();
         recipeRepository.insertRecipe(recipeDetailsStack.pop(), recipesStack.pop());

@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.example.whatscooking.data.entities.Recipe;
-import com.example.whatscooking.data.entities.RecipeDetails;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +21,10 @@ public class FakeRecipeDao implements RecipeDao {
 
     @Override
     public LiveData<Recipe> getRecipe(String recipeTitle) {
+        for (Recipe recipe: recipesLiveData.getValue()) {
+            if (recipe.title.equals(recipeTitle))
+                return new MutableLiveData<>(recipe);
+        }
         return null;
     }
 

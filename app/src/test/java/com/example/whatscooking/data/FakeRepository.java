@@ -13,6 +13,8 @@ public class FakeRepository implements RecipeRepository {
 
     private MutableLiveData<List<RecipeDetails>> recipesLiveData = new MutableLiveData<>();
     ArrayList<RecipeDetails> recipesList = new ArrayList<>();
+    MutableLiveData<Recipe> recipeMutableLiveData = new MutableLiveData<>();
+    MutableLiveData<RecipeDetails> recipeDetailsMutableLiveData = new MutableLiveData<>();
 
     @Override
     public LiveData<List<RecipeDetails>> getAllRecipesDetails() {
@@ -26,18 +28,20 @@ public class FakeRepository implements RecipeRepository {
 
     @Override
     public LiveData<Recipe> getRecipe(String recipeTitle) {
-        return null;
+        return recipeMutableLiveData;
     }
 
     @Override
     public LiveData<RecipeDetails> getRecipeDetails(String recipeTitle) {
-        return null;
+        return recipeDetailsMutableLiveData;
     }
 
     @Override
     public void insertRecipe(RecipeDetails recipeDetails, Recipe recipe) {
         recipesList.add(recipeDetails);
         recipesLiveData.postValue(recipesList);
+        recipeMutableLiveData.postValue(recipe);
+        recipeDetailsMutableLiveData.postValue(recipeDetails);
     }
 
     @Override
@@ -57,5 +61,17 @@ public class FakeRepository implements RecipeRepository {
 
     public int getNumberOfRecipes() {
         return recipesList.size();
+    }
+
+    public void addIngredient(String newIngredient) {
+        Recipe recipe = recipeMutableLiveData.getValue();
+        recipe.ingredients.add(newIngredient);
+        recipeMutableLiveData.postValue(recipe);
+    }
+
+    public void changeRecipeDetailsServings(int newServings) {
+        RecipeDetails recipeDetails = recipeDetailsMutableLiveData.getValue();
+        recipeDetails.servings = newServings;
+        recipeDetailsMutableLiveData.postValue(recipeDetails);
     }
 }
