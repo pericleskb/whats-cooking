@@ -1,10 +1,10 @@
 package com.example.whatscooking.main.recipepage;
 
 import android.content.Context;
-import android.os.Build;
+import android.graphics.Rect;
 import android.os.Bundle;
-import android.view.DragEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.transition.Slide;
 import androidx.transition.Transition;
 import androidx.transition.TransitionInflater;
@@ -29,7 +30,7 @@ import javax.inject.Inject;
 
 public class RecipeFragment extends Fragment implements
         View.OnClickListener,
-        View.OnDragListener
+        TouchInterceptChecker
 {
 
     RecipeViewModel recipeViewModel;
@@ -41,6 +42,8 @@ public class RecipeFragment extends Fragment implements
     private RecipeFragmentBindingImpl binding;
     IngredientsChildFragment ingredientsFragment;
     RecipeStepsChildFragment recipeFragment;
+    RecipeFragment thisFragment;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,7 @@ public class RecipeFragment extends Fragment implements
         ingredientsFragment = new IngredientsChildFragment();
         recipeFragment = new RecipeStepsChildFragment();
         fragmentManager = getChildFragmentManager();
+        thisFragment = this;
     }
 
     private void setUpTransitions() {
@@ -80,6 +84,40 @@ public class RecipeFragment extends Fragment implements
         return view;
     }
 
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        binding.recipeScrollView.setInterceptChecker(this);
+        binding.recipeScrollView.setOnTouchListener(new View.OnTouchListener() {
+            final float scrollThreshold = 100;
+            float xStart = 0;
+            float yStart = 0;
+            float scrollViewStartPositionY = 0;
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        xStart = event.getX();
+                        yStart = event.getY();
+                        scrollViewStartPositionY = binding.recipeScrollView.getScrollY();
+                        break;
+                    }
+                    // could detect ACTION_MOVE and call popBackStack() before release
+                    case MotionEvent.ACTION_UP: {
+                        float xDelta = event.getX() - xStart;
+                        float yDelta = event.getY() - yStart;
+                        if (Math.abs(yDelta) >= Math.abs(xDelta) && Math.abs(yDelta) > scrollThreshold) {
+                            if (scrollViewStartPositionY == 0 && yDelta > 0) {
+                                NavHostFragment.findNavController(getTargetFragment()).popBackStack();
+                                return true;
+                            }
+                        }
+                    }
+                }
+                return false;
+            }
+        });
+    }
+
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -91,15 +129,6 @@ public class RecipeFragment extends Fragment implements
                 container, false);
         binding.setLifecycleOwner(this);
         binding.changeViewButton.setOnClickListener(this);
-        binding.childFrameLayout.setOnDragListener(this);
-        binding.recipeImage.setOnLongClickListener(v -> {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                v.startDragAndDrop(null, new View.DragShadowBuilder(v), null, 0);
-            } else {
-                v.startDrag(null, new View.DragShadowBuilder(v), null, 0);
-            }
-            return true;
-        });
         return binding.getRoot();
     }
 
@@ -132,29 +161,9 @@ public class RecipeFragment extends Fragment implements
     }
 
     @Override
-    public boolean onDrag(View v, DragEvent event) {
-        final int action = event.getAction();
-        switch (action) {
-            case DragEvent.ACTION_DRAG_STARTED:
-                v.setAlpha(0.8f);
-                v.invalidate();
-                return true;
-            case DragEvent.ACTION_DRAG_ENTERED:
-                v.setAlpha(0.6f);
-                v.invalidate();
-                return true;
-            case DragEvent.ACTION_DRAG_LOCATION:
-                return true;
-            case DragEvent.ACTION_DRAG_EXITED:
-                v.setAlpha(1.0f);
-                v.invalidate();
-                return true;
-            case DragEvent.ACTION_DROP:
-                getParentFragmentManager().popBackStackImmediate();
-                return true;
-            case DragEvent.ACTION_DRAG_ENDED:
-                return true;
-        }
-        return false;
+    public boolean shouldInterceptTouch(int x, int y) {
+        Rect rect = new Rect();
+        binding.recipeImage.getHitRect(rect);
+        return rect.contains(x, y);
     }
 }

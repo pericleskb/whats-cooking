@@ -36,8 +36,4 @@ public class IngredientsChildFragment extends Fragment {
                 ingredientsListAdapter.setIngredientsList(recipe.ingredients));
         return binding.getRoot();
     }
-
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
 }

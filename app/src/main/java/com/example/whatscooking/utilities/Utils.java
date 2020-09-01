@@ -62,6 +62,10 @@ public class Utils {
         ingredients.add(context.getResources().getString(R.string.test_ingredient_6));
         ingredients.add(context.getResources().getString(R.string.test_ingredient_7));
         ingredients.add(context.getResources().getString(R.string.test_ingredient_8));
+        ingredients.add(context.getResources().getString(R.string.test_ingredient_8));
+        ingredients.add(context.getResources().getString(R.string.test_ingredient_8));
+        ingredients.add(context.getResources().getString(R.string.test_ingredient_8));
+        ingredients.add(context.getResources().getString(R.string.test_ingredient_8));
 
         return new RecipeBuilder(title).setIngredients(ingredients).setInstructions(instructions).build();
     }

@@ -19,7 +19,7 @@
         tools:context=".main.recipeslist.RecipeFragment"
         android:background="@color/white">
 
-        <ScrollView
+        <com.example.whatscooking.main.recipepage.ScrollViewWithConditionalTouchIntercept
             android:id="@+id/recipe_scroll_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -166,7 +166,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </ScrollView>
+        </com.example.whatscooking.main.recipepage.ScrollViewWithConditionalTouchIntercept>
 
         <View style="@style/Divider"
             android:id="@+id/divider"
