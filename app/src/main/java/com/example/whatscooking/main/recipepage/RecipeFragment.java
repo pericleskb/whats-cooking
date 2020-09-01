@@ -107,7 +107,7 @@ public class RecipeFragment extends Fragment implements
                         float yDelta = event.getY() - yStart;
                         if (Math.abs(yDelta) >= Math.abs(xDelta) && Math.abs(yDelta) > scrollThreshold) {
                             if (scrollViewStartPositionY == 0 && yDelta > 0) {
-                                NavHostFragment.findNavController(getTargetFragment()).popBackStack();
+                                NavHostFragment.findNavController(thisFragment).popBackStack();
                                 return true;
                             }
                         }

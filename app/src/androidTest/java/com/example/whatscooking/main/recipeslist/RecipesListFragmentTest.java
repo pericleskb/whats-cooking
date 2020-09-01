@@ -35,7 +35,6 @@ public class RecipesListFragmentTest {
         });
     }
 
-    //TODO fix test
     @Test
     public void RecipesListFragment_DisplayedInUi() {
         Espresso.onView(withRecyclerView(R.id.recipe_recycler_view).atPosition(0))
