@@ -11,8 +11,11 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.widget.ImageView;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -23,60 +26,38 @@ public class MediaOperations {
       Here we store the placeholder image but on actual case it will come from the camera app
       as a uri and we will read from onActivityResult()
      */
-    public static Uri storeImage(Context context, int drawableId) throws IOException {
+    public static URI storeImage(Context context, int drawableId) {
 
-        ContentResolver resolver = context.getContentResolver();
+        File path = new File(context.getFilesDir(), Constants.IMAGES_DIR);
+        if (!path.exists()) {
+            path.mkdirs();
+        }
+
+        File imageFile = new File(path, getUniqueImageName());
 
         Bitmap bitmap;
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-//            bitmap = ImageDecoder.decodeBitmap(ImageDecoder.createSource(resolver, uri));
-//        } else {
-//            InputStream is = resolver.openInputStream(uri);
-//            bitmap = BitmapFactory.decodeStream(is);
-//        }
-
         bitmap = BitmapFactory.decodeResource(context.getResources(), drawableId);
-
-        Uri imageCollection = MediaStore.Images.Media.getContentUri(
-                MediaStore.VOLUME_EXTERNAL_PRIMARY);
-
-        ContentValues newImageDetails = new ContentValues();
-        newImageDetails.put(MediaStore.Images.Media.DISPLAY_NAME, getUniqueImageName());
-        newImageDetails.put(MediaStore.Images.Media.MIME_TYPE, "image/jpeg");
-        newImageDetails.put(MediaStore.Images.Media.RELATIVE_PATH, Constants.IMAGES_RELATIVE_DIR);
-        newImageDetails.put(MediaStore.Images.Media.IS_PENDING, 1);
-
-        Uri imageUri = resolver
-                .insert(imageCollection, newImageDetails);
-
-        OutputStream os = resolver.openOutputStream(imageUri);
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 90, os);
-
-        newImageDetails.clear();
-        newImageDetails.put(MediaStore.Images.Media.IS_PENDING, 0);
-        resolver.update(imageUri, newImageDetails, null, null);
+        URI imageUri = null;
+        try {
+            FileOutputStream fos = new FileOutputStream(imageFile);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            imageUri = imageFile.toURI();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         return imageUri;
     }
 
 
     public static String getUniqueImageName() {
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        return "JPEG_" + timeStamp;
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss_SSS").format(new Date());
+        return "JPEG_" + timeStamp + ".jpg";
     }
 
-    public static File createImageFile(Context context) throws IOException {
+    public static File createImageFile(Context context) {
         String imageFileName = getUniqueImageName();
-        File storageDir = context.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,
-                ".jpg",
-                storageDir
-        );
-
-        // Save a file: path for use with ACTION_VIEW intents
-//        currentPhotoPath = image.getAbsolutePath();
+        File image = new File(context.getFilesDir(), imageFileName);
         return image;
-
     }
 
 
