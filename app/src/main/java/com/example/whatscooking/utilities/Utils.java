@@ -17,28 +17,33 @@ public class Utils {
             case "Dahl":
                 return new RecipeDetailsBuilder("Dahl").setTimeMinutes(60).setDifficulty(RecipeDetails.Difficulty.medium)
                         .setDescription("description")
-                        .setImageUri(MediaOperations.storeImage(context, R.drawable.dahl).toString())
+                        .setImageUri(MediaOperations.storeImage(context, R.drawable.dahl,
+                                MediaOperations.getUniqueImageName()).toString())
                         .setServings(5).build();
             case "Falafel wrap":
                 return new RecipeDetailsBuilder("Falafel wrap").setDifficulty(RecipeDetails.Difficulty.easy)
                         .setDescription("description")
-                        .setImageUri(MediaOperations.storeImage(context, R.drawable.falafel).toString())
+                        .setImageUri(MediaOperations.storeImage(context, R.drawable.falafel,
+                                MediaOperations.getUniqueImageName()).toString())
                         .setServings(4).build();
             case "Mousakas":
                 return new RecipeDetailsBuilder("Mousakas").setTimeMinutes(90).setDifficulty(RecipeDetails.Difficulty.hard)
                         .setDescription("description")
-                        .setImageUri(MediaOperations.storeImage(context, R.drawable.mousakas).toString())
+                        .setImageUri(MediaOperations.storeImage(context, R.drawable.mousakas,
+                                MediaOperations.getUniqueImageName()).toString())
                         .setServings(8).build();
             case "Fried Squid":
                 return new RecipeDetailsBuilder("Fried Squid").setTimeMinutes(45).setDifficulty(RecipeDetails.Difficulty.medium)
                         .setDescription("description")
-                        .setImageUri(MediaOperations.storeImage(context, R.drawable.squid).toString())
+                        .setImageUri(MediaOperations.storeImage(context, R.drawable.squid,
+                                MediaOperations.getUniqueImageName()).toString())
                         .setServings(3).build();
             case "Venison steak":
             default:
                 return new RecipeDetailsBuilder("Venison steak").setTimeMinutes(30)
                     .setDescription("description")
-                    .setImageUri(MediaOperations.storeImage(context, R.drawable.venison).toString())
+                    .setImageUri(MediaOperations.storeImage(context, R.drawable.venison,
+                            MediaOperations.getUniqueImageName()).toString())
                     .setServings(2).build();
         }
     }

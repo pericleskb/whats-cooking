@@ -1,9 +1,13 @@
 package com.example.whatscooking;
 
+
+import androidx.test.core.app.ApplicationProvider;
+
 import com.example.whatscooking.data.entities.Recipe;
 import com.example.whatscooking.data.entities.RecipeBuilder;
 import com.example.whatscooking.data.entities.RecipeDetails;
 import com.example.whatscooking.data.entities.RecipeDetailsBuilder;
+import com.example.whatscooking.utilities.MediaOperations;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,22 +37,28 @@ public class TestUtils {
 
     private static Vector<RecipeDetails> getRecipeDetailsVector() {
         Vector<RecipeDetails> recipeDetailsVector = new Vector<>();
+        String uri = MediaOperations.createPlaceholderImage(ApplicationProvider.getApplicationContext());
         recipeDetailsVector.add(new RecipeDetailsBuilder("Dahl").setTimeMinutes(60).setDifficulty(RecipeDetails.Difficulty.medium)
                 .setDescription("description")
-                .setServings(5).build());
+                .setServings(5)
+                .setImageUri(uri).build());
         recipeDetailsVector.add(new RecipeDetailsBuilder("Falafel wrap").setDifficulty(RecipeDetails.Difficulty.easy)
                 .setDescription("description")
                 .setImageUri(null)
-                .setServings(4).build());
+                .setServings(4)
+                .setImageUri(uri).build());
         recipeDetailsVector.add(new RecipeDetailsBuilder("Mousakas").setTimeMinutes(90).setDifficulty(RecipeDetails.Difficulty.hard)
                 .setDescription("description")
-                .setServings(8).build());
+                .setServings(8)
+                .setImageUri(uri).build());
         recipeDetailsVector.add(new RecipeDetailsBuilder("Fried Squid").setTimeMinutes(45).setDifficulty(RecipeDetails.Difficulty.medium)
                 .setDescription("description")
-                .setServings(3).build());
+                .setServings(3)
+                .setImageUri(uri).build());
         recipeDetailsVector.add(new RecipeDetailsBuilder("Venison steak").setTimeMinutes(30)
                 .setDescription("description")
-                .setServings(2).build());
+                .setServings(2)
+                .setImageUri(uri).build());
         return recipeDetailsVector;
     }
 

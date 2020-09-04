@@ -1,20 +1,17 @@
 package com.example.whatscooking.utilities;
 
-import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.ImageDecoder;
-import android.net.Uri;
-import android.os.Environment;
-import android.provider.MediaStore;
-import android.widget.ImageView;
+
+import androidx.test.core.app.ApplicationProvider;
+
+import com.example.whatscooking.R;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,14 +23,14 @@ public class MediaOperations {
       Here we store the placeholder image but on actual case it will come from the camera app
       as a uri and we will read from onActivityResult()
      */
-    public static URI storeImage(Context context, int drawableId) {
+    public static URI storeImage(Context context, int drawableId, String imageName) {
 
         File path = new File(context.getFilesDir(), Constants.IMAGES_DIR);
         if (!path.exists()) {
             path.mkdirs();
         }
 
-        File imageFile = new File(path, getUniqueImageName());
+        File imageFile = new File(path, imageName);
 
         Bitmap bitmap;
         bitmap = BitmapFactory.decodeResource(context.getResources(), drawableId);
@@ -60,6 +57,17 @@ public class MediaOperations {
         return image;
     }
 
+    public static String createPlaceholderImage(Context context) {
+        String imageName = "placeholder_image";
+        File path = new File(context.getFilesDir(), Constants.IMAGES_DIR);
+        File imageFile = new File(path, "placeholder_image");
+        if (imageFile.exists()) {
+            return imageFile.toURI().toString();
+        } else {
+            return MediaOperations.storeImage(context, R.drawable.placeholder_image, imageName)
+                    .toString();
+        }
+    }
 
     /* First we create the file with createImageFile and then the URI.
        Then we pass the URI as a parameter to the ACTION_IMAGE_PICTURE
