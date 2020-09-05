@@ -5,40 +5,45 @@ import android.content.Context;
 import com.example.whatscooking.R;
 import com.example.whatscooking.data.entities.Recipe;
 import com.example.whatscooking.data.entities.RecipeBuilder;
-import com.example.whatscooking.data.entities.RecipeInfo;
-import com.example.whatscooking.data.entities.RecipeInfoBuilder;
+import com.example.whatscooking.data.entities.RecipeDetails;
+import com.example.whatscooking.data.entities.RecipeDetailsBuilder;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class Utils {
-    public static RecipeInfo buildTestRecipeInfo(String title, Context context) throws IOException {
+    public static RecipeDetails buildTestRecipeDetails(String title, Context context) throws IOException {
         switch (title) {
             case "Dahl":
-                return new RecipeInfoBuilder("Dahl").setTimeMinutes(60).setDifficulty(RecipeInfo.Difficulty.medium)
+                return new RecipeDetailsBuilder("Dahl").setTimeMinutes(60).setDifficulty(RecipeDetails.Difficulty.medium)
                         .setDescription("description")
-                        .setImageUri(MediaOperations.storeImage(context, R.drawable.dahl).toString())
+                        .setImageUri(MediaOperations.storeImage(context, R.drawable.dahl,
+                                MediaOperations.getUniqueImageName()).toString())
                         .setServings(5).build();
             case "Falafel wrap":
-                return new RecipeInfoBuilder("Falafel wrap").setDifficulty(RecipeInfo.Difficulty.easy)
+                return new RecipeDetailsBuilder("Falafel wrap").setDifficulty(RecipeDetails.Difficulty.easy)
                         .setDescription("description")
-                        .setImageUri(MediaOperations.storeImage(context, R.drawable.falafel).toString())
+                        .setImageUri(MediaOperations.storeImage(context, R.drawable.falafel,
+                                MediaOperations.getUniqueImageName()).toString())
                         .setServings(4).build();
             case "Mousakas":
-                return new RecipeInfoBuilder("Mousakas").setTimeMinutes(90).setDifficulty(RecipeInfo.Difficulty.hard)
+                return new RecipeDetailsBuilder("Mousakas").setTimeMinutes(90).setDifficulty(RecipeDetails.Difficulty.hard)
                         .setDescription("description")
-                        .setImageUri(MediaOperations.storeImage(context, R.drawable.mousakas).toString())
+                        .setImageUri(MediaOperations.storeImage(context, R.drawable.mousakas,
+                                MediaOperations.getUniqueImageName()).toString())
                         .setServings(8).build();
             case "Fried Squid":
-                return new RecipeInfoBuilder("Fried Squid").setTimeMinutes(45).setDifficulty(RecipeInfo.Difficulty.medium)
+                return new RecipeDetailsBuilder("Fried Squid").setTimeMinutes(45).setDifficulty(RecipeDetails.Difficulty.medium)
                         .setDescription("description")
-                        .setImageUri(MediaOperations.storeImage(context, R.drawable.squid).toString())
+                        .setImageUri(MediaOperations.storeImage(context, R.drawable.squid,
+                                MediaOperations.getUniqueImageName()).toString())
                         .setServings(3).build();
             case "Venison steak":
             default:
-                return new RecipeInfoBuilder("Venison steak").setTimeMinutes(30)
+                return new RecipeDetailsBuilder("Venison steak").setTimeMinutes(30)
                     .setDescription("description")
-                    .setImageUri(MediaOperations.storeImage(context, R.drawable.venison).toString())
+                    .setImageUri(MediaOperations.storeImage(context, R.drawable.venison,
+                            MediaOperations.getUniqueImageName()).toString())
                     .setServings(2).build();
         }
     }
@@ -61,6 +66,10 @@ public class Utils {
         ingredients.add(context.getResources().getString(R.string.test_ingredient_5));
         ingredients.add(context.getResources().getString(R.string.test_ingredient_6));
         ingredients.add(context.getResources().getString(R.string.test_ingredient_7));
+        ingredients.add(context.getResources().getString(R.string.test_ingredient_8));
+        ingredients.add(context.getResources().getString(R.string.test_ingredient_8));
+        ingredients.add(context.getResources().getString(R.string.test_ingredient_8));
+        ingredients.add(context.getResources().getString(R.string.test_ingredient_8));
         ingredients.add(context.getResources().getString(R.string.test_ingredient_8));
 
         return new RecipeBuilder(title).setIngredients(ingredients).setInstructions(instructions).build();

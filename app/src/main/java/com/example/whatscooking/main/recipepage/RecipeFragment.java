@@ -1,8 +1,10 @@
 package com.example.whatscooking.main.recipepage;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -13,7 +15,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.transition.Slide;
 import androidx.transition.Transition;
 import androidx.transition.TransitionInflater;
@@ -22,22 +24,23 @@ import com.example.whatscooking.R;
 import com.example.whatscooking.data.RecipeRepository;
 import com.example.whatscooking.databinding.RecipeFragmentBindingImpl;
 import com.example.whatscooking.main.MainActivity;
-import com.example.whatscooking.main.MainComponent;
 import com.example.whatscooking.utilities.Constants;
 
 import javax.inject.Inject;
 
-public class RecipeFragment extends Fragment implements View.OnClickListener {
+public class RecipeFragment extends Fragment implements
+        View.OnClickListener,
+        TouchInterceptChecker
+{
 
     RecipeViewModel recipeViewModel;
     @Inject
     RecipeRepository repository;
-
     FragmentManager fragmentManager;
-
     private RecipeFragmentBindingImpl binding;
     IngredientsChildFragment ingredientsFragment;
-    RecipeInstructionsChildFragment recipeFragment;
+    RecipeStepsChildFragment recipeFragment;
+    RecipeFragment thisFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,8 +53,9 @@ public class RecipeFragment extends Fragment implements View.OnClickListener {
                 .get(RecipeViewModel.class);
         setUpTransitions();
         ingredientsFragment = new IngredientsChildFragment();
-        recipeFragment = new RecipeInstructionsChildFragment();
+        recipeFragment = new RecipeStepsChildFragment();
         fragmentManager = getChildFragmentManager();
+        thisFragment = this;
     }
 
     private void setUpTransitions() {
@@ -74,8 +78,41 @@ public class RecipeFragment extends Fragment implements View.OnClickListener {
         }
         View view = bind(inflater, container);
         subscribeUi();
-        view.findViewById(R.id.change_view_button).setOnClickListener(this);
         return view;
+    }
+
+    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        binding.recipeScrollView.setInterceptChecker(this);
+        binding.recipeScrollView.setOnTouchListener(new View.OnTouchListener() {
+            final float scrollThreshold = 100;
+            float xStart = 0;
+            float yStart = 0;
+            float scrollViewStartPositionY = 0;
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN: {
+                        xStart = event.getX();
+                        yStart = event.getY();
+                        scrollViewStartPositionY = binding.recipeScrollView.getScrollY();
+                        break;
+                    }
+                    // could detect ACTION_MOVE and call popBackStack() before release
+                    case MotionEvent.ACTION_UP: {
+                        float xDelta = event.getX() - xStart;
+                        float yDelta = event.getY() - yStart;
+                        if (Math.abs(yDelta) >= Math.abs(xDelta) && Math.abs(yDelta) > scrollThreshold) {
+                            if (scrollViewStartPositionY == 0 && yDelta > 0) {
+                                NavHostFragment.findNavController(thisFragment).popBackStack();
+                                return true;
+                            }
+                        }
+                    }
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -88,16 +125,16 @@ public class RecipeFragment extends Fragment implements View.OnClickListener {
         binding = DataBindingUtil.inflate(inflater, R.layout.recipe_fragment,
                 container, false);
         binding.setLifecycleOwner(this);
-        binding.changeViewButton.setOnClickListener(l -> {});
+        binding.changeViewButton.setOnClickListener(this);
         return binding.getRoot();
     }
 
     private void subscribeUi() {
         //TODO check if these are needed. I think not anymore
-        recipeViewModel.getRecipeInfo().removeObservers(getViewLifecycleOwner());
-        recipeViewModel.getRecipe().removeObservers(getViewLifecycleOwner());
+        recipeViewModel.getRecipeDetailsLiveData().removeObservers(getViewLifecycleOwner());
+        recipeViewModel.getRecipeLiveData().removeObservers(getViewLifecycleOwner());
 
-        recipeViewModel.getRecipeInfo().observe(getViewLifecycleOwner(),
+        recipeViewModel.getRecipeDetailsLiveData().observe(getViewLifecycleOwner(),
                 recipe -> {
                     binding.setRecipe(recipeViewModel);
                     startPostponedEnterTransition();
@@ -118,5 +155,12 @@ public class RecipeFragment extends Fragment implements View.OnClickListener {
             transaction.replace(R.id.child_frame_layout, ingredientsFragment).commit();
             this.binding.changeViewButton.setText(R.string.view_recipe);
         }
+    }
+
+    @Override
+    public boolean shouldInterceptTouch(int x, int y) {
+        Rect rect = new Rect();
+        binding.recipeImage.getHitRect(rect);
+        return rect.contains(x, y);
     }
 }

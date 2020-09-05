@@ -8,7 +8,7 @@ public class MediaOperationsTest {
     @Test
     public void getUniqueImageName_twoAsyncCalls_generateTwoDifferentNames() throws InterruptedException {
         String name1 = MediaOperations.getUniqueImageName();
-        Thread.sleep(1000);
+        Thread.sleep(10);
         String name2 = MediaOperations.getUniqueImageName();
         assertThat(name1).doesNotMatch(name2);
     }

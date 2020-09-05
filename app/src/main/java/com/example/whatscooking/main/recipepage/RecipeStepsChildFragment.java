@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,16 +12,15 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager.widget.PagerAdapter;
 
-import com.example.whatscooking.R;
-import com.example.whatscooking.databinding.RecipeInstructionsFragmentBinding;
 import com.example.whatscooking.databinding.RecipeStepBinding;
+import com.example.whatscooking.databinding.RecipeStepsFragmentBinding;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecipeInstructionsChildFragment extends Fragment {
+public class RecipeStepsChildFragment extends Fragment {
 
-    RecipeInstructionsFragmentBinding binding;
+    RecipeStepsFragmentBinding binding;
     TextViewPagerAdapter pagerAdapter;
 
     @Override
@@ -34,10 +32,10 @@ public class RecipeInstructionsChildFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        binding = RecipeInstructionsFragmentBinding.inflate(inflater);
+        binding = RecipeStepsFragmentBinding.inflate(inflater);
         RecipeViewModel recipeViewModel =
                 new ViewModelProvider(getParentFragment()).get(RecipeViewModel.class);
-        recipeViewModel.getRecipe().observe(getViewLifecycleOwner(), recipe -> {
+        recipeViewModel.getRecipeLiveData().observe(getViewLifecycleOwner(), recipe -> {
                 ((TextViewPagerAdapter) binding.viewPager.getAdapter()).setRecipeSteps(recipe.instructions);
                 binding.viewPager.getAdapter().notifyDataSetChanged();
         });

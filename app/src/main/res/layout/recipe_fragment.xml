@@ -19,7 +19,7 @@
         tools:context=".main.recipeslist.RecipeFragment"
         android:background="@color/white">
 
-        <ScrollView
+        <com.example.whatscooking.main.recipepage.ScrollViewWithConditionalTouchIntercept
             android:id="@+id/recipe_scroll_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -51,7 +51,7 @@
                         android:background="@color/transparent"
                         android:contentDescription="Recipe image"
                         android:scaleType="centerCrop"
-                        android:src="@{recipe.recipeInfo.imageUri == null ? null : Uri.parse(recipe.recipeInfo.imageUri)}"
+                        android:src="@{recipe.recipeDetailsLiveData.imageUri == null ? null : Uri.parse(recipe.recipeDetailsLiveData.imageUri)}"
                         android:transitionName="@{Constants.RECIPE_IMG_TRANSITION_ID}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -67,7 +67,7 @@
                         android:fontFamily="sans-serif-light"
                         android:paddingStart="8dp"
                         android:paddingEnd="8dp"
-                        android:text="@{recipe.recipeInfo.title}"
+                        android:text="@{recipe.recipeDetailsLiveData.title}"
                         android:textColor="@color/white"
                         android:textSize="32sp"
                         android:transitionName="@{Constants.RECIPE_TITLE_TRANSITION_ID}"
@@ -104,7 +104,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginStart="8dp"
-                        android:text="@{recipe.recipeInfo.timeMinutes + ` ` + @string/min}"
+                        android:text="@{recipe.recipeDetailsLiveData.timeMinutes + ` ` + @string/min}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/time_title" />
 
@@ -124,7 +124,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginStart="8dp"
-                        android:text="@{String.valueOf(recipe.recipeInfo.difficulty)}"
+                        android:text="@{String.valueOf(recipe.recipeDetailsLiveData.difficulty)}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/difficulty_title" />
 
@@ -144,7 +144,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginStart="8dp"
-                        android:text="@{String.valueOf(recipe.recipeInfo.servings)}"
+                        android:text="@{String.valueOf(recipe.recipeDetailsLiveData.servings)}"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toEndOf="@id/servings_title" />
                     <!-- TODO add tags-->
@@ -166,7 +166,7 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </ScrollView>
+        </com.example.whatscooking.main.recipepage.ScrollViewWithConditionalTouchIntercept>
 
         <View style="@style/Divider"
             android:id="@+id/divider"

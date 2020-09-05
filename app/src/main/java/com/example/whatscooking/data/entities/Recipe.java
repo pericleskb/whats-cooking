@@ -1,7 +1,6 @@
 package com.example.whatscooking.data.entities;
 
 import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
@@ -18,7 +17,7 @@ import static androidx.room.ForeignKey.CASCADE;
  but I will use it in favour of learning
  */
 
-@Entity(tableName = "recipes", foreignKeys = @ForeignKey(entity = RecipeInfo.class,
+@Entity(tableName = "recipes", foreignKeys = @ForeignKey(entity = RecipeDetails.class,
                                                          parentColumns = "title",
                                                          childColumns = "title",
                                                          onDelete = CASCADE))

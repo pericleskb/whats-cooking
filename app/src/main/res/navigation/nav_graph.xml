@@ -9,7 +9,7 @@
         android:id="@+id/recipesListFragment"
         android:name="com.example.whatscooking.main.recipeslist.RecipesListFragment"
         android:label="RecipesListFragment"
-        tools:layout="@layout/main_fragment">
+        tools:layout="@layout/recipes_list_fragment">
         <action
             android:id="@+id/action_recipesListFragment_to_recipeFragment"
             app:destination="@id/recipeFragment">

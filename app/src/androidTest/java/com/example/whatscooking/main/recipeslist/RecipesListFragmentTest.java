@@ -1,9 +1,11 @@
 package com.example.whatscooking.main.recipeslist;
 
+import android.content.Intent;
+
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static com.example.whatscooking.TestUtils.withRecyclerView;
 
-import androidx.fragment.app.testing.FragmentScenario;
+import androidx.test.core.app.ActivityScenario;
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.ext.junit.runners.*;
@@ -13,22 +15,43 @@ import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import com.example.whatscooking.R;
+import com.example.whatscooking.TestRecipeDetailsBuildDirector;
+import com.example.whatscooking.main.MainTestActivity;
 
 @MediumTest
-@RunWith(AndroidJUnit4.class)
 public class RecipesListFragmentTest {
 
-    //TODO fix test
+    ActivityScenario<MainTestActivity> scenario;
+    private static TestRecipeDetailsBuildDirector director;
+
+    @BeforeClass
+    public static void setup() {
+        director = new TestRecipeDetailsBuildDirector();
+    }
+
+    @Before
+    public void setUp() {
+        scenario = ActivityScenario.launch(MainTestActivity.class).onActivity(activity -> {
+            RecipesListFragment fragment = new RecipesListFragment();
+            activity.startActivityFromFragment(fragment, new Intent(activity, MainTestActivity.class), 0);
+        });
+    }
+
     @Test
-    public void RecipesListFragment_DisplayedInUi() {
-        FragmentScenario.launchInContainer(RecipesListFragment.class, null, R.style.AppTheme, null);
+    public void recipeList_whenDisplayed_thenRecipeDetailsVisible() {
         Espresso.onView(withRecyclerView(R.id.recipe_recycler_view).atPosition(0))
                 .check(matches(hasDescendant(withText("Time:"))));
         Espresso.onView(withRecyclerView(R.id.recipe_recycler_view).atPosition(0))
                 .check(matches(hasDescendant(withText("Difficulty:"))));
+    }
+
+    @Test
+    public void recipeList_whenScrollDown_thenNewRecipesAppear() {
         Espresso.onView(withId(R.id.recipe_recycler_view)).perform(RecyclerViewActions.scrollToPosition(4));
         Espresso.onView(withRecyclerView(R.id.recipe_recycler_view).atPosition(4))
                 .check(matches(hasDescendant(withText("Venison steak"))));

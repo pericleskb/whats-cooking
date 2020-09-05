@@ -8,9 +8,7 @@ import androidx.room.Query;
 import androidx.room.Update;
 
 import com.example.whatscooking.data.entities.Recipe;
-import com.example.whatscooking.data.entities.RecipeInfo;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Dao

@@ -32,12 +32,8 @@ public class IngredientsChildFragment extends Fragment {
         binding.setLifecycleOwner(this);
         RecipeViewModel recipeViewModel = new ViewModelProvider(getParentFragment()).get(RecipeViewModel.class);
         binding.ingredientsRecyclerView.setAdapter(ingredientsListAdapter);
-        recipeViewModel.getRecipe().observe(getViewLifecycleOwner(), recipe ->
+        recipeViewModel.getRecipeLiveData().observe(getViewLifecycleOwner(), recipe ->
                 ingredientsListAdapter.setIngredientsList(recipe.ingredients));
         return binding.getRoot();
-    }
-
-    public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
     }
 }

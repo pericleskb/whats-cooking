@@ -3,11 +3,10 @@ package com.example.whatscooking.data;
 import androidx.lifecycle.LiveData;
 
 import com.example.whatscooking.data.daos.RecipeDao;
-import com.example.whatscooking.data.daos.RecipeInfoDao;
+import com.example.whatscooking.data.daos.RecipeDetailsDao;
 import com.example.whatscooking.data.entities.Recipe;
-import com.example.whatscooking.data.entities.RecipeInfo;
+import com.example.whatscooking.data.entities.RecipeDetails;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -15,24 +14,24 @@ import javax.inject.Inject;
 public class DefaultRecipeRepository implements RecipeRepository {
 
     protected static DefaultRecipeRepository instance;
-    private RecipeInfoDao recipeInfoDao;
+    private RecipeDetailsDao recipeDetailsDao;
     private RecipeDao recipeDao;
 
-    private LiveData<List<RecipeInfo>> allRecipesInfo;
+    private LiveData<List<RecipeDetails>> allRecipesDetails;
     //TODO change this to only not loaded recipes?
     private LiveData<List<Recipe>> allRecipes;
 
     @Inject
-    protected DefaultRecipeRepository(RecipeInfoDao recipeInfoDao, RecipeDao recipeDao) {
-        this.recipeInfoDao = recipeInfoDao;
+    protected DefaultRecipeRepository(RecipeDetailsDao recipeDetailsDao, RecipeDao recipeDao) {
+        this.recipeDetailsDao = recipeDetailsDao;
         this.recipeDao = recipeDao;
-        allRecipesInfo = recipeInfoDao.getAll();
+        allRecipesDetails = recipeDetailsDao.getAll();
         allRecipes = recipeDao.getAllRecipes();
     }
 
     @Override
-    public LiveData<List<RecipeInfo>> getAllRecipesInfo() {
-        return allRecipesInfo;
+    public LiveData<List<RecipeDetails>> getAllRecipesDetails() {
+        return allRecipesDetails;
     }
 
     @Override
@@ -46,30 +45,31 @@ public class DefaultRecipeRepository implements RecipeRepository {
     }
 
     @Override
-    public LiveData<RecipeInfo> getRecipeInfo(String recipeTitle) {
-        return recipeInfoDao.getRecipeInfo(recipeTitle);
+    public LiveData<RecipeDetails> getRecipeDetails(String recipeTitle) {
+        return recipeDetailsDao.getRecipeDetails(recipeTitle);
     }
 
     @Override
-    public void insertRecipe(RecipeInfo recipesInfo, Recipe recipe) {
-        AppDatabase.databaseWriteExecutor.execute(() -> recipeInfoDao.insert(recipesInfo));
+    public void insertRecipe(RecipeDetails recipeDetails, Recipe recipe) {
+        AppDatabase.databaseWriteExecutor.execute(() -> recipeDetailsDao.insert(recipeDetails));
         AppDatabase.databaseWriteExecutor.execute(() -> recipeDao.insert(recipe));
     }
 
+    //TODO write tests from here on downwards
     @Override
-    public void updateRecipe(RecipeInfo recipeInfo, Recipe recipe) {
-        AppDatabase.databaseWriteExecutor.execute(() -> recipeInfoDao.update(recipeInfo));
+    public void updateRecipe(RecipeDetails recipeDetails, Recipe recipe) {
+        AppDatabase.databaseWriteExecutor.execute(() -> recipeDetailsDao.update(recipeDetails));
         AppDatabase.databaseWriteExecutor.execute(() -> recipeDao.updateRecipe(recipe));
     }
 
     @Override
     public void deleteSelectedRecipes(String... recipeTitles) {
-        recipeInfoDao.deleteSelected(recipeTitles);
+        recipeDetailsDao.deleteSelected(recipeTitles);
     }
 
     @Override
-    public void deleteRecipe(RecipeInfo recipeInfo) {
-        recipeInfoDao.delete(recipeInfo);
+    public void deleteRecipe(RecipeDetails recipeDetails) {
+        recipeDetailsDao.delete(recipeDetails);
     }
 
 }

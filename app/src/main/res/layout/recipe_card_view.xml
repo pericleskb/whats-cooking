@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
-            name="recipeInfo"
-            type="com.example.whatscooking.data.entities.RecipeInfo" />
-        <import type="com.example.whatscooking.data.entities.RecipeInfo"/>
+            name="recipeDetails"
+            type="com.example.whatscooking.data.entities.RecipeDetails" />
+        <import type="com.example.whatscooking.data.entities.RecipeDetails"/>
         <import type="android.view.View"/>
         <import type="android.net.Uri"/>
     </data>
@@ -34,7 +34,7 @@
                 card_view:layout_constraintHeight_percent="0.8"
                 card_view:layout_constraintTop_toTopOf="parent"
                 tools:layout_editor_absoluteX="0dp"
-                android:src="@{Uri.parse(recipeInfo.imageUri)}"/>
+                android:src="@{recipeDetails.imageUri != null ? Uri.parse(recipeDetails.imageUri) : null}"/>
 
             <TextView
                 android:id="@+id/recipe_title"
@@ -43,7 +43,7 @@
                 android:background="@color/black_transparent"
                 android:fontFamily="sans-serif-light"
                 android:paddingStart="8dp"
-                android:text="@{recipeInfo.title}"
+                android:text="@{recipeDetails.title}"
                 android:textColor="@color/white"
                 android:textSize="32sp"
                 android:textStyle="bold"
@@ -60,7 +60,7 @@
                     android:id="@+id/time_group"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="@{recipeInfo.timeMinutes == null ? View.GONE : View.VISIBLE}"
+                    android:visibility="@{recipeDetails.timeMinutes == null ? View.GONE : View.VISIBLE}"
                     card_view:constraint_referenced_ids="time_title, time_value" />
 
                 <TextView
@@ -81,7 +81,7 @@
                     android:layout_height="0dp"
                     android:layout_marginStart="8dp"
                     android:gravity="center_vertical"
-                    android:text="@{recipeInfo.timeMinutes + ` ` + @string/min}"
+                    android:text="@{recipeDetails.timeMinutes + ` ` + @string/min}"
                     style="@style/SecondaryTextStyle"
                     card_view:layout_constraintHeight_percent="0.5"
                     card_view:layout_constraintStart_toEndOf="@+id/time_title"
@@ -91,7 +91,7 @@
                     android:id="@+id/difficulty_group"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="@{recipeInfo.difficulty == null ? View.GONE : View.VISIBLE}"
+                    android:visibility="@{recipeDetails.difficulty == null ? View.GONE : View.VISIBLE}"
                     card_view:constraint_referenced_ids="difficulty_title, difficulty_value" />
 
                 <TextView
@@ -113,7 +113,7 @@
                     android:layout_height="0dp"
                     android:layout_marginStart="8dp"
                     android:gravity="center_vertical"
-                    android:text="@{String.valueOf(recipeInfo.difficulty)}"
+                    android:text="@{String.valueOf(recipeDetails.difficulty)}"
                     style="@style/SecondaryTextStyle"
                     card_view:layout_constraintHeight_percent="0.5"
                     card_view:layout_constraintStart_toEndOf="@+id/difficulty_title"

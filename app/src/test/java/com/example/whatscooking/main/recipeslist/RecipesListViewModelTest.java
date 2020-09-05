@@ -13,9 +13,10 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.example.whatscooking.LiveDataTestUtil;
-import com.example.whatscooking.TestUtils;
-import com.example.whatscooking.data.FakeRepository;
-import com.example.whatscooking.data.entities.RecipeInfo;
+import com.example.whatscooking.TestRecipeBuildDirector;
+import com.example.whatscooking.TestRecipeDetailsBuildDirector;
+import com.example.whatscooking.FakeRepository;
+import com.example.whatscooking.data.entities.Recipe;
 
 import java.util.Stack;
 
@@ -30,21 +31,37 @@ public class RecipesListViewModelTest {
     public InstantTaskExecutorRule instantExecutorRule = new InstantTaskExecutorRule();
 
     RecipesListViewModel recipesListViewModel;
-    Stack<RecipeInfo> recipesInfo;
+    FakeRepository fakeRepository;
+    TestRecipeDetailsBuildDirector recipeDetailsDirector;
+    TestRecipeBuildDirector recipeDirector;
 
     @Before
     public void setupViewModel() {
+        recipeDetailsDirector = new TestRecipeDetailsBuildDirector();
+        recipeDirector = new TestRecipeBuildDirector();
+        fakeRepository = new FakeRepository();
+        fakeRepository.insertRecipe(recipeDetailsDirector.buildFullRecipeDetails(),
+                recipeDirector.buildRecipe());
         recipesListViewModel =
                 new RecipesListViewModel(ApplicationProvider.getApplicationContext(),
-                        new FakeRepository());
-        recipesInfo = TestUtils.getRecipesStack();
+                        fakeRepository);
     }
 
     @Test
-    public void insert_addRecipe() throws InterruptedException {
-        recipesListViewModel.insert(recipesInfo.pop());
+    public void getAllRecipesDetails_whenViewModelCreated_thenExistingRecipesGetAdded()
+            throws InterruptedException {
+        int numberOfRecipes = fakeRepository.getNumberOfRecipes();
+        assertThat(LiveDataTestUtil.getOrAwaitValue(recipesListViewModel.getAllRecipesDetails())
+                .size()).isEqualTo(numberOfRecipes);
+    }
 
-        assertThat(LiveDataTestUtil.getOrAwaitValue(recipesListViewModel.getAllRecipesInfo())
-                .size()).isEqualTo(1);
+    @Test
+    public void insert_whenNewRecipeAdded_thenInsertRecipeIsCalledInRepository()
+            throws InterruptedException {
+        int numberOfRecipes = fakeRepository.getNumberOfRecipes();
+        recipesListViewModel.insert(recipeDetailsDirector.buildFullRecipeDetails(),
+                recipeDirector.buildRecipe());
+        assertThat(LiveDataTestUtil.getOrAwaitValue(recipesListViewModel.getAllRecipesDetails())
+                .size()).isEqualTo(numberOfRecipes + 1);
     }
 }
