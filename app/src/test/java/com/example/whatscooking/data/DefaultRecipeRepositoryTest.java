@@ -6,11 +6,13 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.example.whatscooking.LiveDataTestUtil;
+import com.example.whatscooking.TestRecipeDetailsBuildDirector;
 import com.example.whatscooking.TestUtils;
 import com.example.whatscooking.data.daos.FakeRecipeDao;
 import com.example.whatscooking.data.daos.FakeRecipeDetailsDao;
 import com.example.whatscooking.data.entities.Recipe;
 import com.example.whatscooking.data.entities.RecipeDetails;
+import com.example.whatscooking.utilities.MediaOperations;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -33,22 +35,22 @@ public class DefaultRecipeRepositoryTest {
 
     @Inject
     DefaultRecipeRepository recipeRepository;
-    Stack<RecipeDetails> recipeDetailsStack;
     Stack<Recipe> recipesStack;
     FakeRecipeDetailsDao fakeRecipeDetailsDao;
     FakeRecipeDao fakeRecipeDao;
+    TestRecipeDetailsBuildDirector director;
 
     @Before
     public void setUp() {
+        director = new TestRecipeDetailsBuildDirector();
         fakeRecipeDetailsDao = new FakeRecipeDetailsDao();
         fakeRecipeDao = new FakeRecipeDao();
 
-        recipeDetailsStack = TestUtils.getRecipesDetailsStack();
         recipesStack = TestUtils.getRecipesStack();
 
-        fakeRecipeDetailsDao.insert(recipeDetailsStack.pop());
+        fakeRecipeDetailsDao.insert(director.buildFullRecipeDetails());
         fakeRecipeDao.insert(recipesStack.pop());
-        fakeRecipeDetailsDao.insert(recipeDetailsStack.pop());
+        fakeRecipeDetailsDao.insert(director.buildFullRecipeDetails());
         fakeRecipeDao.insert(recipesStack.pop());
 
         ResetableDefaultRecipeRepository.resetInstance();
@@ -80,7 +82,7 @@ public class DefaultRecipeRepositoryTest {
 
     @Test
     public void getRecipeDetails_whenRecipeTitleProvided_thenFetchSpecifiedRecipeDetails() throws InterruptedException {
-        RecipeDetails recipe = recipeDetailsStack.pop();
+        RecipeDetails recipe = director.buildFullRecipeDetails();
         fakeRecipeDetailsDao.insert(recipe);
         RecipeDetails fetchedRecipe = LiveDataTestUtil.getOrAwaitValue(recipeRepository.getRecipeDetails(recipe.title));
         assertThat(recipe.title).isEqualTo(fetchedRecipe.title);
@@ -94,8 +96,8 @@ public class DefaultRecipeRepositoryTest {
     @Test
     public void insert_whenRecipeIsInserted_thenRecipeDaoInsertIsCalled() {
         int recipesLengthBefore = fakeRecipeDetailsDao.recipesList.size();
-        recipeRepository.insertRecipe(recipeDetailsStack.pop(), recipesStack.pop());
-        recipeRepository.insertRecipe(recipeDetailsStack.pop(), recipesStack.pop());
+        recipeRepository.insertRecipe(director.buildFullRecipeDetails(), recipesStack.pop());
+        recipeRepository.insertRecipe(director.buildFullRecipeDetails(), recipesStack.pop());
         assertThat(recipesLengthBefore + 2).isEqualTo(fakeRecipeDetailsDao.recipesList.size());
     }
 }

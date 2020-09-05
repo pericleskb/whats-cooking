@@ -57,6 +57,7 @@ public class MediaOperations {
         return image;
     }
 
+    //TODO unit test
     public static String createPlaceholderImage(Context context) {
         String imageName = "placeholder_image";
         File path = new File(context.getFilesDir(), Constants.IMAGES_DIR);

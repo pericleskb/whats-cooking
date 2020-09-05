@@ -16,16 +16,23 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import com.example.whatscooking.R;
+import com.example.whatscooking.TestRecipeDetailsBuildDirector;
 import com.example.whatscooking.main.MainTestActivity;
 
 @MediumTest
-@RunWith(AndroidJUnit4.class)
 public class RecipesListFragmentTest {
 
     ActivityScenario<MainTestActivity> scenario;
+    private static TestRecipeDetailsBuildDirector director;
+
+    @BeforeClass
+    public static void setup() {
+        director = new TestRecipeDetailsBuildDirector();
+    }
 
     @Before
     public void setUp() {

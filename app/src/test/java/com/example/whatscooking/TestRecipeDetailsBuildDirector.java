@@ -13,6 +13,7 @@ public class TestRecipeDetailsBuildDirector {
     private Stack<String> recipeTitlesStack = new Stack<>();
     String uri;
 
+    //TODO handle case when stack runs out
     public TestRecipeDetailsBuildDirector() {
         recipeTitlesStack.push("Venison steak");
         recipeTitlesStack.push("Fried squid");

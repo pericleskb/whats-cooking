@@ -36,14 +36,11 @@ public class RecipeFragment extends Fragment implements
     RecipeViewModel recipeViewModel;
     @Inject
     RecipeRepository repository;
-
     FragmentManager fragmentManager;
-
     private RecipeFragmentBindingImpl binding;
     IngredientsChildFragment ingredientsFragment;
     RecipeStepsChildFragment recipeFragment;
     RecipeFragment thisFragment;
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

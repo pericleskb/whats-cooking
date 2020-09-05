@@ -13,6 +13,7 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.example.whatscooking.LiveDataTestUtil;
+import com.example.whatscooking.TestRecipeDetailsBuildDirector;
 import com.example.whatscooking.TestUtils;
 import com.example.whatscooking.data.FakeRepository;
 import com.example.whatscooking.data.entities.Recipe;
@@ -31,16 +32,16 @@ public class RecipesListViewModelTest {
     public InstantTaskExecutorRule instantExecutorRule = new InstantTaskExecutorRule();
 
     RecipesListViewModel recipesListViewModel;
-    Stack<RecipeDetails> recipesDetails;
     Stack<Recipe> recipes;
     FakeRepository fakeRepository;
+    TestRecipeDetailsBuildDirector director;
 
     @Before
     public void setupViewModel() {
-        recipesDetails = TestUtils.getRecipesDetailsStack();
+        director = new TestRecipeDetailsBuildDirector();
         recipes = TestUtils.getRecipesStack();
         fakeRepository = new FakeRepository();
-        fakeRepository.insertRecipe(recipesDetails.pop(), recipes.pop());
+        fakeRepository.insertRecipe(TestUtils.director.buildFullRecipeDetails(), recipes.pop());
         recipesListViewModel =
                 new RecipesListViewModel(ApplicationProvider.getApplicationContext(),
                         fakeRepository);
@@ -57,7 +58,7 @@ public class RecipesListViewModelTest {
     @Test
     public void insert_whenNewRecipeAdded_thenInsertRecipeIsCalledInRepository() throws InterruptedException {
         int numberOfRecipes = fakeRepository.getNumberOfRecipes();
-        recipesListViewModel.insert(recipesDetails.pop(), recipes.pop());
+        recipesListViewModel.insert(TestUtils.director.buildFullRecipeDetails(), recipes.pop());
         assertThat(LiveDataTestUtil.getOrAwaitValue(recipesListViewModel.getAllRecipesDetails())
                 .size()).isEqualTo(numberOfRecipes + 1);
     }

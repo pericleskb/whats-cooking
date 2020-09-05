@@ -1,13 +1,7 @@
 package com.example.whatscooking;
 
-
-import androidx.test.core.app.ApplicationProvider;
-
 import com.example.whatscooking.data.entities.Recipe;
 import com.example.whatscooking.data.entities.RecipeBuilder;
-import com.example.whatscooking.data.entities.RecipeDetails;
-import com.example.whatscooking.data.entities.RecipeDetailsBuilder;
-import com.example.whatscooking.utilities.MediaOperations;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,50 +10,13 @@ import java.util.Stack;
 import java.util.Vector;
 
 public class TestUtils {
-    
-    public static Stack<RecipeDetails> getRecipesDetailsStack() {
-        Stack<RecipeDetails> recipeDetails = new Stack<>();
-        recipeDetails.addAll(getRecipeDetailsVector());
-        return recipeDetails;
-    }
+
+    public static TestRecipeDetailsBuildDirector director = new TestRecipeDetailsBuildDirector();
 
     public static Stack<Recipe> getRecipesStack() {
         Stack<Recipe> recipeStack = new Stack<>();
         recipeStack.addAll(getRecipeVector());
         return recipeStack;
-    }
-
-    public static ArrayList<RecipeDetails> getRecipesDetailsList() {
-        ArrayList<RecipeDetails> recipesDetails = new ArrayList<>();
-        recipesDetails.addAll(getRecipeDetailsVector());
-        return recipesDetails;
-    }
-
-    private static Vector<RecipeDetails> getRecipeDetailsVector() {
-        Vector<RecipeDetails> recipeDetailsVector = new Vector<>();
-        String uri = MediaOperations.createPlaceholderImage(ApplicationProvider.getApplicationContext());
-        recipeDetailsVector.add(new RecipeDetailsBuilder("Dahl").setTimeMinutes(60).setDifficulty(RecipeDetails.Difficulty.medium)
-                .setDescription("description")
-                .setServings(5)
-                .setImageUri(uri).build());
-        recipeDetailsVector.add(new RecipeDetailsBuilder("Falafel wrap").setDifficulty(RecipeDetails.Difficulty.easy)
-                .setDescription("description")
-                .setImageUri(null)
-                .setServings(4)
-                .setImageUri(uri).build());
-        recipeDetailsVector.add(new RecipeDetailsBuilder("Mousakas").setTimeMinutes(90).setDifficulty(RecipeDetails.Difficulty.hard)
-                .setDescription("description")
-                .setServings(8)
-                .setImageUri(uri).build());
-        recipeDetailsVector.add(new RecipeDetailsBuilder("Fried Squid").setTimeMinutes(45).setDifficulty(RecipeDetails.Difficulty.medium)
-                .setDescription("description")
-                .setServings(3)
-                .setImageUri(uri).build());
-        recipeDetailsVector.add(new RecipeDetailsBuilder("Venison steak").setTimeMinutes(30)
-                .setDescription("description")
-                .setServings(2)
-                .setImageUri(uri).build());
-        return recipeDetailsVector;
     }
 
     private static Vector<Recipe> getRecipeVector() {

@@ -7,6 +7,7 @@ import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.example.whatscooking.LiveDataTestUtil;
+import com.example.whatscooking.TestRecipeDetailsBuildDirector;
 import com.example.whatscooking.TestUtils;
 import com.example.whatscooking.data.FakeRepository;
 import com.example.whatscooking.data.entities.Recipe;
@@ -34,15 +35,16 @@ public class RecipeViewModelTest {
     FakeRepository fakeRepository;
     RecipeViewModel recipeViewModel;
     Stack<Recipe> recipeStack = TestUtils.getRecipesStack();
-    Stack<RecipeDetails> recipeDetailsStack = TestUtils.getRecipesDetailsStack();
     Recipe recipe;
     RecipeDetails recipeDetails;
+    TestRecipeDetailsBuildDirector director;
 
     @Before
     public void setUpViewModel() {
+        director = new TestRecipeDetailsBuildDirector();
         fakeRepository = new FakeRepository();
         recipe = recipeStack.pop();
-        recipeDetails = recipeDetailsStack.pop();
+        recipeDetails = director.buildFullRecipeDetails();
         fakeRepository.insertRecipe(recipeDetails, recipe);
         recipeViewModel = new RecipeViewModel(ApplicationProvider.getApplicationContext(),
                 fakeRepository, recipeDetails.title);
