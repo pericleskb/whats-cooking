@@ -12,7 +12,6 @@ import com.example.whatscooking.data.daos.FakeRecipeDao;
 import com.example.whatscooking.data.daos.FakeRecipeDetailsDao;
 import com.example.whatscooking.data.entities.Recipe;
 import com.example.whatscooking.data.entities.RecipeDetails;
-import com.example.whatscooking.utilities.MediaOperations;
 
 import org.junit.Before;
 import org.junit.Rule;

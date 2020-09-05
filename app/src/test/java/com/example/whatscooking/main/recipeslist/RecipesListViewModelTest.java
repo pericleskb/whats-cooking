@@ -17,7 +17,6 @@ import com.example.whatscooking.TestRecipeDetailsBuildDirector;
 import com.example.whatscooking.TestUtils;
 import com.example.whatscooking.data.FakeRepository;
 import com.example.whatscooking.data.entities.Recipe;
-import com.example.whatscooking.data.entities.RecipeDetails;
 
 import java.util.Stack;
 

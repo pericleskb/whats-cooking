@@ -2,6 +2,7 @@ package com.example.whatscooking;
 
 import com.example.whatscooking.data.entities.Recipe;
 import com.example.whatscooking.data.entities.RecipeBuilder;
+import com.example.whatscooking.data.entities.RecipeDetails;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,9 +10,23 @@ import java.util.List;
 import java.util.Stack;
 import java.util.Vector;
 
+//TODO move to sharing folder for test and androidTest
 public class TestUtils {
 
     public static TestRecipeDetailsBuildDirector director = new TestRecipeDetailsBuildDirector();
+
+    public static RecyclerViewMatcher withRecyclerView(final int recyclerViewId) {
+        return new RecyclerViewMatcher(recyclerViewId);
+    }
+
+    public static ArrayList<RecipeDetails> getRecipesInfoList() {
+        TestRecipeDetailsBuildDirector director = new TestRecipeDetailsBuildDirector();
+        ArrayList<RecipeDetails> recipesDetails = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            recipesDetails.add(director.buildFullRecipeDetails());
+        }
+        return recipesDetails;
+    }
 
     public static Stack<Recipe> getRecipesStack() {
         Stack<Recipe> recipeStack = new Stack<>();
@@ -40,4 +55,7 @@ public class TestUtils {
                 .setInstructions(new ArrayList<>(recipeSteps0)).build());
         return recipeVector;
     }
+
 }
+
+
