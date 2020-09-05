@@ -8,7 +8,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.example.whatscooking.TestRecipeDetailsBuildDirector;
 import com.example.whatscooking.TestUtils;
-import com.example.whatscooking.data.FakeRepository;
+import com.example.whatscooking.FakeRepository;
 import com.example.whatscooking.data.entities.Recipe;
 import com.example.whatscooking.data.entities.RecipeDetails;
 

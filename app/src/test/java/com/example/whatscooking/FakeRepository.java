@@ -1,8 +1,9 @@
-package com.example.whatscooking.data;
+package com.example.whatscooking;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.example.whatscooking.data.RecipeRepository;
 import com.example.whatscooking.data.entities.Recipe;
 import com.example.whatscooking.data.entities.RecipeDetails;
 

@@ -7,24 +7,20 @@ import com.example.whatscooking.TestUtils;
 import com.example.whatscooking.data.entities.Recipe;
 import com.example.whatscooking.data.entities.RecipeDetails;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-public class FakeAndroidTestRepository implements RecipeRepository {
-
-    private MutableLiveData<List<RecipeDetails>> recipeDetailsLiveData = new MutableLiveData<>();
-    private MutableLiveData<List<Recipe>> recipesLiveData = new MutableLiveData<>();
+/* This repository is injected by Dagger in the ViewModel classes so we can control what data
+   is available during integration tests.
+ */
+public class MockRepository implements RecipeRepository {
 
     private MutableLiveData<List<RecipeDetails>> testRecipeDetailsLiveData = new MutableLiveData<>();
     private MutableLiveData<List<Recipe>> testRecipesLiveData = new MutableLiveData<>();
 
-    ArrayList<RecipeDetails> recipeDetailsList = new ArrayList<>();
-    ArrayList<Recipe> recipeList = new ArrayList<>();
-
     @Inject
-    protected FakeAndroidTestRepository() {
+    protected MockRepository() {
         testRecipeDetailsLiveData.postValue(TestUtils.getRecipesInfoList());
     }
 
@@ -50,8 +46,7 @@ public class FakeAndroidTestRepository implements RecipeRepository {
 
     @Override
     public void insertRecipe(RecipeDetails recipeDetails, Recipe recipe) {
-        recipeDetailsList.add(recipeDetails);
-        recipeDetailsLiveData.postValue(recipeDetailsList);
+
     }
 
     @Override
