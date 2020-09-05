@@ -10,19 +10,16 @@ import java.util.Stack;
 
 public class TestRecipeDetailsBuildDirector {
 
-    private Stack<String> recipeTitlesStack = new Stack<>();
-    String uri;
+    private Stack<String> recipeTitlesStack;
+    private String uri;
 
     public TestRecipeDetailsBuildDirector() {
-        recipeTitlesStack.push("Venison steak");
-        recipeTitlesStack.push("Fried squid");
-        recipeTitlesStack.push("Mousakas 04/09/20");
-        recipeTitlesStack.push("Falafel wrap 2");
-        recipeTitlesStack.push("Dahl");
+        recipeTitlesStack = TestUtils.GenerateRecipeTitlesStack();
         uri = MediaOperations.createPlaceholderImage(
                 ApplicationProvider.getApplicationContext());
     }
 
+    //TODO maybe have pre-defined recipes in TestUtils and get all details from there
     public RecipeDetails buildFullRecipeDetails() {
         return new RecipeDetailsBuilder(recipeTitlesStack.pop())
                 .setTimeMinutes(60)
