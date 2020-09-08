@@ -21,6 +21,7 @@ public class MockRepository implements RecipeRepository {
 
     @Inject
     protected MockRepository() {
+        //TODO add incomplete recipe details for tests
         testRecipeDetailsLiveData.postValue(TestUtils.getRecipesInfoList());
     }
 

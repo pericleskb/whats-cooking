@@ -4,8 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
-import androidx.test.core.app.ApplicationProvider;
-
 import com.example.whatscooking.R;
 
 import java.io.File;

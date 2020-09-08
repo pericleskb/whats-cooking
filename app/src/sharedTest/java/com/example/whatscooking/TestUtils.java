@@ -5,7 +5,6 @@ import com.example.whatscooking.data.entities.RecipeDetails;
 import java.util.ArrayList;
 import java.util.Stack;
 
-//TODO move to sharing folder for test and androidTest
 public class TestUtils {
 
     public static RecyclerViewMatcher withRecyclerView(final int recyclerViewId) {

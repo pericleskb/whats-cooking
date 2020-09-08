@@ -97,7 +97,6 @@ public class RecipesListFragment extends Fragment implements RecipeListAdapter.O
         FragmentNavigator.Extras extras = new FragmentNavigator.Extras.Builder()
                 .addSharedElement(imageView, Constants.RECIPE_IMG_TRANSITION_ID)
                 .addSharedElement(titleTextView, Constants.RECIPE_TITLE_TRANSITION_ID).build();
-//        this.setExitTransition(createExitTransition(imageView));
         NavHostFragment.findNavController(this).navigate(direction, extras);
     }
 

@@ -19,8 +19,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.annotation.Config;
 
-import java.util.Stack;
-
 import static com.google.common.truth.Truth.assertThat;
 
 @RunWith(AndroidJUnit4.class)
@@ -53,13 +51,15 @@ public class DefaultRecipeRepositoryTest {
     }
 
     @Test
-    public void getAllRecipesDetails_whenRepositoryCreated_thenExistingRecipeDetailsAreAdded() throws InterruptedException {
+    public void getAllRecipesDetails_whenRepositoryCreated_thenExistingRecipeDetailsAreAdded()
+            throws InterruptedException {
         assertThat(fakeRecipeDetailsDao.recipesList.size()).isEqualTo(LiveDataTestUtil.getOrAwaitValue(
                 recipeRepository.getAllRecipesDetails()).size());
     }
 
     @Test
-    public void getAllRecipes_whenRepositoryCreated_thenExistingRecipesAreAdded() throws InterruptedException {
+    public void getAllRecipes_whenRepositoryCreated_thenExistingRecipesAreAdded()
+            throws InterruptedException {
         assertThat(fakeRecipeDao.recipesList.size()).isEqualTo(LiveDataTestUtil.getOrAwaitValue(
                 recipeRepository.getAllRecipes()).size());
     }
@@ -76,10 +76,12 @@ public class DefaultRecipeRepositoryTest {
 
 
     @Test
-    public void getRecipeDetails_whenRecipeTitleProvided_thenFetchSpecifiedRecipeDetails() throws InterruptedException {
+    public void getRecipeDetails_whenRecipeTitleProvided_thenFetchSpecifiedRecipeDetails()
+            throws InterruptedException {
         RecipeDetails recipe = recipeDetailsDirector.buildFullRecipeDetails();
         fakeRecipeDetailsDao.insert(recipe);
-        RecipeDetails fetchedRecipe = LiveDataTestUtil.getOrAwaitValue(recipeRepository.getRecipeDetails(recipe.title));
+        RecipeDetails fetchedRecipe = LiveDataTestUtil.getOrAwaitValue(
+                recipeRepository.getRecipeDetails(recipe.title));
         assertThat(recipe.title).isEqualTo(fetchedRecipe.title);
         assertThat(recipe.difficulty).isEqualTo(fetchedRecipe.difficulty);
         assertThat(recipe.imageUri).isEqualTo(fetchedRecipe.imageUri);
@@ -91,8 +93,10 @@ public class DefaultRecipeRepositoryTest {
     @Test
     public void insert_whenRecipeIsInserted_thenRecipeDaoInsertIsCalled() {
         int recipesLengthBefore = fakeRecipeDetailsDao.recipesList.size();
-        recipeRepository.insertRecipe(recipeDetailsDirector.buildFullRecipeDetails(), recipeDirector.buildRecipe());
-        recipeRepository.insertRecipe(recipeDetailsDirector.buildFullRecipeDetails(), recipeDirector.buildRecipe());
+        recipeRepository.insertRecipe(recipeDetailsDirector.buildFullRecipeDetails(),
+                recipeDirector.buildRecipe());
+        recipeRepository.insertRecipe(recipeDetailsDirector.buildFullRecipeDetails(),
+                recipeDirector.buildRecipe());
         try {
             Thread.sleep(100);
         } catch (InterruptedException e) {
