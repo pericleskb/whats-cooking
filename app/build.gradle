@@ -21,16 +21,20 @@ android {
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
     }
+
+    buildFeatures {
+        dataBinding true
+        viewBinding true
+    }
+
     dataBinding {
-        enabled = true
         enabledForTests = true
     }
+
     testOptions.unitTests {
         includeAndroidResources = true
     }
-    viewBinding {
-        enabled = true
-    }
+
     sourceSets {
         String sharedTestDir = 'src/sharedTest/java'
         test {
