@@ -95,7 +95,12 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     androidTestImplementation "androidx.navigation:navigation-testing:$nav_version"
 
-    debugImplementation("androidx.fragment:fragment-testing:1.2.5")
+    //excluding monitor to resolve incompatible dependencies
+    //espresso-core version 3.3.0 and fragment-testing version 1.2.5 that leads to
+    //instrumentation tests not running
+    debugImplementation('androidx.fragment:fragment-testing:1.2.5') {
+        exclude group: 'androidx.test', module: 'monitor'
+    }
 
     //Room
     implementation "androidx.room:room-runtime:$room_version"
