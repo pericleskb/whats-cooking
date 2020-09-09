@@ -19,7 +19,8 @@ public class TestRecipeBuildDirector {
 
     public Recipe buildRecipe() {
         List<String> ingredients = Arrays.asList("ingredient00", "ingredient01", "ingredient02",
-                "ingredient03", "ingredient04");
+                "ingredient03", "ingredient04", "ingredient05", "ingredient06", "ingredient07",
+                "ingredient08", "ingredient09");
         List<String> recipeSteps = Arrays.asList("Step00", "Step01", "Step02", "Step03", "Step04",
                 "Step05");
         return new RecipeBuilder(recipeTitlesStack.pop()).setIngredients(new ArrayList<>(ingredients))
