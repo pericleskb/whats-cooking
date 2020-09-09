@@ -84,6 +84,7 @@ public class RecipeFragment extends Fragment implements
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding.recipeScrollView.setInterceptChecker(this);
+        //TODO could extend View.OnTouchListener and provide the getScrollY() value
         binding.recipeScrollView.setOnTouchListener(new View.OnTouchListener() {
             final float scrollThreshold = 100;
             float xStart = 0;
@@ -122,6 +123,8 @@ public class RecipeFragment extends Fragment implements
     }
 
     private View bind(LayoutInflater inflater, ViewGroup container) {
+
+
         binding = DataBindingUtil.inflate(inflater, R.layout.recipe_fragment,
                 container, false);
         binding.setLifecycleOwner(this);

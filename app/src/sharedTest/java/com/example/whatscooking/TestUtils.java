@@ -1,11 +1,11 @@
 package com.example.whatscooking;
 
+import com.example.whatscooking.data.entities.Recipe;
 import com.example.whatscooking.data.entities.RecipeDetails;
 
 import java.util.ArrayList;
 import java.util.Stack;
 
-//TODO move to sharing folder for test and androidTest
 public class TestUtils {
 
     public static RecyclerViewMatcher withRecyclerView(final int recyclerViewId) {
@@ -19,6 +19,14 @@ public class TestUtils {
             recipesDetails.add(director.buildFullRecipeDetails());
         }
         return recipesDetails;
+    }
+
+    public static Recipe getRecipe() {
+        return new TestRecipeBuildDirector().buildRecipe();
+    }
+
+    public static RecipeDetails getRecipeDetails() {
+        return new TestRecipeDetailsBuildDirector().buildFullRecipeDetails();
     }
 
     public static Stack<String> GenerateRecipeTitlesStack() {

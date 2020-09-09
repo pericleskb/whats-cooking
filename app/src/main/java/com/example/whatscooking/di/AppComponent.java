@@ -12,7 +12,8 @@ import dagger.BindsInstance;
 import dagger.Component;
 
 @Singleton
-@Component(modules = {RecipeRepositoryModule.class, AppSubcomponents.class}, dependencies = {AppDatabase.class})
+@Component(modules = {RecipeRepositoryModule.class, AppSubcomponents.class},
+        dependencies = {AppDatabase.class})
 public interface AppComponent {
 
     // Factory to create instances of the AppComponent
