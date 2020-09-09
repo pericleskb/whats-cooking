@@ -8,7 +8,6 @@ import static com.example.whatscooking.TestUtils.withRecyclerView;
 import androidx.test.core.app.ActivityScenario;
 import androidx.test.espresso.Espresso;
 import androidx.test.espresso.contrib.RecyclerViewActions;
-import androidx.test.ext.junit.runners.*;
 import androidx.test.filters.MediumTest;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.hasDescendant;
@@ -18,15 +17,14 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import com.example.whatscooking.R;
 import com.example.whatscooking.TestRecipeDetailsBuildDirector;
-import com.example.whatscooking.main.MainTestActivity;
+import com.example.whatscooking.main.MainActivity;
 
 @MediumTest
 public class RecipesListFragmentTest {
 
-    ActivityScenario<MainTestActivity> scenario;
+    ActivityScenario<MainActivity> scenario;
     private static TestRecipeDetailsBuildDirector director;
 
     @BeforeClass
@@ -36,9 +34,9 @@ public class RecipesListFragmentTest {
 
     @Before
     public void setUp() {
-        scenario = ActivityScenario.launch(MainTestActivity.class).onActivity(activity -> {
+        scenario = ActivityScenario.launch(MainActivity.class).onActivity(activity -> {
             RecipesListFragment fragment = new RecipesListFragment();
-            activity.startActivityFromFragment(fragment, new Intent(activity, MainTestActivity.class), 0);
+            activity.startActivityFromFragment(fragment, new Intent(activity, MainActivity.class), 0);
         });
     }
 

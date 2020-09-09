@@ -124,6 +124,7 @@ public class RecipeFragment extends Fragment implements
 
     private View bind(LayoutInflater inflater, ViewGroup container) {
 
+
         binding = DataBindingUtil.inflate(inflater, R.layout.recipe_fragment,
                 container, false);
         binding.setLifecycleOwner(this);
