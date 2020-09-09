@@ -1,5 +1,6 @@
 package com.example.whatscooking;
 
+import com.example.whatscooking.data.entities.Recipe;
 import com.example.whatscooking.data.entities.RecipeDetails;
 
 import java.util.ArrayList;
@@ -18,6 +19,14 @@ public class TestUtils {
             recipesDetails.add(director.buildFullRecipeDetails());
         }
         return recipesDetails;
+    }
+
+    public static Recipe getRecipe() {
+        return new TestRecipeBuildDirector().buildRecipe();
+    }
+
+    public static RecipeDetails getRecipeDetails() {
+        return new TestRecipeDetailsBuildDirector().buildFullRecipeDetails();
     }
 
     public static Stack<String> GenerateRecipeTitlesStack() {

@@ -16,18 +16,22 @@ import javax.inject.Inject;
  */
 public class MockRepository implements RecipeRepository {
 
-    private MutableLiveData<List<RecipeDetails>> testRecipeDetailsLiveData = new MutableLiveData<>();
-    private MutableLiveData<List<Recipe>> testRecipesLiveData = new MutableLiveData<>();
+    private MutableLiveData<List<RecipeDetails>> mutableRecipeDetails = new MutableLiveData<>();
+
+    private MutableLiveData<RecipeDetails> recipeDetailsMutableLiveData = new MutableLiveData<>();
+    private MutableLiveData<Recipe> recipeMutableLiveData = new MutableLiveData<>();
 
     @Inject
     protected MockRepository() {
         //TODO add incomplete recipe details for tests
-        testRecipeDetailsLiveData.postValue(TestUtils.getRecipesInfoList());
+        mutableRecipeDetails.postValue(TestUtils.getRecipesInfoList());
+        recipeDetailsMutableLiveData.postValue(TestUtils.getRecipeDetails());
+        recipeMutableLiveData.postValue(TestUtils.getRecipe());
     }
 
     @Override
     public LiveData<List<RecipeDetails>> getAllRecipesDetails() {
-        return testRecipeDetailsLiveData;
+        return mutableRecipeDetails;
     }
 
     @Override
@@ -37,12 +41,14 @@ public class MockRepository implements RecipeRepository {
 
     @Override
     public LiveData<Recipe> getRecipe(String recipeTitle) {
-        return null;
+        LiveData<Recipe> liveData = recipeMutableLiveData;
+        return liveData;
     }
 
     @Override
     public LiveData<RecipeDetails> getRecipeDetails(String recipeTitle) {
-        return null;
+        LiveData<RecipeDetails> liveData = recipeDetailsMutableLiveData;
+        return liveData;
     }
 
     @Override
