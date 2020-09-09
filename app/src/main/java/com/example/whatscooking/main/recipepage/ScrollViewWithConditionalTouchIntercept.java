@@ -3,9 +3,10 @@ package com.example.whatscooking.main.recipepage;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.widget.ScrollView;
 
-public class ScrollViewWithConditionalTouchIntercept extends ScrollView {
+import androidx.core.widget.NestedScrollView;
+
+public class ScrollViewWithConditionalTouchIntercept extends NestedScrollView {
 
     TouchInterceptChecker interceptChecker = null;
 
