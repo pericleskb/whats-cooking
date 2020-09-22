@@ -17,20 +17,24 @@ public class MyApplication extends Application {
 
     private static final int NUMBER_OF_THREADS = 4;
     public AppComponent appComponent;
+    // Protected visibility for tests
+    ExecutorService executorService;
+    AppDatabase appDatabase;
+    Retrofit retrofit;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        executorService = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
+        appDatabase = AppDatabase.createInstance(this, executorService);
+        retrofit = new Retrofit.Builder()
+                .baseUrl(Constants.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
         initializeComponent();
     }
 
     void initializeComponent() {
-        ExecutorService executorService = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
-        AppDatabase appDatabase = AppDatabase.createInstance(this, executorService);
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
         appComponent = DaggerAppComponent.factory().create(getApplicationContext(), this,
                 appDatabase, retrofit, executorService);
     }

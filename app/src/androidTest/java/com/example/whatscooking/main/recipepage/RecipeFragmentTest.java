@@ -1,17 +1,9 @@
 package com.example.whatscooking.main.recipepage;
 
-import android.view.View;
-
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.test.core.app.ActivityScenario;
 import androidx.test.espresso.Espresso;
-import androidx.test.espresso.UiController;
-import androidx.test.espresso.ViewAction;
-import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import androidx.test.filters.MediumTest;
+import androidx.test.filters.LargeTest;
 
 import com.example.whatscooking.R;
 import com.example.whatscooking.main.MainActivity;
@@ -31,7 +23,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
 import static com.example.whatscooking.TestUtils.withRecyclerView;
 
-@MediumTest
+@LargeTest
 @RunWith(AndroidJUnit4.class)
 public class RecipeFragmentTest {
 
