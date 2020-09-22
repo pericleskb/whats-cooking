@@ -24,7 +24,7 @@ public class RecipesListViewModel extends AndroidViewModel {
     public RecipesListViewModel(Application application, RecipeRepository repository) {
         super(application);
         recipeRepository = repository;
-        recipeDetailsLiveData = recipeRepository.getAllRecipesDetails();
+        recipeDetailsLiveData = recipeRepository.loadRecipesDetails();
     }
 
     public LiveData<List<RecipeDetails>> getAllRecipesDetails() {

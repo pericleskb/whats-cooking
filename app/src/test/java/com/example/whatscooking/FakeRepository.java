@@ -18,7 +18,7 @@ public class FakeRepository implements RecipeRepository {
     MutableLiveData<RecipeDetails> recipeDetailsMutableLiveData = new MutableLiveData<>();
 
     @Override
-    public LiveData<List<RecipeDetails>> getAllRecipesDetails() {
+    public LiveData<List<RecipeDetails>> loadRecipesDetails() {
         return recipesLiveData;
     }
 

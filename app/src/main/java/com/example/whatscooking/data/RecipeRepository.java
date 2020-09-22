@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface RecipeRepository {
     //TODO get part of the recipe infos ordered in case of large amounts of data
-    LiveData<List<RecipeDetails>> getAllRecipesDetails();
+    LiveData<List<RecipeDetails>> loadRecipesDetails();
 
     //TODO When I add the server maybe make this LiveData in case a shared recipe gets updated?
     LiveData<List<Recipe>> getAllRecipes();

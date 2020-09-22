@@ -30,7 +30,7 @@ public class MockRepository implements RecipeRepository {
     }
 
     @Override
-    public LiveData<List<RecipeDetails>> getAllRecipesDetails() {
+    public LiveData<List<RecipeDetails>> loadRecipesDetails() {
         return mutableRecipeDetails;
     }
 

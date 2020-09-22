@@ -12,12 +12,19 @@ import com.example.whatscooking.data.daos.FakeRecipeDao;
 import com.example.whatscooking.data.daos.FakeRecipeDetailsDao;
 import com.example.whatscooking.data.entities.Recipe;
 import com.example.whatscooking.data.entities.RecipeDetails;
+import com.example.whatscooking.utilities.Constants;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.annotation.Config;
+
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static com.google.common.truth.Truth.assertThat;
 
@@ -33,9 +40,18 @@ public class DefaultRecipeRepositoryTest {
     FakeRecipeDao fakeRecipeDao;
     TestRecipeDetailsBuildDirector recipeDetailsDirector;
     TestRecipeBuildDirector recipeDirector;
+    Retrofit retrofit;
+    ExecutorService executorService;
 
     @Before
     public void setUp() {
+
+        ExecutorService executorService = Executors.newFixedThreadPool(4);
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(Constants.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
         recipeDetailsDirector = new TestRecipeDetailsBuildDirector();
         recipeDirector = new TestRecipeBuildDirector();
         fakeRecipeDetailsDao = new FakeRecipeDetailsDao();
@@ -47,14 +63,15 @@ public class DefaultRecipeRepositoryTest {
         fakeRecipeDao.insert(recipeDirector.buildRecipe());
 
         ResetableDefaultRecipeRepository.resetInstance();
-        recipeRepository = ResetableDefaultRecipeRepository.getInstance(fakeRecipeDetailsDao, fakeRecipeDao);
+        recipeRepository = ResetableDefaultRecipeRepository.getInstance(fakeRecipeDetailsDao,
+                fakeRecipeDao, retrofit, executorService);
     }
 
     @Test
     public void getAllRecipesDetails_whenRepositoryCreated_thenExistingRecipeDetailsAreAdded()
             throws InterruptedException {
         assertThat(fakeRecipeDetailsDao.recipesList.size()).isEqualTo(LiveDataTestUtil.getOrAwaitValue(
-                recipeRepository.getAllRecipesDetails()).size());
+                recipeRepository.loadRecipesDetails()).size());
     }
 
     @Test

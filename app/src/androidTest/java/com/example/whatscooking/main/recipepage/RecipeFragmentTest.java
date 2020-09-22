@@ -1,14 +1,6 @@
 package com.example.whatscooking.main.recipepage;
 
-import android.view.View;
-
-import androidx.navigation.Navigation;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.test.core.app.ActivityScenario;
 import androidx.test.espresso.Espresso;
-import androidx.test.espresso.UiController;
-import androidx.test.espresso.ViewAction;
-import androidx.test.espresso.contrib.RecyclerViewActions;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.MediumTest;
@@ -82,7 +74,7 @@ public class RecipeFragmentTest {
     }
 
     @Test
-    public void recipePage_whenScrollOnIngredients_thenViewChanges() {
+    public void recipePage_whenScrollOnIngredients_thenIngredientsScroll() {
         Espresso.onView(withId(R.id.ingredients_recyclerView))
                 .check(matches(hasDescendant(withText("ingredient00"))));
 //      Scrolling does not work probably because the recycler view is inside the nestedscrollview
