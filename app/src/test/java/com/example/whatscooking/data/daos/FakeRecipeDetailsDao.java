@@ -33,24 +33,4 @@ public class FakeRecipeDetailsDao implements RecipeDetailsDao {
         recipesList.add(recipeDetails);
         recipesLiveData.postValue(recipesList);
     }
-
-    @Override
-    public void delete(RecipeDetails recipeDetails) {
-
-    }
-
-    @Override
-    public void update(RecipeDetails recipeDetails) {
-
-    }
-
-    @Override
-    public void deleteSelected(String... titles) {
-
-    }
-
-    @Override
-    public void deleteAll() {
-
-    }
 }

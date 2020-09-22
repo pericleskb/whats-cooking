@@ -20,6 +20,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.annotation.Config;
 
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -46,43 +47,36 @@ public class DefaultRecipeRepositoryTest {
     @Before
     public void setUp() {
 
-        ExecutorService executorService = Executors.newFixedThreadPool(4);
-        Retrofit retrofit = new Retrofit.Builder()
+        executorService = Executors.newFixedThreadPool(4);
+        retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        recipeDetailsDirector = new TestRecipeDetailsBuildDirector();
-        recipeDirector = new TestRecipeBuildDirector();
         fakeRecipeDetailsDao = new FakeRecipeDetailsDao();
         fakeRecipeDao = new FakeRecipeDao();
 
-        fakeRecipeDetailsDao.insert(recipeDetailsDirector.buildFullRecipeDetails());
-        fakeRecipeDao.insert(recipeDirector.buildRecipe());
-        fakeRecipeDetailsDao.insert(recipeDetailsDirector.buildFullRecipeDetails());
-        fakeRecipeDao.insert(recipeDirector.buildRecipe());
+        recipeDetailsDirector = new TestRecipeDetailsBuildDirector();
+        recipeDirector = new TestRecipeBuildDirector();
+    }
 
-        ResetableDefaultRecipeRepository.resetInstance();
-        recipeRepository = ResetableDefaultRecipeRepository.getInstance(fakeRecipeDetailsDao,
-                fakeRecipeDao, retrofit, executorService);
+    //TODO add mock server
+    @Test
+    public void getRecipeDetails_whenReadingFromStorage_thenRecipeDetailsAreRead() throws InterruptedException {
+        initAndPopulateDB(5);
+        List<RecipeDetails> recipeDetailsList =
+                LiveDataTestUtil.getOrAwaitValue(recipeRepository.getRecipesDetails());
+        assertThat(recipeDetailsList.size()).isEqualTo(5);
     }
 
     @Test
-    public void getAllRecipesDetails_whenRepositoryCreated_thenExistingRecipeDetailsAreAdded()
-            throws InterruptedException {
-        assertThat(fakeRecipeDetailsDao.recipesList.size()).isEqualTo(LiveDataTestUtil.getOrAwaitValue(
-                recipeRepository.loadRecipesDetails()).size());
-    }
-
-    @Test
-    public void getAllRecipes_whenRepositoryCreated_thenExistingRecipesAreAdded()
-            throws InterruptedException {
-        assertThat(fakeRecipeDao.recipesList.size()).isEqualTo(LiveDataTestUtil.getOrAwaitValue(
-                recipeRepository.getAllRecipes()).size());
+    void getRecipeDetails_whenNoAppsInStorage_thenAppsLoadedFromServer() {
+        initAndPopulateDB(0);
     }
 
     @Test
     public void getRecipe_whenRecipeTitleProvided_thenFetchSpecifiedRecipe() throws InterruptedException {
+        initAndPopulateDB(2);
         Recipe recipe = recipeDirector.buildRecipe();
         fakeRecipeDao.insert(recipe);
         Recipe fetchedRecipe = LiveDataTestUtil.getOrAwaitValue(recipeRepository.getRecipe(recipe.title));
@@ -91,34 +85,13 @@ public class DefaultRecipeRepositoryTest {
         assertThat(recipe.ingredients.get(3)).isEqualTo(fetchedRecipe.ingredients.get(3));
     }
 
-
-    @Test
-    public void getRecipeDetails_whenRecipeTitleProvided_thenFetchSpecifiedRecipeDetails()
-            throws InterruptedException {
-        RecipeDetails recipe = recipeDetailsDirector.buildFullRecipeDetails();
-        fakeRecipeDetailsDao.insert(recipe);
-        RecipeDetails fetchedRecipe = LiveDataTestUtil.getOrAwaitValue(
-                recipeRepository.getRecipeDetails(recipe.title));
-        assertThat(recipe.title).isEqualTo(fetchedRecipe.title);
-        assertThat(recipe.difficulty).isEqualTo(fetchedRecipe.difficulty);
-        assertThat(recipe.imageUri).isEqualTo(fetchedRecipe.imageUri);
-        assertThat(recipe.servings).isEqualTo(fetchedRecipe.servings);
-        assertThat(recipe.description).isEqualTo(fetchedRecipe.description);
-        assertThat(recipe.timeMinutes).isEqualTo(fetchedRecipe.timeMinutes);
-    }
-
-    @Test
-    public void insert_whenRecipeIsInserted_thenRecipeDaoInsertIsCalled() {
-        int recipesLengthBefore = fakeRecipeDetailsDao.recipesList.size();
-        recipeRepository.insertRecipe(recipeDetailsDirector.buildFullRecipeDetails(),
-                recipeDirector.buildRecipe());
-        recipeRepository.insertRecipe(recipeDetailsDirector.buildFullRecipeDetails(),
-                recipeDirector.buildRecipe());
-        try {
-            Thread.sleep(100);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    private void initAndPopulateDB(int recipesAmount) {
+        for (int i = 0; i < recipesAmount; i++) {
+            fakeRecipeDetailsDao.insert(recipeDetailsDirector.buildFullRecipeDetails());
+            fakeRecipeDao.insert(recipeDirector.buildRecipe());
         }
-        assertThat(recipesLengthBefore + 2).isEqualTo(fakeRecipeDetailsDao.recipesList.size());
+        ResetableDefaultRecipeRepository.resetInstance();
+        recipeRepository = ResetableDefaultRecipeRepository.getInstance(fakeRecipeDetailsDao,
+                fakeRecipeDao, retrofit, executorService);
     }
 }

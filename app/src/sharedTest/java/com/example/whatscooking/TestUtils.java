@@ -36,6 +36,10 @@ public class TestUtils {
         recipeTitlesStack.push("Mousakas 04/09/20");
         recipeTitlesStack.push("Falafel wrap 2");
         recipeTitlesStack.push("Dahl");
+        recipeTitlesStack.push("Curry");
+        recipeTitlesStack.push("Udon noodles");
+        recipeTitlesStack.push("Lamb chops");
+        recipeTitlesStack.push("Roasted cauliflower");
         return recipeTitlesStack;
     }
 

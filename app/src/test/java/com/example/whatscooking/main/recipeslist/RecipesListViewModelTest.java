@@ -54,14 +54,4 @@ public class RecipesListViewModelTest {
         assertThat(LiveDataTestUtil.getOrAwaitValue(recipesListViewModel.getAllRecipesDetails())
                 .size()).isEqualTo(numberOfRecipes);
     }
-
-    @Test
-    public void insert_whenNewRecipeAdded_thenInsertRecipeIsCalledInRepository()
-            throws InterruptedException {
-        int numberOfRecipes = fakeRepository.getNumberOfRecipes();
-        recipesListViewModel.insert(recipeDetailsDirector.buildFullRecipeDetails(),
-                recipeDirector.buildRecipe());
-        assertThat(LiveDataTestUtil.getOrAwaitValue(recipesListViewModel.getAllRecipesDetails())
-                .size()).isEqualTo(numberOfRecipes + 1);
-    }
 }

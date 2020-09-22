@@ -10,9 +10,8 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 
 public interface WebService {
-    @GET("recipeDetails/from/{from}/to/{to}/")
-    Call<List<RecipeDetails>> getDetailsForRecipes(@Path("from") int from,
-                                                   @Path("to") int to);
+    @GET("recipeDetails/getAll/")
+    Call<List<RecipeDetails>> getDetailsForRecipes();
 
     @GET("recipeInstructions/{recipeName}/")
     Call<Recipe> getRecipe(@Path("recipeName") String name);

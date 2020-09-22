@@ -21,15 +21,6 @@ public interface RecipeDao {
     @Query("SELECT * FROM recipes WHERE title IS :recipeTitle")
     LiveData<Recipe> getRecipe(String recipeTitle);
 
-    @Query("SELECT ingredients FROM recipes WHERE title IS :recipeTitle")
-    List<String> getIngredients(String recipeTitle);
-
     @Insert
     void insert(Recipe recipe);
-
-    @Delete
-    void delete(Recipe recipe);
-
-    @Update
-    void updateRecipe(Recipe recipe);
 }

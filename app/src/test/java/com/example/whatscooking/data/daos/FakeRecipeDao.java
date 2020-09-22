@@ -29,23 +29,8 @@ public class FakeRecipeDao implements RecipeDao {
     }
 
     @Override
-    public List<String> getIngredients(String recipeTitle) {
-        return null;
-    }
-
-    @Override
     public void insert(Recipe recipe) {
         recipesList.add(recipe);
         recipesLiveData.postValue(recipesList);
-    }
-
-    @Override
-    public void delete(Recipe recipe) {
-
-    }
-
-    @Override
-    public void updateRecipe(Recipe recipe) {
-
     }
 }

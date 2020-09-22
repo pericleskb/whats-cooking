@@ -40,7 +40,7 @@ public class DefaultRecipeRepository implements RecipeRepository {
     }
 
     @Override
-    public LiveData<List<RecipeDetails>> loadRecipesDetails() {
+    public LiveData<List<RecipeDetails>> getRecipesDetails() {
         return allRecipesDetails;
     }
 
@@ -49,41 +49,8 @@ public class DefaultRecipeRepository implements RecipeRepository {
         return recipeDao.getRecipe(recipeTitle);
     }
 
-    // Not needed
-    @Override
-    public LiveData<List<Recipe>> getAllRecipes() {
-        return allRecipes;
-    }
-
-    // Not needed
     @Override
     public LiveData<RecipeDetails> getRecipeDetails(String recipeTitle) {
         return recipeDetailsDao.getRecipeDetails(recipeTitle);
     }
-
-    // We must call this on a non-UI thread or the app will throw an exception. Room ensures
-    // that we're not doing any long running operations on the main thread, blocking the UI.
-    @Override
-    public void insertRecipe(RecipeDetails recipeDetails, Recipe recipe) {
-        executor.execute(() -> recipeDetailsDao.insert(recipeDetails));
-        executor.execute(() -> recipeDao.insert(recipe));
-    }
-
-    //TODO write tests from here on downwards
-    @Override
-    public void updateRecipe(RecipeDetails recipeDetails, Recipe recipe) {
-        executor.execute(() -> recipeDetailsDao.update(recipeDetails));
-        executor.execute(() -> recipeDao.updateRecipe(recipe));
-    }
-
-    @Override
-    public void deleteSelectedRecipes(String... recipeTitles) {
-        recipeDetailsDao.deleteSelected(recipeTitles);
-    }
-
-    @Override
-    public void deleteRecipe(RecipeDetails recipeDetails) {
-        recipeDetailsDao.delete(recipeDetails);
-    }
-
 }
