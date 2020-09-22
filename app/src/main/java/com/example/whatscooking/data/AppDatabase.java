@@ -17,10 +17,12 @@ import com.example.whatscooking.utilities.Constants;
 import com.example.whatscooking.utilities.Utils;
 
 import java.io.IOException;
+import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 //https://medium.com/androiddevelopers/7-pro-tips-for-room-fbadea4bfbd1#4785
+//TODO investigate correct usage of the Room Database
 //TODO maybe set export schema to true
 @Database(entities = {RecipeDetails.class, Recipe.class}, version = 2, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
@@ -29,14 +31,13 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract RecipeDetailsDao recipeDetailsDao();
     public abstract RecipeDao recipeDao();
 
-    private static final int NUMBER_OF_THREADS = 4;
-    static final ExecutorService databaseWriteExecutor =
-            Executors.newFixedThreadPool(NUMBER_OF_THREADS);
-
     static Context context;
 
-    public static AppDatabase createInstance(Context cont) {
+    static Executor myExecutor;
+
+    public static AppDatabase createInstance(Context cont, Executor pExecutor) {
         context = cont;
+        myExecutor = pExecutor;
         RoomDatabase.Builder<AppDatabase> instanceBuilder = Room.databaseBuilder(cont, AppDatabase.class, Constants.DATABASE_NAME)
                 .fallbackToDestructiveMigration();
         SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.APP_PACKAGE_NAME, Context.MODE_PRIVATE);
@@ -52,7 +53,7 @@ public abstract class AppDatabase extends RoomDatabase {
         @Override
         public void onOpen(@NonNull SupportSQLiteDatabase db) {
             super.onOpen(db);
-            databaseWriteExecutor.execute(() -> {
+            myExecutor.execute(() -> {
                 try {
                     //Dahl
                     instance.recipeDetailsDao().insert(Utils.buildTestRecipeDetails("Dahl", context));
