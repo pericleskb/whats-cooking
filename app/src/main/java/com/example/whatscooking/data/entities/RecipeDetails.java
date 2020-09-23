@@ -38,5 +38,16 @@ public class RecipeDetails {
 
     public Integer servings;
 
+    @Override
+    public boolean equals(Object obj) {
+        if (obj != null && obj instanceof RecipeDetails) {
+            RecipeDetails otherObject = (RecipeDetails) obj;
+            return this.title == otherObject.title && this.imageUri == otherObject.imageUri
+                    && this.description == otherObject.description && this.difficulty == otherObject.difficulty
+                    && this.servings == otherObject.servings && this.timeMinutes == otherObject.timeMinutes;
+        }
+        return false;
+    }
+
 }
 

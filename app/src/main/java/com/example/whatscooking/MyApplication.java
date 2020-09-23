@@ -6,6 +6,7 @@ import com.example.whatscooking.data.AppDatabase;
 import com.example.whatscooking.di.AppComponent;
 import com.example.whatscooking.di.DaggerAppComponent;
 import com.example.whatscooking.utilities.Constants;
+import com.google.gson.GsonBuilder;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -29,7 +30,8 @@ public class MyApplication extends Application {
         appDatabase = AppDatabase.createInstance(this, executorService);
         retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(GsonConverterFactory.create(
+                        new GsonBuilder().setLenient().create()))
                 .build();
         initializeComponent();
     }

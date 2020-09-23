@@ -6,6 +6,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 
 import com.example.whatscooking.LiveDataTestUtil;
+import com.example.whatscooking.TestConstants;
 import com.example.whatscooking.TestRecipeBuildDirector;
 import com.example.whatscooking.TestRecipeDetailsBuildDirector;
 import com.example.whatscooking.data.daos.FakeRecipeDao;
@@ -13,6 +14,8 @@ import com.example.whatscooking.data.daos.FakeRecipeDetailsDao;
 import com.example.whatscooking.data.entities.Recipe;
 import com.example.whatscooking.data.entities.RecipeDetails;
 import com.example.whatscooking.utilities.Constants;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -20,10 +23,16 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.annotation.Config;
 
+import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import okhttp3.HttpUrl;
+import okhttp3.mockwebserver.MockResponse;
+import okhttp3.mockwebserver.MockWebServer;
+import okhttp3.mockwebserver.RecordedRequest;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -43,15 +52,14 @@ public class DefaultRecipeRepositoryTest {
     TestRecipeBuildDirector recipeDirector;
     Retrofit retrofit;
     ExecutorService executorService;
+    MockWebServer server;
 
     @Before
-    public void setUp() {
+    public void setUp() throws IOException {
 
+        server = new MockWebServer();
+        server.start();
         executorService = Executors.newFixedThreadPool(4);
-        retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
 
         fakeRecipeDetailsDao = new FakeRecipeDetailsDao();
         fakeRecipeDao = new FakeRecipeDao();
@@ -60,18 +68,73 @@ public class DefaultRecipeRepositoryTest {
         recipeDirector = new TestRecipeBuildDirector();
     }
 
-    //TODO add mock server
     @Test
-    public void getRecipeDetails_whenReadingFromStorage_thenRecipeDetailsAreRead() throws InterruptedException {
+    public void getRecipeDetails_whenServerNotAvailable_thenReadOnlyFromStorage() throws InterruptedException {
+        retrofit = new Retrofit.Builder()
+                .baseUrl(Constants.BASE_URL)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
         initAndPopulateDB(5);
+
         List<RecipeDetails> recipeDetailsList =
                 LiveDataTestUtil.getOrAwaitValue(recipeRepository.getRecipesDetails());
         assertThat(recipeDetailsList.size()).isEqualTo(5);
     }
 
     @Test
-    void getRecipeDetails_whenNoAppsInStorage_thenAppsLoadedFromServer() {
+    public void getRecipeDetails_whenNoAppsInStorage_thenAppsLoadedFromServer() throws InterruptedException, IOException {
+        HttpUrl baseUrl = server.url("/recipeDetails/");
+        retrofit = new Retrofit.Builder().baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create()).build();
         initAndPopulateDB(0);
+
+        MockResponse response = new MockResponse()
+                .addHeader("Content-Type", "application/json; charset=utf-8")
+                .setBody(TestConstants.recipeDetailsResponse);
+        server.enqueue(response);
+
+        List<RecipeDetails> recipeDetailsReceived =
+                LiveDataTestUtil.getOrAwaitValue(recipeRepository.getRecipesDetails());
+
+        RecordedRequest request = server.takeRequest();
+        assertThat(request).isEqualTo("/recipeDetails/");
+
+        // This is how to read a collection of objects from json using gson
+        Gson gson = new Gson();
+        Type collectionType = new TypeToken<List<RecipeDetails>>(){}.getType();
+        List<RecipeDetails> recipeListSent = gson.fromJson(TestConstants.recipeDetailsResponse, collectionType);
+        assertThat(recipeListSent.size()).isEqualTo(recipeDetailsReceived.size());
+        assertThat(recipeDetailsReceived.containsAll(recipeListSent));
+
+        server.shutdown();
+    }
+
+    @Test
+    public void getRecipeDetails_whenNewAppsOnServer_thenCombineStorageAndServerRecipes() throws InterruptedException, IOException {
+        HttpUrl baseUrl = server.url("/recipeDetails/");
+        retrofit = new Retrofit.Builder().baseUrl(baseUrl)
+                .addConverterFactory(GsonConverterFactory.create()).build();
+        initAndPopulateDB(5);
+
+        MockResponse response = new MockResponse()
+                .addHeader("Content-Type", "application/json; charset=utf-8")
+                .setBody(TestConstants.recipeDetailsResponse);
+        server.enqueue(response);
+
+        List<RecipeDetails> recipeDetailsReceived =
+                LiveDataTestUtil.getOrAwaitValue(recipeRepository.getRecipesDetails());
+
+        RecordedRequest request = server.takeRequest();
+        assertThat(request).isEqualTo("/recipeDetails/");
+
+        Gson gson = new Gson();
+        Type collectionType = new TypeToken<List<RecipeDetails>>(){}.getType();
+        // Local storage should be overwritten
+        List<RecipeDetails> recipeListSent = gson.fromJson(TestConstants.recipeDetailsResponse, collectionType);
+        assertThat(recipeListSent.size()).isEqualTo(recipeDetailsReceived.size());
+        assertThat(recipeDetailsReceived.containsAll(recipeListSent));
+
+        server.shutdown();
     }
 
     @Test
