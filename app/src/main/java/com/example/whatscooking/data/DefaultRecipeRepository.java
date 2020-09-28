@@ -49,22 +49,24 @@ public class DefaultRecipeRepository implements RecipeRepository {
 
     @Override
     public LiveData<List<RecipeDetails>> getRecipesDetails() {
-        executor.execute(() -> {
-            int dataVersion = prefs.getInt(Constants.DATA_VERSION, 0);
-            webService.getDetailsForRecipes(dataVersion).enqueue(new Callback<List<RecipeDetails>>() {
-                @Override
-                public void onResponse(Call<List<RecipeDetails>> call, Response<List<RecipeDetails>> response) {
-                    recipeDetailsDao.insertAll(response.body());
-                    int maxDataVersion = Collections.max(response.body(),
-                            new RecipeDetails.RecipeVersionComparator()).dataVersion;
-                    prefs.edit().putInt(Constants.DATA_VERSION, maxDataVersion).commit();
-                }
+        int dataVersion = prefs.getInt(Constants.DATA_VERSION, 0);
+        webService.getDetailsForRecipes(dataVersion).enqueue(new Callback<List<RecipeDetails>>() {
+            @Override
+            public void onResponse(Call<List<RecipeDetails>> call, Response<List<RecipeDetails>> response) {
+                executor.execute(() -> {
+                    if (!response.body().isEmpty()) {
+                        recipeDetailsDao.insertAll(response.body());
+                        int maxDataVersion = Collections.max(response.body(),
+                                new RecipeDetails.RecipeVersionComparator()).dataVersion;
+                        prefs.edit().putInt(Constants.DATA_VERSION, maxDataVersion).commit();
+                    }
+                });
+            }
 
-                @Override
-                public void onFailure(Call<List<RecipeDetails>> call, Throwable t) {
-                    Log.i(Constants.INFO_TAG, "Unable to connect to server - " + t.getMessage());
-                }
-            });
+            @Override
+            public void onFailure(Call<List<RecipeDetails>> call, Throwable t) {
+                Log.i(Constants.INFO_TAG, "Unable to connect to server - " + t.getMessage());
+            }
         });
         return allRecipesDetails;
     }

@@ -41,39 +41,39 @@ public abstract class AppDatabase extends RoomDatabase {
         RoomDatabase.Builder<AppDatabase> instanceBuilder = Room.databaseBuilder(cont, AppDatabase.class, Constants.DATABASE_NAME)
                 .fallbackToDestructiveMigration();
         SharedPreferences sharedPreferences = context.getSharedPreferences(Constants.APP_PACKAGE_NAME, Context.MODE_PRIVATE);
-        if (!sharedPreferences.getBoolean(Constants.PREF_DB_INITIALIZED, false)) {
-            instanceBuilder.addCallback(roomDatabaseCallback);
-            sharedPreferences.edit().putBoolean(Constants.PREF_DB_INITIALIZED, true).commit();
-        }
+//        if (!sharedPreferences.getBoolean(Constants.PREF_DB_INITIALIZED, false)) {
+//            instanceBuilder.addCallback(roomDatabaseCallback);
+//            sharedPreferences.edit().putBoolean(Constants.PREF_DB_INITIALIZED, true).commit();
+//        }
         instance = instanceBuilder.build();
         return instance;
     }
 
-    private static RoomDatabase.Callback roomDatabaseCallback = new RoomDatabase.Callback() {
-        @Override
-        public void onOpen(@NonNull SupportSQLiteDatabase db) {
-            super.onOpen(db);
-            myExecutor.execute(() -> {
-                try {
-                    //Dahl
-                    instance.recipeDetailsDao().insert(Utils.buildTestRecipeDetails("Dahl", context));
-                    instance.recipeDao().insert(Utils.buildTestRecipe("Dahl", context));
-                    //Falafel wrap
-                    instance.recipeDetailsDao().insert(Utils.buildTestRecipeDetails("Falafel wrap", context));
-                    instance.recipeDao().insert(Utils.buildTestRecipe("Falafel wrap", context));
-                    //Mousakas
-                    instance.recipeDetailsDao().insert(Utils.buildTestRecipeDetails("Mousakas", context));
-                    instance.recipeDao().insert(Utils.buildTestRecipe("Mousakas", context));
-                    //Fried Squid
-                    instance.recipeDetailsDao().insert(Utils.buildTestRecipeDetails("Fried Squid", context));
-                    instance.recipeDao().insert(Utils.buildTestRecipe("Fried Squid", context));
-                    //Venison steak
-                    instance.recipeDetailsDao().insert(Utils.buildTestRecipeDetails("Venison steak", context));
-                    instance.recipeDao().insert(Utils.buildTestRecipe("Venison steak", context));
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            });
-        }
-    };
+//    private static RoomDatabase.Callback roomDatabaseCallback = new RoomDatabase.Callback() {
+//        @Override
+//        public void onOpen(@NonNull SupportSQLiteDatabase db) {
+//            super.onOpen(db);
+//            myExecutor.execute(() -> {
+//                try {
+//                    //Dahl
+//                    instance.recipeDetailsDao().insert(Utils.buildTestRecipeDetails("Dahl", context));
+//                    instance.recipeDao().insert(Utils.buildTestRecipe("Dahl", context));
+//                    //Falafel wrap
+//                    instance.recipeDetailsDao().insert(Utils.buildTestRecipeDetails("Falafel wrap", context));
+//                    instance.recipeDao().insert(Utils.buildTestRecipe("Falafel wrap", context));
+//                    //Mousakas
+//                    instance.recipeDetailsDao().insert(Utils.buildTestRecipeDetails("Mousakas", context));
+//                    instance.recipeDao().insert(Utils.buildTestRecipe("Mousakas", context));
+//                    //Fried Squid
+//                    instance.recipeDetailsDao().insert(Utils.buildTestRecipeDetails("Fried Squid", context));
+//                    instance.recipeDao().insert(Utils.buildTestRecipe("Fried Squid", context));
+//                    //Venison steak
+//                    instance.recipeDetailsDao().insert(Utils.buildTestRecipeDetails("Venison steak", context));
+//                    instance.recipeDao().insert(Utils.buildTestRecipe("Venison steak", context));
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//            });
+//        }
+//    };
 }
