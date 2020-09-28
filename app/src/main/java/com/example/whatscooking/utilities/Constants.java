@@ -10,7 +10,7 @@ public class Constants {
     public static String RECIPE_ARG = "recipeTitle";
     public static String RECIPE_IMG_TRANSITION_ID = "recipe_image";
     public static String RECIPE_TITLE_TRANSITION_ID = "recipe_title";
-    public static String BASE_URL = "http://localhost:8080/";
+    public static String BASE_URL = "http://192.168.1.11:8080/";
     public static String INFO_TAG = "WC-INFO";
     public static String LATEST_DATA_VERSION_HEADER = "latest_data_version";
 
