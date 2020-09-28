@@ -7,6 +7,6 @@ public class MyTestApplication extends MyApplication {
     @Override
     void initializeComponent() {
         appComponent = DaggerTestAppComponent.factory().create(getApplicationContext(), this,
-                appDatabase, retrofit, executorService);
+                appDatabase, executorService);
     }
 }

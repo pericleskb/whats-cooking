@@ -21,23 +21,17 @@ public class MyApplication extends Application {
     // Protected visibility for tests
     ExecutorService executorService;
     AppDatabase appDatabase;
-    Retrofit retrofit;
 
     @Override
     public void onCreate() {
         super.onCreate();
         executorService = Executors.newFixedThreadPool(NUMBER_OF_THREADS);
         appDatabase = AppDatabase.createInstance(this, executorService);
-        retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create(
-                        new GsonBuilder().setLenient().create()))
-                .build();
         initializeComponent();
     }
 
     void initializeComponent() {
         appComponent = DaggerAppComponent.factory().create(getApplicationContext(), this,
-                appDatabase, retrofit, executorService);
+                appDatabase, executorService);
     }
 }

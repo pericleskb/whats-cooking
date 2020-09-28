@@ -32,6 +32,11 @@ public class RecipeDetailsBuilder {
         return this;
     }
 
+    public RecipeDetailsBuilder setDataVersion(int version) {
+        recipeDetails.dataVersion = version;
+        return this;
+    }
+
     public RecipeDetails build() {
         return this.recipeDetails;
     }

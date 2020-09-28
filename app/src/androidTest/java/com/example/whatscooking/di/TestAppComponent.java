@@ -20,7 +20,6 @@ public interface TestAppComponent extends AppComponent {
     @Component.Factory
     interface Factory {
         AppComponent create(@BindsInstance Context context, @BindsInstance Application application,
-                            AppDatabase appDatabase, @BindsInstance Retrofit retrofit,
-                            @BindsInstance ExecutorService executorService);
+                            AppDatabase appDatabase, @BindsInstance ExecutorService executorService);
     }
 }

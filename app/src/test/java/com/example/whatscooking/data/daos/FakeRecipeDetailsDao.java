@@ -33,4 +33,14 @@ public class FakeRecipeDetailsDao implements RecipeDetailsDao {
         recipesList.add(recipeDetails);
         recipesLiveData.postValue(recipesList);
     }
+
+    @Override
+    public void insertAll(List<RecipeDetails> recipeDetailsList) {
+        for (RecipeDetails recipe : recipeDetailsList) {
+            if (!recipesList.contains(recipe)) {
+                recipesList.add(recipe);
+            }
+        }
+        recipesLiveData.postValue(recipesList);
+    }
 }

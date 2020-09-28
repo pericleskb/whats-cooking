@@ -31,15 +31,15 @@ public class TestUtils {
 
     public static Stack<String> GenerateRecipeTitlesStack() {
         Stack<String> recipeTitlesStack = new Stack<>();
-        recipeTitlesStack.push("Venison steak");
-        recipeTitlesStack.push("Fried squid");
-        recipeTitlesStack.push("Mousakas 04/09/20");
-        recipeTitlesStack.push("Falafel wrap 2");
-        recipeTitlesStack.push("Dahl");
         recipeTitlesStack.push("Curry");
         recipeTitlesStack.push("Udon noodles");
         recipeTitlesStack.push("Lamb chops");
         recipeTitlesStack.push("Roasted cauliflower");
+        recipeTitlesStack.push("Venison steak");
+        recipeTitlesStack.push("Fried squid");
+        recipeTitlesStack.push("Mousakas");
+        recipeTitlesStack.push("Falafel wrap");
+        recipeTitlesStack.push("Dahl");
         return recipeTitlesStack;
     }
 
