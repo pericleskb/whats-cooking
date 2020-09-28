@@ -1,20 +1,26 @@
 package com.example.whatscooking.data;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.util.Log;
+
 import androidx.lifecycle.LiveData;
 
 import com.example.whatscooking.data.daos.RecipeDao;
 import com.example.whatscooking.data.daos.RecipeDetailsDao;
 import com.example.whatscooking.data.entities.Recipe;
 import com.example.whatscooking.data.entities.RecipeDetails;
+import com.example.whatscooking.utilities.Constants;
 
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 
 import javax.inject.Inject;
 
-import retrofit2.Retrofit;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DefaultRecipeRepository implements RecipeRepository {
 
@@ -25,22 +31,41 @@ public class DefaultRecipeRepository implements RecipeRepository {
     private LiveData<List<RecipeDetails>> allRecipesDetails;
     //TODO change this to only not loaded recipes?
     private LiveData<List<Recipe>> allRecipes;
-    private Retrofit retrofit;
     private ExecutorService executor;
+    private WebService webService;
+    private SharedPreferences prefs;
 
     @Inject
     protected DefaultRecipeRepository(RecipeDetailsDao recipeDetailsDao, RecipeDao recipeDao,
-                                      Retrofit retrofit, ExecutorService executor) {
+                                      WebService webService, ExecutorService executor, Context context) {
         this.recipeDetailsDao = recipeDetailsDao;
         this.recipeDao = recipeDao;
-        this.retrofit = retrofit;
+        this.webService = webService;
         this.executor = executor;
+        this.prefs = context.getSharedPreferences(Constants.API_PREFERENCES, Context.MODE_PRIVATE);
         allRecipesDetails = recipeDetailsDao.getAll();
         allRecipes = recipeDao.getAllRecipes();
     }
 
     @Override
-    public LiveData<List<RecipeDetails>> loadRecipesDetails() {
+    public LiveData<List<RecipeDetails>> getRecipesDetails() {
+        executor.execute(() -> {
+            int dataVersion = prefs.getInt(Constants.DATA_VERSION, 0);
+            webService.getDetailsForRecipes(dataVersion).enqueue(new Callback<List<RecipeDetails>>() {
+                @Override
+                public void onResponse(Call<List<RecipeDetails>> call, Response<List<RecipeDetails>> response) {
+                    recipeDetailsDao.insertAll(response.body());
+                    int maxDataVersion = Collections.max(response.body(),
+                            new RecipeDetails.RecipeVersionComparator()).dataVersion;
+                    prefs.edit().putInt(Constants.DATA_VERSION, maxDataVersion).commit();
+                }
+
+                @Override
+                public void onFailure(Call<List<RecipeDetails>> call, Throwable t) {
+                    Log.i(Constants.INFO_TAG, "Unable to connect to server - " + t.getMessage());
+                }
+            });
+        });
         return allRecipesDetails;
     }
 
@@ -49,41 +74,8 @@ public class DefaultRecipeRepository implements RecipeRepository {
         return recipeDao.getRecipe(recipeTitle);
     }
 
-    // Not needed
-    @Override
-    public LiveData<List<Recipe>> getAllRecipes() {
-        return allRecipes;
-    }
-
-    // Not needed
     @Override
     public LiveData<RecipeDetails> getRecipeDetails(String recipeTitle) {
         return recipeDetailsDao.getRecipeDetails(recipeTitle);
     }
-
-    // We must call this on a non-UI thread or the app will throw an exception. Room ensures
-    // that we're not doing any long running operations on the main thread, blocking the UI.
-    @Override
-    public void insertRecipe(RecipeDetails recipeDetails, Recipe recipe) {
-        executor.execute(() -> recipeDetailsDao.insert(recipeDetails));
-        executor.execute(() -> recipeDao.insert(recipe));
-    }
-
-    //TODO write tests from here on downwards
-    @Override
-    public void updateRecipe(RecipeDetails recipeDetails, Recipe recipe) {
-        executor.execute(() -> recipeDetailsDao.update(recipeDetails));
-        executor.execute(() -> recipeDao.updateRecipe(recipe));
-    }
-
-    @Override
-    public void deleteSelectedRecipes(String... recipeTitles) {
-        recipeDetailsDao.deleteSelected(recipeTitles);
-    }
-
-    @Override
-    public void deleteRecipe(RecipeDetails recipeDetails) {
-        recipeDetailsDao.delete(recipeDetails);
-    }
-
 }

@@ -8,21 +8,8 @@ import com.example.whatscooking.data.entities.RecipeDetails;
 import java.util.List;
 
 public interface RecipeRepository {
-    //TODO get part of the recipe infos ordered in case of large amounts of data
-    LiveData<List<RecipeDetails>> loadRecipesDetails();
 
-    //TODO When I add the server maybe make this LiveData in case a shared recipe gets updated?
-    LiveData<List<Recipe>> getAllRecipes();
-
+    LiveData<List<RecipeDetails>> getRecipesDetails();
     LiveData<Recipe> getRecipe(String recipeTitle);
-
     LiveData<RecipeDetails> getRecipeDetails(String recipeTitle);
-
-    void insertRecipe(RecipeDetails recipeDetails, Recipe recipe);
-
-    void updateRecipe(RecipeDetails recipeDetails, Recipe recipe);
-
-    void deleteSelectedRecipes(String... recipeTitles);
-
-    void deleteRecipe(RecipeDetails recipeDetails);
 }

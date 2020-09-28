@@ -11,8 +11,12 @@ public class Constants {
     public static String RECIPE_IMG_TRANSITION_ID = "recipe_image";
     public static String RECIPE_TITLE_TRANSITION_ID = "recipe_title";
     public static String BASE_URL = "http://localhost:8080/";
+    public static String INFO_TAG = "WC-INFO";
+    public static String LATEST_DATA_VERSION_HEADER = "latest_data_version";
 
     //Preferences
     public static String PREF_DB_INITIALIZED = "db_init";
     public static int NUM_OF_RECIPES_TO_FETCH = 5;
+    public static String API_PREFERENCES = "com.example.whatscooking.API_PREFERENCES";
+    public static String DATA_VERSION = "data_version";
 }

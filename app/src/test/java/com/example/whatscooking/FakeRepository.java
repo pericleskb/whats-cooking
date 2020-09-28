@@ -18,14 +18,10 @@ public class FakeRepository implements RecipeRepository {
     MutableLiveData<RecipeDetails> recipeDetailsMutableLiveData = new MutableLiveData<>();
 
     @Override
-    public LiveData<List<RecipeDetails>> loadRecipesDetails() {
+    public LiveData<List<RecipeDetails>> getRecipesDetails() {
         return recipesLiveData;
     }
 
-    @Override
-    public LiveData<List<Recipe>> getAllRecipes() {
-        return null;
-    }
 
     @Override
     public LiveData<Recipe> getRecipe(String recipeTitle) {
@@ -37,27 +33,11 @@ public class FakeRepository implements RecipeRepository {
         return recipeDetailsMutableLiveData;
     }
 
-    @Override
     public void insertRecipe(RecipeDetails recipeDetails, Recipe recipe) {
         recipesList.add(recipeDetails);
         recipesLiveData.postValue(recipesList);
         recipeMutableLiveData.postValue(recipe);
         recipeDetailsMutableLiveData.postValue(recipeDetails);
-    }
-
-    @Override
-    public void updateRecipe(RecipeDetails recipeDetails, Recipe recipe) {
-
-    }
-
-    @Override
-    public void deleteSelectedRecipes(String... recipeTitles) {
-
-    }
-
-    @Override
-    public void deleteRecipe(RecipeDetails recipeDetails) {
-
     }
 
     public int getNumberOfRecipes() {

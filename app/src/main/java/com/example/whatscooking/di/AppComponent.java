@@ -12,10 +12,9 @@ import javax.inject.Singleton;
 
 import dagger.BindsInstance;
 import dagger.Component;
-import retrofit2.Retrofit;
 
 @Singleton
-@Component(modules = {RecipeRepositoryModule.class, AppSubcomponents.class},
+@Component(modules = {RecipeRepositoryModule.class, RetrofitModule.class, AppSubcomponents.class},
         dependencies = {AppDatabase.class})
 public interface AppComponent {
 
@@ -25,8 +24,7 @@ public interface AppComponent {
         // With @BindsInstance, the Context passed in will be available in the graph
         // AppDataBase remains in memory for as long as the application lives
         AppComponent create(@BindsInstance Context context, @BindsInstance Application application,
-                            AppDatabase appDatabase, @BindsInstance Retrofit retrofit,
-                            @BindsInstance ExecutorService executor);
+                            AppDatabase appDatabase, @BindsInstance ExecutorService executor);
     }
 
     MainComponent.Factory mainComponent();
